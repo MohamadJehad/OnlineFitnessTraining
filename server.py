@@ -16,18 +16,25 @@ class Member:
         self.weight=weight
         self.phone=phone
         self.email=email
-
+    """
+    this function used to calculate the age of the member based on his birthdate
+    """
     def calculate_age(self):
          today = datetime.now().date()
          age = today.year - self.birthdate.year
          return age
-
+    """
+    this function calculate the member's bmr
+    """
     def calculate_bmr(self):
         if self.gender == "male":
             bmr = 88.362 + (13.397 * self.weight)+(4.799 * self.height)-(5.677 * self.calculate_age())
         elif self.gender == "female":
             bmr = 447.593 + (9.247 * self.weight)+(3.098 * self.height)-(4.330 * self.calculate_age())
         return bmr
+    """
+    this function will add the member into the file
+    """
     def addmember(self):
         file = open("MembersData.txt","a")
         member_data=self.name+";"+self.gender+";"+str(self.birthdate)+";"+str(self.height)+";"+str(self.weight)+";"+str(self.phone)+";"+"\n"
@@ -60,7 +67,6 @@ def addnewmember():
     gender= flask.request.args.get("gender")
     member=Member(name,birthdate,height,weight,gender,phone,email)
     member.addmember()
-   
     return get_html("add_member")
 
 
