@@ -37,10 +37,32 @@ class Member:
     """
     def addmember(self):
         file = open("MembersData.txt","a")
-        member_data=self.name+";"+self.gender+";"+str(self.birthdate)+";"+str(self.height)+";"+str(self.weight)+";"+str(self.phone)+";"+"\n"
+        member_data=self.name+";"+str(self.birthdate)+";"+str(self.height)+";"+str(self.weight)+";"+self.gender+";"+str(self.phone)+";"+str(self.email)+";"+"\n"
         file.write(member_data)
         file.close()
     
+
+def getAllMembersData():
+    file = open("MembersData.txt")
+    members=file.read().strip()
+    file.close()
+    members=members.split("\n")
+    
+    all_members=[]
+    for member in members:
+        member=member.split(";")
+        info_dict = {
+        "name": member[0],  
+        "birthdate": member[1],
+        "height": int(member[2]),
+        "weight": int(member[3]),
+        "gender": member[4],
+        "phone": member[5],
+        "email": member[6]  
+        }
+        all_members.append(info_dict)
+    return all_members
+
 
 
 class User:
@@ -50,7 +72,19 @@ class User:
 
 @app.route ("/") 
 def homepage():
-    return get_html("index")
+    members=getAllMembersData()
+    text=""
+    for member in members:
+        text+=("<tr>")
+        text+=("<td>"+member["name"]+"</td>")
+        text+=("<td>"+member["birthdate"]+"</td>")
+        text+=("<td>"+str(member["height"])+"</td>")
+        text+=("<td>"+str(member["weight"])+"</td>")
+        text+=("<td>"+member["gender"]+"</td>")
+        text+=("<td>"+member["phone"]+"</td>")
+        text+=("<td>"+member["email"]+"</td>")
+        text+=("</tr>")
+    return get_html("index").replace("$$MEMBERS$$",text)
 
 @app.route ("/newmember") 
 def newmemberpage():
