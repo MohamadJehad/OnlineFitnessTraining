@@ -125,8 +125,6 @@ def getAllMembersData():
     return all_members
 
 
-
-
 class User:
     name=""
 
