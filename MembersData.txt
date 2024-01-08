@@ -1,7 +1,3 @@
-Mohamad Jehad;2000-05-12;184;80;male;01026984456;m.jehad.kh@gmail.com;
-Mohamad Jehad;2000-05-12;184;80;male;01026984456;m.jehad.kh@gmail.com;
-Mohamad Jehad;2000-05-12;184;80;male;01026984456;m.jehad.kh@gmail.com;
-Mohamad Jehad;2000-05-12;184;80;male;01026984456;m.jehad.kh@gmail.com;
-ahmad samir;1993-12-12;188;77;male;0109002283;m.samir.ahmad@gmail.com;
-saad;1998-04-14;177;123;male;0102229937;m.m.k.l@gmail.com;
-khaled;2001-05-16;188;123;male;010999999;m.ll@gmail.com;
+Mohamad Jehad;2002-12-12;180;80;male;010992837;ahmad@live.com;3;
+Mohamad ahmad;2002-12-12;178;88;male;0102229937;m.amr.kk@hotmail.com;6;
+aly hossam;2007-12-12;169;123;male;01026984456;abd@live.com;7;

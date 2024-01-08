@@ -1,5 +1,5 @@
 #(Online Fit trainer) APP
-
+import uuid
 from datetime import datetime
 import flask
 app =flask.Flask("server")
@@ -8,7 +8,8 @@ app =flask.Flask("server")
 this class will contain the main info about each member
 """
 class Member:
-    def __init__(self, name, birthdate,height,weight,gender,phone,email):
+    def __init__(self, name, birthdate,height,weight,gender,phone,email,member_id=None):
+        self.id = generate_new_id() if not member_id else  member_id
         self.name = name
         self.gender = gender.lower()
         if isinstance(birthdate, str):
@@ -19,7 +20,8 @@ class Member:
         self.weight=weight
         self.phone=phone
         self.email=email
-      # Getter and setter for 'name'
+    
+    
     @property
     def name(self):
         return self._name
@@ -105,11 +107,16 @@ class Member:
     """
     this function will add the member into the file
     """
-    def addmember(self):
+    def addmembertofile(self):
         file = open("MembersData.txt","a")
-        member_data=self.name+";"+str(self.birthdate)+";"+str(self.height)+";"+str(self.weight)+";"+self.gender+";"+str(self.phone)+";"+str(self.email)+";"+"\n"
+        member_data=self.name+";"+str(self.birthdate)+";"+str(self.height)+";"+str(self.weight)+";"+self.gender+";"+str(self.phone)+";"+str(self.email)+";"+str(self.id)+";"+"\n"
         file.write(member_data)
         file.close()
+    def deletemember(self):
+        deleteMemberFromFile(self.id)
+
+        
+
     
 
 def getAllMembersData():
@@ -118,33 +125,62 @@ def getAllMembersData():
     file.close()
     members = members.split("\n")
     all_members = []
+    #if members=='':
     for member in members:
         member_data = member.split(";")
-        member_obj = Member(member_data[0],(member_data[1]) , int(member_data[2]), int(member_data[3]), member_data[4], member_data[5], member_data[6])
+        member_obj = Member(member_data[0],(member_data[1]) , int(member_data[2]), int(member_data[3]), member_data[4], member_data[5], member_data[6], int(member_data[7]))
         all_members.append(member_obj)
     return all_members
 
+def deleteMemberFromFile(member_id):
+    print("id to delete "+str(member_id))
+    members = getAllMembersData()
+    member_to_delete = None
+    for member in members:
+        if str(member.id) == str(member_id):
+            print("hereeeee")
+            member_to_delete = member
+            break
+    if member_to_delete:
+        members.remove(member_to_delete)
+        file=open("MembersData.txt", "w")
+        for member in members:
+            member_data = f"{member.name};{str(member.birthdate)};{str(member.height)};{str(member.weight)};{member.gender};{str(member.phone)};{str(member.email)};{str(member.id)};\n"
+            file.write(member_data)
+        file.close()
 
+
+def generate_new_id():
+    file = open("latestID.txt")
+    id = int(file.read().strip())
+    file.close()
+    file = open("latestID.txt",'w')
+    file.write(str(id+1))
+    file.close()
+    return id
 class User:
     name=""
 
 
 
-@app.route ("/") 
+@app.route("/") 
 def homepage():
-    members=getAllMembersData()
-    text=""
+    members = getAllMembersData()
+    text = ""
     for member in members:
-        text+=("<tr>")
-        text+=("<td>"+member.name+"</td>")
-        text+=("<td>"+str(member.calculate_age())+"</td>")
-        text+=("<td>"+str(member.height)+"</td>")
-        text+=("<td>"+str(member.weight)+"</td>")
-        text+=("<td>"+member.gender+"</td>")
-        text+=("<td>"+member.phone+"</td>")
-        text+=("<td>"+member.email+"</td>")
-        text+=("</tr>")
-    return get_html("index").replace("$$MEMBERS$$",text)
+        text += "<tr>"
+        text += "<td>" + str(member.id) + "</td>"
+        text += "<td>" + member.name + "</td>"
+        text += "<td>" + str(member.calculate_age()) + "</td>"
+        text += "<td>" + str(member.height) + "</td>"
+        text += "<td>" + str(member.weight) + "</td>"
+        text += "<td>" + member.gender + "</td>"
+        text += "<td>" + member.phone + "</td>"
+        text += "<td>" + member.email + "</td>"
+        text += "<td><a href='/delete?id=" + str(member.id) + "' class='delete'>Delete</a></td>"
+        text += "</tr>"
+    return get_html("index").replace("$$MEMBERS$$", text)
+
 
 @app.route ("/newmember") 
 def newmemberpage():
@@ -160,9 +196,13 @@ def addnewmember():
     birthdate= flask.request.args.get("birthdate")
     gender= flask.request.args.get("gender")
     member=Member(name,birthdate,height,weight,gender,phone,email)
-    member.addmember()
-    return get_html("add_member")
-
+    member.addmembertofile()
+    return flask.redirect("/") 
+@app.route ("/delete") 
+def deletemember():
+    id= flask.request.args.get("id")
+    deleteMemberFromFile(id)
+    return flask.redirect("/") 
 
 """
 this function will get the html content from any page 

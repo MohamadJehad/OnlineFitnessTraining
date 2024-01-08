@@ -64,3 +64,7 @@ h1 {
 .members_table tbody tr:hover {
   background-color: #f2f2f2;
 }
+.delete{
+  color: red;
+  text-decoration: none;
+}
