@@ -1,8 +1,19 @@
 #(Online Fit trainer) APP
-import uuid
 from datetime import datetime
+import mysql.connector
 import flask
+from flask_mysqldb import MySQL
 app =flask.Flask("server")
+
+mysql_config = {
+    'host': 'localhost',
+    'user': 'root',
+    'password': 'K1d02370@2024',
+    'database': 'fittrackdb'
+}
+# Connect to MySQL
+db = mysql.connector.connect(**mysql_config)
+cursor = db.cursor()
 
 """
 this class will contain the main info about each member
@@ -107,47 +118,48 @@ class Member:
     """
     this function will add the member into the file
     """
-    def addmembertofile(self):
-        file = open("MembersData.txt","a")
-        member_data=self.name+";"+str(self.birthdate)+";"+str(self.height)+";"+str(self.weight)+";"+self.gender+";"+str(self.phone)+";"+str(self.email)+";"+str(self.id)+";"+"\n"
-        file.write(member_data)
-        file.close()
+    def addmembertodb(self):
+        query = """ INSERT INTO members (name, birthdate, height, weight, gender, phone, email)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+        values = (self.name, self.birthdate, self.height, self.weight, self.gender, self.phone, self.email)
+        try:
+            cursor.execute(query, values)
+            db.commit()
+            print("Member added successfully to the database!")
+            return True
+        except Exception as e:
+            print(f"Error adding member to the database: {str(e)}")
+            return False
+
     def deletemember(self):
-        deleteMemberFromFile(self.id)
+        deleteMemberFromDB(self.id)
 
         
-
     
-
 def getAllMembersData():
-    file = open("MembersData.txt")
-    members = file.read().strip()
-    file.close()
-    members = members.split("\n")
+    try:
+        cursor.execute("SELECT * FROM members")
+        members = cursor.fetchall()
+    except Exception as e:
+        print(f"Error retrieving members: {str(e)}")
+        members=[]
     all_members = []
     #if members=='':
     for member in members:
-        member_data = member.split(";")
-        member_obj = Member(member_data[0],(member_data[1]) , int(member_data[2]), int(member_data[3]), member_data[4], member_data[5], member_data[6], int(member_data[7]))
+        member_data = member
+        member_obj = Member(member_data[1],(member_data[2]) , int(member_data[3]), int(member_data[4]), member_data[5], member_data[6], member_data[7], (member_data[0]))
         all_members.append(member_obj)
     return all_members
 
-def deleteMemberFromFile(member_id):
-    print("id to delete "+str(member_id))
-    members = getAllMembersData()
-    member_to_delete = None
-    for member in members:
-        if str(member.id) == str(member_id):
-            print("hereeeee")
-            member_to_delete = member
-            break
-    if member_to_delete:
-        members.remove(member_to_delete)
-        file=open("MembersData.txt", "w")
-        for member in members:
-            member_data = f"{member.name};{str(member.birthdate)};{str(member.height)};{str(member.weight)};{member.gender};{str(member.phone)};{str(member.email)};{str(member.id)};\n"
-            file.write(member_data)
-        file.close()
+def deleteMemberFromDB(member_id):
+    try:
+        sqlQuery = f"DELETE FROM members WHERE member_id = {member_id}"
+        cursor.execute(sqlQuery)
+        db.commit()
+        print(f"Member with ID {member_id} deleted successfully")
+    except mysql.connector.Error as error:
+        print(f"Error deleting member: {error}")
+
 
 
 def generate_new_id():
@@ -188,6 +200,7 @@ def newmemberpage():
 
 @app.route ("/addnewmember") 
 def addnewmember():
+
     name= flask.request.args.get("name")
     height= flask.request.args.get("height")
     email= flask.request.args.get("email")
@@ -196,12 +209,16 @@ def addnewmember():
     birthdate= flask.request.args.get("birthdate")
     gender= flask.request.args.get("gender")
     member=Member(name,birthdate,height,weight,gender,phone,email)
-    member.addmembertofile()
-    return flask.redirect("/") 
+    if(member.addmembertodb()):
+        return flask.redirect("/")
+    else:
+        return flask.redirect("/newmember")
+     
+
 @app.route ("/delete") 
 def deletemember():
     id= flask.request.args.get("id")
-    deleteMemberFromFile(id)
+    deleteMemberFromDB(id)
     return flask.redirect("/") 
 
 """
