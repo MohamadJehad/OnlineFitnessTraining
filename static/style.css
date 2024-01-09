@@ -1,5 +1,4 @@
 /* style.css */
-
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -67,4 +66,41 @@ h1 {
 .delete{
   color: red;
   text-decoration: none;
+}
+
+.cont form {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.cont form li {
+  list-style: none;
+  margin: 10px 0;
+}
+.cont form input[type="text"],
+.cont form input[type="submit"] {
+  padding: 10px;
+  width: 50%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.cont form input[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  width: 20%;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.cont form input[type="submit"]:hover {
+  background-color: #555;
+}
+.profile-details{
+  font-size: 20px;
+}
+.member_info{
+  
 }

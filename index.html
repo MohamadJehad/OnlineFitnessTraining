@@ -11,10 +11,14 @@
     <nav id="navbar" class="navbar">
         <ul>
           <li><a class="" href="newmember">Add New Member</a></li>
-          <li><a class="" href="#members">View All Members</a></li>  
+          <li><a class="" href="#members">View All Members</a></li>
         </ul>
       </nav><!-- .navbar -->    
     <div class="cont" >
+      <form action="/search" method="get">
+        <li><input type="text" class="" name="search" placeholder="Enter Name or ID"></li>
+        <li><input type="submit" value="Search"></li>
+    </form>
     
         <div id="members">
             <table class="members_table">
@@ -28,7 +32,9 @@
                     <th>Gender
                     <th>Mobile
                     <th>Email
-                    <th>Delete  
+                    <th>BMR
+                    <th>Delete
+                    <th>Profile    
                 </thead>
                 <tbody>
                     $$MEMBERS$$
@@ -37,7 +43,6 @@
 
         </div>
         
-    <a href="/notes">See All Notes</a>
     </div>
   
 

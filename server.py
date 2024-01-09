@@ -189,7 +189,9 @@ def homepage():
         text += "<td>" + member.gender + "</td>"
         text += "<td>" + member.phone + "</td>"
         text += "<td>" + member.email + "</td>"
+        text += "<td>" + str(int(member.calculate_bmr()))+ "</td>"
         text += "<td><a href='/delete?id=" + str(member.id) + "' class='delete'>Delete</a></td>"
+        text += "<td><a href='/member_profile?id=" + str(member.id) + "' class='delete'>Profile</a></td>"
         text += "</tr>"
     return get_html("index").replace("$$MEMBERS$$", text)
 
@@ -220,6 +222,85 @@ def deletemember():
     id= flask.request.args.get("id")
     deleteMemberFromDB(id)
     return flask.redirect("/") 
+
+@app.route ("/search") #the next function will be called once user entered the name of contact he wanted to search for
+def search():
+    result=[]
+    nameOrId= flask.request.args.get("search") 
+    print("nameOrId = "+str(nameOrId))
+    if nameOrId.isdigit():
+        id=nameOrId
+        #search by id
+        try:
+            cursor.execute(f"SELECT * FROM members where member_id={id}")
+            members = cursor.fetchall()
+        except Exception as e:
+            print(f"Error retrieving members: {str(e)}")
+            return flask.redirect("/") 
+            ######################
+    else:
+        name=nameOrId
+        try:
+            cursor.execute(f"SELECT * FROM members where name='{name}'")
+            members = cursor.fetchall()
+        except Exception as e:
+            print(f"Error retrieving members: {str(e)}")
+            return flask.redirect("/")
+         
+    all_members = []
+    for member in members:
+        member_data = member
+        member_obj = Member(member_data[1],(member_data[2]) , int(member_data[3]), int(member_data[4]), member_data[5], member_data[6], member_data[7], (member_data[0]))
+        all_members.append(member_obj)
+    #return all_members
+    text = ""
+    for member in all_members:
+        text += "<tr>"
+        text += "<td>" + str(member.id) + "</td>"
+        text += "<td>" + member.name + "</td>"
+        text += "<td>" + str(member.calculate_age()) + "</td>"
+        text += "<td>" + str(member.height) + "</td>"
+        text += "<td>" + str(member.weight) + "</td>"
+        text += "<td>" + member.gender + "</td>"
+        text += "<td>" + member.phone + "</td>"
+        text += "<td>" + member.email + "</td>"
+        text += "<td><a href='/delete?id=" + str(member.id) + "' class='delete'>Delete</a></td>"
+        text += "</tr>"
+    return get_html("index").replace("$$MEMBERS$$", text)
+
+
+
+
+
+@app.route ("/member_profile") #the next function will be called once user entered the name of contact he wanted to search for
+def member_profile():
+    result=[]
+    id= flask.request.args.get("id") 
+    try:
+        cursor.execute(f"SELECT * FROM members where member_id={id}")
+        member_data = cursor.fetchone() 
+    except Exception as e:
+        print(f"Error retrieving members: {str(e)}")
+        return flask.redirect("/") 
+    print(member_data)
+    member = Member(member_data[1],(member_data[2]) , int(member_data[3]), int(member_data[4]), member_data[5], member_data[6], member_data[7], int(member_data[0]))
+    #return all_members
+    text = ""
+    text += "<p class='member_info'>ID: " + str(member.id) + "</p>"
+    text += "<p class='member_info'>Name: " + str(member.name) + "</p>"
+    text += "<p class='member_info'>Age: " + str(member.calculate_age()) + "</p>"
+    text += "<p class='member_info'>Height: " + str(member.height) + "</p>"
+    text += "<p class='member_info'>Weight: " + str(member.weight) + "</p>"
+    text += "<p class='member_info'>Gender: " + member.gender + "</p>"
+    text += "<p class='member_info'>Phone: " + member.phone + "</p>"
+    text += "<p class='member_info'>Email: " + member.email + "</p>"
+    text += "<a href='/delete?id=" + str(member.id) + "' class='delete'>Delete</a>"
+    return get_html("member_profile").replace("$$MEMBER$$", text)
+
+
+
+   
+
 
 """
 this function will get the html content from any page 
