@@ -101,6 +101,23 @@ h1 {
 .profile-details{
   font-size: 20px;
 }
-.member_info{
-  
+.box {
+  width: 50%;
+  padding: 10px; /* Add padding */
+  font-size: 17px;
+  border-radius: 7px; /* Adding border-radius for rounded edges */
+  box-sizing: border-box; /* Include padding and borders in the width */
+  margin-bottom: 12px;
+}
+
+input[type="submit"] {
+  padding: 9px;
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 19px;
+  border-radius: 5px; /* Adding border-radius for rounded edges */
+  width: 200px;
+  margin-top: 27px;
 }
