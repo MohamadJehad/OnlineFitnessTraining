@@ -33,6 +33,9 @@ h1 {
 .navbar ul li a:hover {
   background-color: #555;
 }
+.home{
+  width: 35%;
+}
 
 .cont {
   width: 80%;
@@ -119,5 +122,10 @@ input[type="submit"] {
   font-size: 19px;
   border-radius: 5px; /* Adding border-radius for rounded edges */
   width: 200px;
-  margin-top: 27px;
+  margin-top: 10px;
+}
+.members_info{
+  float: left;
+  width: 48%; /* Adjust width as needed */
+  margin-right: 2%; /* Optional: Create some space between the divs */
 }
