@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Member</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <h1 id="homePageText">Add New Member Page </h1>  
+    <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="home" href="/" >Home Page</a></li>
+        </ul>
+      </nav><!-- .navbar -->   
+    <br><br>  
+    
+    <div class="cont">
+       
+
+    <form action="/addVitalDetails" method="get">
+        
+        <input type="text" class="box" name="bodyFatPercentage" placeholder="Enter Member's bodyFatPercentage">
+        <input type="text" class="box" name="disease" placeholder="Enter Member's disease">
+        <input type="text" class="box" name="medications" placeholder="Enter Member's Phone medications">
+        <input type="text" class="box" name="allergy" placeholder="Enter Member's allergy">
+        <input type="text" class="box" name="fitnessGoals" placeholder="Enter Member's fitnessGoals">
+        <input type="hidden" name="id" id="memberId" value="&&ID&&">
+        <br>
+        <input type="submit" value="Add Vital Details">
+        
+    </form>
+
+    <br><br>
+</div>
+    
+
+    <script src="static/script.js"></script>
+</body>
+</html>
