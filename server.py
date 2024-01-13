@@ -9,7 +9,7 @@ app =flask.Flask("server")
 mysql_config = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'K1d02370@2024',
+    'password': 'Jehad123456@22',
     'database': 'fittrackdb'
 }
 # Connect to MySQL
@@ -91,14 +91,28 @@ class Package:
         self.value=value
         self.duration=duration
 
+    def add_to_DB(self):
+        query = """INSERT INTO Packages (packageId, packageName, packageValue, packageDuration)
+                   VALUES (%s, %s, %s, %s)"""
+        values = (self.package_id, self.name, self.value, self.duration)
+
+        try:
+            cursor.execute(query, values)
+            db.commit()
+            print(f"Package added to the database with ID = {str(self.package_id)}")
+        except Exception as e:
+            print(f"Error adding Package to the database: {str(e)}")
+
+
 class VitaDetails:
-    def __init__(self, allergy, disease,bodyFatPercentage,fitnessGoals,medications,member_id=None):
+    def __init__(self, allergy,disease,bodyFatPercentage, fitnessGoals,medications,member_id=None):
         self.member_id =  member_id
         self.fitnessGoals = fitnessGoals
         self.medications = medications
         self.allergy=allergy
         self.disease=disease
         self.bodyFatPercentage=bodyFatPercentage
+
         
     def add_to_DB(self):
         print("=-------------inserting------------")
@@ -208,7 +222,7 @@ def addVitalDetails():
     fitnessGoals= flask.request.args.get("fitnessGoals")
 
     vitaDetails=VitaDetails(allergy, disease,bodyFatPercentage,fitnessGoals,medications,member_id)
-
+    vitaDetails.add_to_DB()
     return flask.redirect("/")
 
 
@@ -302,41 +316,41 @@ def member_profile():
         )
 
         print("member_vital_data[0], " + str(member_vital_data[0]))
-        print(" " + member_vital_data[1])
+        print(" " + str(member_vital_data[1]))
         print(" " + member_vital_data[2])
         print(" " + str(member_vital_data[3]))
         print(" " + str(member_vital_data[4]))
+        print(" " + str(member_vital_data[5]))
+        print(" " + str(member_vital_data[6]))
         vitaDetails = VitaDetails(
-            member_vital_data[0],
-            member_vital_data[1],
             member_vital_data[2],
             member_vital_data[3],
             member_vital_data[4],
-            int(member_data[0]),
+            member_vital_data[5],
+            member_vital_data[6],
+            int(member_data[0])
         )
 
         text = ""
-        text += "<p class='member_info'>ID: " + str(member.id) + "</p>"
-        text += "<p class='member_info'>Name: " + str(member.name) + "</p>"
-        text += "<p class='member_info'>Age: " + str(member.calculate_age()) + "</p>"
-        text += "<p class='member_info'>Height: " + str(member.height) + "</p>"
-        text += "<p class='member_info'>Weight: " + str(member.weight) + "</p>"
-        text += "<p class='member_info'>Gender: " + member.gender + "</p>"
-        text += "<p class='member_info'>Phone: " + member.phone + "</p>"
-        text += "<p class='member_info'>Email: " + member.email + "</p>"
+        text += "<p class='member_info'><strong>ID: </strong>" + str(member.id) + "</p>"
+        text += "<p class='member_info'><strong>Name: </strong>" + str(member.name) + "</p>"
+        text += "<p class='member_info'><strong>Age: </strong>" + str(member.calculate_age()) + "</p>"
+        text += "<p class='member_info'><strong>Height: </strong>" + str(member.height) + "</p>"
+        text += "<p class='member_info'><strong>Weight: </strong>" + str(member.weight) + "</p>"
+        text += "<p class='member_info'><strong>Gender: </strong>" + member.gender + "</p>"
+        text += "<p class='member_info'><strong>Phone: </strong>" + member.phone + "</p>"
+        text += "<p class='member_info'><strong>Email: </strong>" + member.email + "</p>"
         text += "<a href='/delete?id=" + str(member.id) + "' class='delete'>Delete</a>"
         vital_derails = ""
-        vital_derails += "<p class='member_info'>bodyFatPercentage: " + str(
-            vitaDetails.bodyFatPercentage
-        ) + "</p>"
-        vital_derails += "<p class='member_info'>allergy: " + str(
+        vital_derails += "<p class='member_info'><strong>Allergy: </strong>" + str(
             vitaDetails.allergy
         ) + "</p>"
-        vital_derails += "<p class='member_info'>disease: " + vitaDetails.disease + "</p>"
-        vital_derails += "<p class='member_info'>medications: " + vitaDetails.medications + "</p>"
-        vital_derails += "<p class='member_info'>fitnessGoals: " + str(
+        vital_derails += "<p class='member_info'><strong>Disease: </strong>" + str(vitaDetails.disease) + "</p>"
+        vital_derails += "<p class='member_info'><strong>Medications: </strong>" +str(vitaDetails.medications)  + "</p>"
+        vital_derails += "<p class='member_info'><strong>Fitness Goals: </strong>" + str(
             vitaDetails.fitnessGoals
         ) + "</p>"
+        vital_derails += "<p class='member_info'><strong>Body Fat Percentage: </strong>" + str(vitaDetails.bodyFatPercentage) + "%"+"</p>"
 
         return get_html("member_profile").replace("$$MEMBER_INFO$$", text).replace(
             "$$MEMBER_VITAL_DETAILS$$", vital_derails

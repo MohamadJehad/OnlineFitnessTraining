@@ -9,9 +9,9 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MySQL",
+            "name": "FinalProject",
             "database": "fittrackdb",
-            "username": "root",
-            "name": "FinalProject"
+            "username": "root"
         }
     ]
 }
