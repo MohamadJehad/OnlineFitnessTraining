@@ -92,13 +92,14 @@ class Package:
         self.duration=duration
 
     def add_to_DB(self):
-        query = """INSERT INTO Packages (packageId, packageName, packageValue, packageDuration)
-                   VALUES (%s, %s, %s, %s)"""
-        values = (self.package_id, self.name, self.value, self.duration)
+        query = """INSERT INTO Package ( name, duration, value)
+                   VALUES (%s, %s, %s)"""
+        values = ( self.name, self.duration,self.value,)
 
         try:
             cursor.execute(query, values)
             db.commit()
+            self.package_id=cursor.lastrowid
             print(f"Package added to the database with ID = {str(self.package_id)}")
         except Exception as e:
             print(f"Error adding Package to the database: {str(e)}")
@@ -368,3 +369,17 @@ def get_html(pagename):
     content =html_file.read()
     html_file.close()
     return content
+
+@app.route ("/newpacakge") 
+def newpackage():
+    return get_html("add_package")
+
+@app.route ("/addnewpackage") 
+def addnewpackage():
+    name= flask.request.args.get("name")
+    value= flask.request.args.get("value")
+    duration= flask.request.args.get("duration")
+
+    package=Package(name, value,duration)
+    package.add_to_DB()
+    return flask.redirect("/")
