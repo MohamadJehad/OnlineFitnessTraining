@@ -30,6 +30,7 @@
                     <p class='member_info'><strong>Weight: </strong>{{ member.weight }}</p>
                     <p class='member_info'><strong>Height: </strong>{{ member.height }}</p>
                     <p class='member_info'><strong>Birthdate: </strong>{{ member.birthdate }}</p>
+               
                 </div>
             </div>
          </div>
@@ -37,11 +38,13 @@
             <h2>Vital Details</h2>
             <hr>
             <div class="profile-details">
+                <p class='member_info'><strong>BMR: </strong>{{ member.calculate_bmr() }}</p>
                 <p class='member_info'><strong>Allergy: </strong>{{ vitaDetails.allergy }}</p>
                 <p class='member_info'><strong>Disease: </strong>{{ vitaDetails.disease }}</p>
                 <p class='member_info'><strong>Medications: </strong>{{ vitaDetails.medications }}</p>
                 <p class='member_info'><strong>Fitness Goals: </strong>{{ vitaDetails.fitnessGoals }}</p>
                 <p class='member_info'><strong>Body Fat Percentage: </strong>{{ vitaDetails.bodyFatPercentage }}%</p>
+                
               </div>
         </div>
         <div class="members_info"> 

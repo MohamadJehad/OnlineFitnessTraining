@@ -34,6 +34,7 @@ strong{
   display: inline-block;
   padding: 10px 20px;
   color: #fff;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .navbar ul li a:hover {

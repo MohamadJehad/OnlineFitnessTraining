@@ -16,9 +16,7 @@ mysql_config = {
     'password': 'K1d02370@2024',
     'database': 'fittrackdb'
 }
-# Connect to MySQL
-#db = mysql.connector.connect(**mysql_config)
-#cursor = db.cursor()
+
 
 
 """
@@ -27,7 +25,6 @@ this class will contain the main info about each member
 class Member:
     id=None
     def __init__(self, name, birthdate,height,weight,gender,phone,email,member_id=None):
-        #self.id = generate_new_id() if not member_id else  member_id
         try:
             self.name = name
             self.gender = gender.lower()
@@ -77,14 +74,8 @@ class Member:
         finally:
             cursor.close()
         return package_name
-        
-    #this function will return true if the member object created successfully and added to the database
-    def member_added_successfully(self):
-        if self.id == None:
-            return False   
-        else:
-            return True
-
+    
+    
     """
         this function used to calculate the age of the member based on his birthdate
     """
@@ -101,7 +92,7 @@ class Member:
             bmr = 88.362 + (13.397 * self.weight)+(4.799 * self.height)-(5.677 * self.calculate_age())
         elif self.gender == "female":
             bmr = 447.593 + (9.247 * self.weight)+(3.098 * self.height)-(4.330 * self.calculate_age())
-        return bmr
+        return int(bmr)
 
     def deletemember(self):
         deleteMemberFromDB(self.id)
@@ -143,7 +134,6 @@ class VitaDetails:
 
         
     def add_to_DB(self):
-        print("=-------------inserting------------")
         query = """INSERT INTO VitalDetails (memberId, allergy, disease, bodyFatPercentage, fitnessGoals, medications)
                    VALUES (%s, %s, %s, %s, %s, %s)"""
         values = (self.member_id, self.allergy, self.disease, self.bodyFatPercentage, self.fitnessGoals, self.medications)
