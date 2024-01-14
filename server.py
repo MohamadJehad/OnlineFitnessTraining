@@ -199,18 +199,38 @@ def getAllPackagesData():
         all_packages.append(package_obj)
     return all_packages
 
+
 def deleteMemberFromDB(member_id):
     try:
         db = mysql.connector.connect(**mysql_config)
         cursor = db.cursor()
-        sqlQuery = f"DELETE FROM members WHERE member_id = {member_id}"
-        cursor.execute(sqlQuery)
+
+        # Check if the member has vital details
+        cursor.execute(f"SELECT * FROM vitaldetails WHERE memberId = {member_id}")
+        vital_details = cursor.fetchall()
+
+        if vital_details:
+            # If the member has vital details, delete them first
+            cursor.execute(f"DELETE FROM vitaldetails WHERE memberId = {member_id}")
+
+        # Check if the member has subscriptions
+        cursor.execute(f"SELECT * FROM subscription WHERE memberId = {member_id}")
+        subscriptions = cursor.fetchall()
+
+        if subscriptions:
+            # If the member has subscriptions, delete them first
+            cursor.execute(f"DELETE FROM subscription WHERE memberId = {member_id}")
+
+        # Now you can delete the member
+        cursor.execute(f"DELETE FROM members WHERE member_id = {member_id}")
+
         db.commit()
         print(f"Member with ID {member_id} deleted successfully")
     except mysql.connector.Error as error:
         print(f"Error deleting member: {error}")
     finally:
         cursor.close()
+
 
 
 
