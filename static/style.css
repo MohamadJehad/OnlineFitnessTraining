@@ -108,9 +108,34 @@ strong{
 .cont form input[type="submit"]:hover {
   background-color: #555;
 }
-.profile-details{
-  font-size: 20px;
+.profile-details select {
+  padding: 7px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  width: 100%;
 }
+
+/* Button style */
+.profile-details button {
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 6px;
+  width: 90%;
+  margin-top: 12px;
+}
+
+/* Hover effect on button */
+.profile-details button:hover {
+  background-color: #555;
+}
+#packageDropdown{
+  font-size: px;
+}
+
 .box {
   width: 50%;
   padding: 10px; /* Add padding */
@@ -135,6 +160,7 @@ input[type="submit"] {
   float: left;
   width: 27%; /* Adjust width as needed */
   margin-right: 2%; /* Optional: Create some space between the divs */
+  font-size: 18px;
 }
 #members{
   max-height: 450px; /* Adjust the maximum height of the table*/

@@ -48,7 +48,6 @@ class Member:
             self.id=member_id
 
     def add_to_DB(self):
-        print("exist")
         query = """ INSERT INTO members (name, birthdate, height, weight, gender, phone, email)
         VALUES (%s, %s, %s, %s, %s, %s, %s)"""
         values = (self.name, self.birthdate, self.height, self.weight, self.gender, self.phone, self.email)
@@ -61,6 +60,23 @@ class Member:
             print("member id =" + str(self.id))
         except Exception as e:
             print(f"Error adding member to the database: {str(e)}")
+    
+    def get_package(self):
+        package_name=""
+
+        query = f"SELECT package.name FROM subscription JOIN package ON subscription.package_id = package.id WHERE subscription.memberId = {self.id}"
+        try:
+            db = mysql.connector.connect(**mysql_config)
+            cursor = db.cursor()
+            cursor.execute(query)
+            #this must return tuple contains every subscriped backage and every name
+            # so here we will have only one row and will take the only value in it
+            package_name = str(cursor.fetchall()[0][0])
+        except Exception as e:
+            print(f"Error getting package: {str(e)}")
+        finally:
+            cursor.close()
+        return package_name
         
     #this function will return true if the member object created successfully and added to the database
     def member_added_successfully(self):
@@ -112,6 +128,8 @@ class Package:
             print(f"Package added to the database with ID = {str(self.package_id)}")
         except Exception as e:
             print(f"Error adding Package to the database: {str(e)}")
+        finally:
+            cursor.close()
 
 
 class VitaDetails:
@@ -168,7 +186,6 @@ def getAllPackagesData():
         db = mysql.connector.connect(**mysql_config)
         cursor = db.cursor()
         cursor.execute("SELECT * FROM package;")
-        print("=+=+=+=+=+=+=+")
         packages = cursor.fetchall()
     except Exception as e:
         print(f"Error retrieving package: {str(e)}")
@@ -278,9 +295,10 @@ def search():
             members = cursor.fetchall()
         except Exception as e:
             print(f"Error retrieving members: {str(e)}")
+            return flask.redirect("/") 
+            
         finally:
             cursor.close()
-            return flask.redirect("/") 
             ######################
     else:
         name=nameOrId
@@ -312,12 +330,13 @@ def get_members_table_text(all_members):
         text += "<td>" + str(member.id) + "</td>"
         text += "<td>" + member.name + "</td>"
         text += "<td>" + str(member.calculate_age()) + "</td>"
-        text += "<td>" + str(member.height) + "</td>"
-        text += "<td>" + str(member.weight) + "</td>"
+        #text += "<td>" + str(member.height) + "</td>"
+        #text += "<td>" + str(member.weight) + "</td>"
         text += "<td>" + member.gender + "</td>"
         text += "<td>" + member.phone + "</td>"
         text += "<td>" + member.email + "</td>"
-        text += "<td>" + str(int(member.calculate_bmr()))+ "</td>"
+       # text += "<td>" + str(int(member.calculate_bmr()))+ "</td>"
+        text += "<td>" + member.get_package() + "</td>"
         text += "<td><a href='/delete?id=" + str(member.id) + "' class='delete'>Delete</a></td>"
         text += "<td><a href='/member_profile?id=" + str(member.id) + "' class='delete'>Profile</a></td>"
         text += "</tr>"
