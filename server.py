@@ -188,32 +188,10 @@ class User:
 @app.route("/") 
 def homepage():
     members = getAllMembersData()
-    text = ""
-    for member in members:
-        text += "<tr>"
-        text += "<td>" + str(member.id) + "</td>"
-        text += "<td>" + member.name + "</td>"
-        text += "<td>" + str(member.calculate_age()) + "</td>"
-        text += "<td>" + str(member.height) + "</td>"
-        text += "<td>" + str(member.weight) + "</td>"
-        text += "<td>" + member.gender + "</td>"
-        text += "<td>" + member.phone + "</td>"
-        text += "<td>" + member.email + "</td>"
-        text += "<td>" + str(int(member.calculate_bmr()))+ "</td>"
-        text += "<td><a href='/delete?id=" + str(member.id) + "' class='delete'>Delete</a></td>"
-        text += "<td><a href='/member_profile?id=" + str(member.id) + "' class='delete'>Profile</a></td>"
-        text += "</tr>"
+    text = get_members_table_text(members)
         
     packages=getAllPackagesData()
-    text2=""
-    for package in packages:
-     
-        text2 += "<tr>"
-        text2 += "<td>" + str(package.package_id) + "</td>"
-        text2 += "<td>" + package.name + "</td>"
-        text2 += "<td>" + str(package.value) + "</td>"
-        text2 += "<td>" + str(package.duration) + "</td>"
-        text2 += "</tr>"
+    text2=get_packages_table_text(packages)
     return get_html("index").replace("$$MEMBERS$$", text).replace("$$PACKAGES$$",text2)
 
 
@@ -289,7 +267,14 @@ def search():
         member_data = member
         member_obj = Member(member_data[1],(member_data[2]) , int(member_data[3]), int(member_data[4]), member_data[5], member_data[6], member_data[7], (member_data[0]))
         all_members.append(member_obj)
-    #return all_members
+    
+    text = get_members_table_text(all_members)
+
+    packages=getAllPackagesData()
+    text2=get_packages_table_text(packages)
+    return get_html("index").replace("$$MEMBERS$$", text).replace("$$PACKAGES$$",text2)
+
+def get_members_table_text(all_members):
     text = ""
     for member in all_members:
         text += "<tr>"
@@ -305,10 +290,18 @@ def search():
         text += "<td><a href='/delete?id=" + str(member.id) + "' class='delete'>Delete</a></td>"
         text += "<td><a href='/member_profile?id=" + str(member.id) + "' class='delete'>Profile</a></td>"
         text += "</tr>"
-    return get_html("index").replace("$$MEMBERS$$", text)
+    return text
 
-
-
+def get_packages_table_text(packages):
+    text=""
+    for package in packages:
+        text += "<tr>"
+        text += "<td>" + str(package.package_id) + "</td>"
+        text += "<td>" + package.name + "</td>"
+        text += "<td>" + str(package.value) + "</td>"
+        text += "<td>" + str(package.duration) + "</td>"
+        text += "</tr>"
+    return text
 
 @app.route("/member_profile")
 def member_profile():
@@ -330,7 +323,6 @@ def member_profile():
 
     print(member_data)
     if member_vital_data is not None:
-        print("thissssssss " + str(member_vital_data))
         member = Member(
             member_data[1],
             (member_data[2]),
@@ -342,12 +334,6 @@ def member_profile():
             int(member_data[0]),
         )
 
-        print("member_vital_data[0], " + str(member_vital_data[0]))
-        print(" " + str(member_vital_data[1]))
-        print(" " + member_vital_data[2])
-        print(" " + str(member_vital_data[3]))
-        print(" " + str(member_vital_data[4]))
-        print(" member_vital_data[4], " + str(member_vital_data[5]))
         vitaDetails = VitaDetails(
             member_vital_data[1],
             member_vital_data[2],
