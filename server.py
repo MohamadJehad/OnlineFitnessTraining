@@ -1,6 +1,5 @@
 #(Online Fit trainer) APP
-from datetime import datetime
-import time
+from datetime import datetime, timedelta
 import mysql.connector
 import flask
 from flask_mysqldb import MySQL
@@ -54,6 +53,8 @@ class Member:
         VALUES (%s, %s, %s, %s, %s, %s, %s)"""
         values = (self.name, self.birthdate, self.height, self.weight, self.gender, self.phone, self.email)
         try:
+            db = mysql.connector.connect(**mysql_config)
+            cursor = db.cursor()
             cursor.execute(query, values)
             db.commit()
             self.id=cursor.lastrowid
@@ -103,6 +104,8 @@ class Package:
                    VALUES ( %s, %s, %s)"""
         values = ( self.name, self.duration,self.value)
         try:
+            db = mysql.connector.connect(**mysql_config)
+            cursor = db.cursor()
             cursor.execute(query, values)
             db.commit()
             self.package_id=cursor.lastrowid
@@ -128,6 +131,8 @@ class VitaDetails:
         values = (self.member_id, self.allergy, self.disease, self.bodyFatPercentage, self.fitnessGoals, self.medications)
 
         try:
+            db = mysql.connector.connect(**mysql_config)
+            cursor = db.cursor()
             cursor.execute(query, values)
             db.commit()
             print("VitaDetails added to the database for member ID =", str(self.member_id))
@@ -155,6 +160,7 @@ def getAllMembersData():
         member_data = member
         member_obj = Member(member_data[1],(member_data[2]) , int(member_data[3]), int(member_data[4]), member_data[5], member_data[6], member_data[7],member_data[0])
         all_members.append(member_obj)
+    
     return all_members
 
 def getAllPackagesData():
@@ -171,14 +177,15 @@ def getAllPackagesData():
         cursor.close()
     all_packages = []
     #if members=='':
-    for member in packages:
-        package_data = member
-        package_obj = Package(package_data[1], int(package_data[3]),int(package_data[2]) , int(package_data[0]))
+    for package in packages:
+        package_obj = Package(package[1], int(package[3]),int(package[2]) , int(package[0]))
         all_packages.append(package_obj)
     return all_packages
 
 def deleteMemberFromDB(member_id):
     try:
+        db = mysql.connector.connect(**mysql_config)
+        cursor = db.cursor()
         sqlQuery = f"DELETE FROM members WHERE member_id = {member_id}"
         cursor.execute(sqlQuery)
         db.commit()
@@ -381,9 +388,8 @@ def member_profile():
             member_vital_data[5],
             int(member_data[0])
         )
-        print("1")
         packages=getAllPackagesData()
-        print("3")
+        
 
         return render_template("member_profile.html", member=member, vitaDetails=vitaDetails,packages=packages)
     else:
@@ -421,3 +427,47 @@ def addnewpackage():
 
 
 
+# New route to handle subscription form submission
+@app.route("/subscribe", methods=["POST"])
+def subscribe():
+    package_id = flask.request.form.get("package_id")
+    member_id = flask.request.form.get("member_id")
+    print("member_id is =" + str(member_id))
+    print("package_id is =" + str(package_id))
+    
+    subscribe_to_package(package_id,member_id)
+        # Redirect to member profile or wherever you want to go after subscription
+    return flask.redirect("/")
+
+
+def subscribe_to_package(package_id,member_id):
+    #first chack if memebr already subscriped
+    try:
+        db = mysql.connector.connect(**mysql_config)
+        cursor = db.cursor()
+        print("let's check")
+        cursor.execute(f"SELECT * FROM subscription WHERE memberId={member_id}")
+        existing_subscription = cursor.fetchone()
+        if existing_subscription:
+            # Member is already subscribed, handle accordingly (e.g., show a message)
+            print("Member is already subscribed to a package")
+        else:
+            print("let's sub")
+            # Get package duration from the package table
+            cursor.execute(f"SELECT duration FROM package WHERE id={package_id}")
+            duration = cursor.fetchone()[0]
+
+            # Calculate start date (today) and end date (today + duration months)
+            start_date = datetime.now().date()
+            end_date = start_date + timedelta(30 * duration)
+
+            # Subscribe the member to the selected package with start and end dates
+            cursor.execute("INSERT INTO subscription (memberId, package_id, startDate, endDate) VALUES (%s, %s, %s, %s)",
+                           (member_id, package_id, start_date, end_date))
+            db.commit()
+            print("Member subscribed successfully")
+    except Exception as e:
+        print(f"Error retrieving vital: {str(e)}")
+        return flask.redirect("/")
+    finally:
+        cursor.close()

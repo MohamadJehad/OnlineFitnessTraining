@@ -21,6 +21,7 @@
             <hr>
             <div class="profile">
                 <div class="profile-details">
+                    <input type="hidden" name="member_id" id="memberId" value="{{ member.id }}">
                     <p class='member_info'><strong>ID: </strong>{{ member.id }}</p>
                     <p class='member_info'><strong>Name: </strong>{{ member.name }}</p>
                     <p class='member_info'><strong>Email: </strong>{{ member.email }}</p>
@@ -32,8 +33,7 @@
                 </div>
             </div>
          </div>
-        <div class="members_info"> 
-            
+        <div class="members_info">        
             <h2>Vital Details</h2>
             <hr>
             <div class="profile-details">
@@ -51,15 +51,16 @@
             <div class="profile-details">
                 <label for="packageDropdown">Select a Package:</label>
                 <form method="POST" action="/subscribe">
-                    <label for="packageDropdown">Select a Package:</label>
-                    <select id="packageDropdown" name="selectedPackage">
+                    <input type="hidden" name="member_id" value="{{ member.id }}">
+                    <select id="packageDropdown" name="package_id">     
                         {% for package in packages %}
-                            <option value="{{ package.id }}">{{ package.name }}</option>
+                            <option value="{{ package.package_id }}">{{ package.name  }}</option>
                         {% endfor %}
                     </select>
                     <button type="submit">Subscribe</button>
                 </form>
             </div>
+            
 
         </div>
 
