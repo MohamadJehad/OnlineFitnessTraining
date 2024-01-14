@@ -4,7 +4,12 @@ import time
 import mysql.connector
 import flask
 from flask_mysqldb import MySQL
-app =flask.Flask("server")
+from flask import Flask, render_template
+
+app =flask.Flask(__name__)
+app = Flask(__name__, template_folder="views")
+if __name__=='__main__':
+    app.run(debug=True)
 
 mysql_config = {
     'host': 'localhost',
@@ -13,8 +18,9 @@ mysql_config = {
     'database': 'fittrackdb'
 }
 # Connect to MySQL
-db = mysql.connector.connect(**mysql_config)
-cursor = db.cursor()
+#db = mysql.connector.connect(**mysql_config)
+#cursor = db.cursor()
+
 
 """
 this class will contain the main info about each member
@@ -132,12 +138,17 @@ class VitaDetails:
 
 
 def getAllMembersData():
+
     try:
+        db = mysql.connector.connect(**mysql_config)
+        cursor = db.cursor()
         cursor.execute("SELECT * FROM members")
         members = cursor.fetchall()
     except Exception as e:
         print(f"Error retrieving members: {str(e)}")
         members=[]
+    finally:
+        cursor.close()
     all_members = []
     #if members=='':
     for member in members:
@@ -145,14 +156,19 @@ def getAllMembersData():
         member_obj = Member(member_data[1],(member_data[2]) , int(member_data[3]), int(member_data[4]), member_data[5], member_data[6], member_data[7],member_data[0])
         all_members.append(member_obj)
     return all_members
+
 def getAllPackagesData():
     try:
+        db = mysql.connector.connect(**mysql_config)
+        cursor = db.cursor()
         cursor.execute("SELECT * FROM package;")
         print("=+=+=+=+=+=+=+")
         packages = cursor.fetchall()
     except Exception as e:
         print(f"Error retrieving package: {str(e)}")
         packages=[]
+    finally:
+        cursor.close()
     all_packages = []
     #if members=='':
     for member in packages:
@@ -169,6 +185,8 @@ def deleteMemberFromDB(member_id):
         print(f"Member with ID {member_id} deleted successfully")
     except mysql.connector.Error as error:
         print(f"Error deleting member: {error}")
+    finally:
+        cursor.close()
 
 
 
@@ -247,15 +265,21 @@ def search():
         id=nameOrId
         #search by id
         try:
+            db = mysql.connector.connect(**mysql_config)
+            cursor = db.cursor()
             cursor.execute(f"SELECT * FROM members where member_id={id}")
             members = cursor.fetchall()
         except Exception as e:
             print(f"Error retrieving members: {str(e)}")
+        finally:
+            cursor.close()
             return flask.redirect("/") 
             ######################
     else:
         name=nameOrId
         try:
+            db = mysql.connector.connect(**mysql_config)
+            cursor = db.cursor()
             cursor.execute(f"SELECT * FROM members where name='{name}'")
             members = cursor.fetchall()
         except Exception as e:
@@ -308,21 +332,36 @@ def member_profile():
     result = []
     id = flask.request.args.get("id")
     try:
+        db = mysql.connector.connect(**mysql_config)
+        cursor = db.cursor()
         cursor.execute(f"SELECT * FROM members WHERE member_id={id}")
         member_data = cursor.fetchone()
     except Exception as e:
         print(f"Error retrieving members: {str(e)}")
         return flask.redirect("/")
-
+    finally:
+        cursor.close()
     try:
+        db = mysql.connector.connect(**mysql_config)
+        cursor = db.cursor()
         cursor.execute(f"SELECT * FROM Vitaldetails WHERE memberId={id}")
         member_vital_data = cursor.fetchone()
     except Exception as e:
         print(f"Error retrieving vital: {str(e)}")
         return flask.redirect("/")
-
-    print(member_data)
-    if member_vital_data is not None:
+    finally:
+        cursor.close()
+    try:
+        db = mysql.connector.connect(**mysql_config)
+        cursor = db.cursor()
+        cursor.execute(f"SELECT * FROM package")
+        packages_data = cursor.fetchone()
+    except Exception as e:
+        print(f"Error retrieving vital: {str(e)}")
+        cursor.close()
+        return flask.redirect("/")
+    
+    if member_vital_data and member_data is not None:
         member = Member(
             member_data[1],
             (member_data[2]),
@@ -342,33 +381,15 @@ def member_profile():
             member_vital_data[5],
             int(member_data[0])
         )
+        print("1")
+        packages=getAllPackagesData()
+        print("3")
 
-        text = ""
-        text += "<p class='member_info'><strong>ID: </strong>" + str(member.id) + "</p>"
-        text += "<p class='member_info'><strong>Name: </strong>" + str(member.name) + "</p>"
-        text += "<p class='member_info'><strong>Age: </strong>" + str(member.calculate_age()) + "</p>"
-        text += "<p class='member_info'><strong>Height: </strong>" + str(member.height) + "</p>"
-        text += "<p class='member_info'><strong>Weight: </strong>" + str(member.weight) + "</p>"
-        text += "<p class='member_info'><strong>Gender: </strong>" + member.gender + "</p>"
-        text += "<p class='member_info'><strong>Phone: </strong>" + member.phone + "</p>"
-        text += "<p class='member_info'><strong>Email: </strong>" + member.email + "</p>"
-        text += "<a href='/delete?id=" + str(member.id) + "' class='delete'>Delete</a>"
-        vital_derails = ""
-        vital_derails += "<p class='member_info'><strong>Allergy: </strong>" + str(
-            vitaDetails.allergy
-        ) + "</p>"
-        vital_derails += "<p class='member_info'><strong>Disease: </strong>" + str(vitaDetails.disease) + "</p>"
-        vital_derails += "<p class='member_info'><strong>Medications: </strong>" +str(vitaDetails.medications ) + "</p>"
-        vital_derails += "<p class='member_info'><strong>Fitness Goals: </strong>" + str(
-            vitaDetails.fitnessGoals
-        ) + "</p>"
-        vital_derails += "<p class='member_info'><strong>Body Fat Percentage: </strong>" + str(vitaDetails.bodyFatPercentage) + "%"+"</p>"
-
-        return get_html("member_profile").replace("$$MEMBER_INFO$$", text).replace(
-            "$$MEMBER_VITAL_DETAILS$$", vital_derails
-        )
+        return render_template("member_profile.html", member=member, vitaDetails=vitaDetails,packages=packages)
     else:
         return "No vital details found for this member."
+
+
 
 
 """
@@ -397,3 +418,6 @@ def addnewpackage():
     print(package.duration)
     package.add_to_DB()
     return flask.redirect("/")
+
+
+

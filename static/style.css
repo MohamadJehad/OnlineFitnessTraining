@@ -133,7 +133,7 @@ input[type="submit"] {
 }
 .members_info{
   float: left;
-  width: 30%; /* Adjust width as needed */
+  width: 27%; /* Adjust width as needed */
   margin-right: 2%; /* Optional: Create some space between the divs */
 }
 #members{
