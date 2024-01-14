@@ -13,19 +13,23 @@
           <li><a class="" href="newmember">Add New Member</a></li>
           <li><a class="" href="/">View All Members</a></li>
           <li><a class="" href="/newpacakge">Add New Package</a></li>
+          <li><a class="" href="#packages">View All Packages</a></li>
         </ul>
       </nav><!-- .navbar -->    
     <div class="cont" >
-      <form action="/search" method="get">
+      <form action="/search" method="get" >
         <li><input type="text" class="" name="search" placeholder="Enter Name or ID"></li>
         <li><input type="submit" value="Search"></li>
+        <br>
+        <hr>
     </form>
     
         <div id="members">
+          <h1>Member's Section</h1>
             <table class="members_table">
                 <thead>
                   <tr>
-                    <th>Id
+                    <th>ID
                     <th>Name
                     <th>Age
                     <th>Height  
@@ -43,13 +47,40 @@
               </table>
 
         </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div id="packages">
+          <h1>packages's Section</h1>
+          <table class="members_table">
+              <thead>
+                <tr>
+                  <th>ID
+                  <th>Name
+                  <th>Vlaue
+                  <th>Duration  
+              </thead>
+              <tbody>
+                  $$PACKAGES$$
+              </tbody>
+            </table>
+
+      </div>
         
     </div>
-  
-
-    
-    
-
+    <br>
+    <br>
+    <br>
+    <br>
     <script src="static/script.js"></script>
 </body>
+<footer>
+  <div class="footer-content">
+      <p>Developed by: Jehad</p>
+      <p>Email: m.jehad.kh@gmail.com</p>
+      <p>GitHub: <a href="https://github.com/jehadkh">github.com/jehadkh</a></p>
+      <p>LinkedIn: <a href="https://eg.linkedin.com/in/jehadkh">linkedin.com/in/jehadkh</a></p>
+  </div>
+</footer>
 </html>

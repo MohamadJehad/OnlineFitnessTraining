@@ -9,7 +9,7 @@ app =flask.Flask("server")
 mysql_config = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'Jehad123456@22',
+    'password': 'K1d02370@2024',
     'database': 'fittrackdb'
 }
 # Connect to MySQL
@@ -92,10 +92,10 @@ class Package:
         self.duration=duration
 
     def add_to_DB(self):
+        print("execute query")
         query = """INSERT INTO Package ( name, duration, value)
-                   VALUES (%s, %s, %s)"""
-        values = ( self.name, self.duration,self.value,)
-
+                   VALUES ( %s, %s, %s)"""
+        values = ( self.name, self.duration,self.value)
         try:
             cursor.execute(query, values)
             db.commit()
@@ -145,6 +145,21 @@ def getAllMembersData():
         member_obj = Member(member_data[1],(member_data[2]) , int(member_data[3]), int(member_data[4]), member_data[5], member_data[6], member_data[7],member_data[0])
         all_members.append(member_obj)
     return all_members
+def getAllPackagesData():
+    try:
+        cursor.execute("SELECT * FROM package;")
+        print("=+=+=+=+=+=+=+")
+        packages = cursor.fetchall()
+    except Exception as e:
+        print(f"Error retrieving package: {str(e)}")
+        packages=[]
+    all_packages = []
+    #if members=='':
+    for member in packages:
+        package_data = member
+        package_obj = Package(package_data[1], int(package_data[3]),int(package_data[2]) , int(package_data[0]))
+        all_packages.append(package_obj)
+    return all_packages
 
 def deleteMemberFromDB(member_id):
     try:
@@ -188,7 +203,18 @@ def homepage():
         text += "<td><a href='/delete?id=" + str(member.id) + "' class='delete'>Delete</a></td>"
         text += "<td><a href='/member_profile?id=" + str(member.id) + "' class='delete'>Profile</a></td>"
         text += "</tr>"
-    return get_html("index").replace("$$MEMBERS$$", text)
+        
+    packages=getAllPackagesData()
+    text2=""
+    for package in packages:
+     
+        text2 += "<tr>"
+        text2 += "<td>" + str(package.package_id) + "</td>"
+        text2 += "<td>" + package.name + "</td>"
+        text2 += "<td>" + str(package.value) + "</td>"
+        text2 += "<td>" + str(package.duration) + "</td>"
+        text2 += "</tr>"
+    return get_html("index").replace("$$MEMBERS$$", text).replace("$$PACKAGES$$",text2)
 
 
 @app.route ("/newmember") 
@@ -321,14 +347,13 @@ def member_profile():
         print(" " + member_vital_data[2])
         print(" " + str(member_vital_data[3]))
         print(" " + str(member_vital_data[4]))
-        print(" " + str(member_vital_data[5]))
-        print(" " + str(member_vital_data[6]))
+        print(" member_vital_data[4], " + str(member_vital_data[5]))
         vitaDetails = VitaDetails(
+            member_vital_data[1],
             member_vital_data[2],
             member_vital_data[3],
             member_vital_data[4],
             member_vital_data[5],
-            member_vital_data[6],
             int(member_data[0])
         )
 
@@ -347,7 +372,7 @@ def member_profile():
             vitaDetails.allergy
         ) + "</p>"
         vital_derails += "<p class='member_info'><strong>Disease: </strong>" + str(vitaDetails.disease) + "</p>"
-        vital_derails += "<p class='member_info'><strong>Medications: </strong>" +str(vitaDetails.medications)  + "</p>"
+        vital_derails += "<p class='member_info'><strong>Medications: </strong>" +str(vitaDetails.medications ) + "</p>"
         vital_derails += "<p class='member_info'><strong>Fitness Goals: </strong>" + str(
             vitaDetails.fitnessGoals
         ) + "</p>"
@@ -365,7 +390,7 @@ this function will get the html content from any page
 and send it to browser
 """
 def get_html(pagename):
-    html_file = open(pagename+".html")
+    html_file = open("views/"+pagename+".html")
     content =html_file.read()
     html_file.close()
     return content
@@ -381,5 +406,8 @@ def addnewpackage():
     duration= flask.request.args.get("duration")
 
     package=Package(name, value,duration)
+    print(package.name)
+    print(package.value)
+    print(package.duration)
     package.add_to_DB()
     return flask.redirect("/")
