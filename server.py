@@ -57,7 +57,9 @@ class Member:
             print("member id =" + str(self.id))
         except Exception as e:
             print(f"Error adding member to the database: {str(e)}")
-    
+    """
+        this function return the package that the member subscriped in
+    """
     def get_package(self):
         package_name=""
 
@@ -106,7 +108,6 @@ class Package:
         self.duration=duration
 
     def add_to_DB(self):
-        print("execute query")
         query = """INSERT INTO Package ( name, duration, value)
                    VALUES ( %s, %s, %s)"""
         values = ( self.name, self.duration,self.value)
@@ -211,7 +212,7 @@ def deleteMemberFromDB(member_id):
             # If the member has subscriptions, delete them first
             cursor.execute(f"DELETE FROM subscription WHERE memberId = {member_id}")
 
-        # Now you can delete the member
+        # Now delete the member
         cursor.execute(f"DELETE FROM members WHERE member_id = {member_id}")
 
         db.commit()
@@ -222,6 +223,28 @@ def deleteMemberFromDB(member_id):
         cursor.close()
 
 
+def deletePackageFromDB(package_id):
+    try:
+        db = mysql.connector.connect(**mysql_config)
+        cursor = db.cursor()
+
+        # Check if the package exist in subscription
+        cursor.execute(f"SELECT * FROM subscription WHERE package_id = {package_id}")
+        package = cursor.fetchall()
+
+        if package:
+            # If the member has vital details, delete them first
+            cursor.execute(f"DELETE FROM subscription WHERE package_id = {package_id}")
+
+        # Now delete the package
+        cursor.execute(f"DELETE FROM package WHERE id = {package_id}")
+
+        db.commit()
+        print(f"Package with ID {package_id} deleted successfully")
+    except mysql.connector.Error as error:
+        print(f"Error deleting package: {error}")
+    finally:
+        cursor.close()
 
 
 def generate_new_id():
@@ -284,12 +307,18 @@ def addVitalDetails():
 
 
 
-@app.route ("/delete") 
-def deletemember():
+@app.route ("/deletemember") 
+def deletemember():  
     id= flask.request.args.get("id")
     deleteMemberFromDB(id)
     return flask.redirect("/") 
 
+@app.route ("/deletepackage") 
+def deletepackage():
+    id= flask.request.args.get("package_id")
+    deletePackageFromDB(id)
+    print ("delete package with id = " + str(id))
+    return flask.redirect("/") 
 @app.route ("/search") #the next function will be called once user entered the name of contact he wanted to search for
 def search():
     result=[]
@@ -347,7 +376,7 @@ def get_members_table_text(all_members):
         text += "<td>" + member.email + "</td>"
        # text += "<td>" + str(int(member.calculate_bmr()))+ "</td>"
         text += "<td>" + member.get_package() + "</td>"
-        text += "<td><a href='/delete?id=" + str(member.id) + "' class='delete'>Delete</a></td>"
+        text += "<td><a href='/deletemember?id=" + str(member.id) + "' class='delete'>Delete</a></td>"
         text += "<td><a href='/member_profile?id=" + str(member.id) + "' class='delete'>Profile</a></td>"
         text += "</tr>"
     return text
@@ -360,6 +389,7 @@ def get_packages_table_text(packages):
         text += "<td>" + package.name + "</td>"
         text += "<td>" + str(package.value) + "</td>"
         text += "<td>" + str(package.duration) + "</td>"
+        text += "<td><a href='/deletepackage?package_id=" + str(package.package_id) + "' class='delete'>Delete " + "</a></td>"
         text += "</tr>"
     return text
 
@@ -396,6 +426,7 @@ def member_profile():
         print(f"Error retrieving vital: {str(e)}")
         cursor.close()
         return flask.redirect("/")
+    
     
     if member_vital_data and member_data is not None:
         member = Member(
