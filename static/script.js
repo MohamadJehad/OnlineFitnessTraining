@@ -79,8 +79,14 @@ function toggleTable() {
         else if(table[0].style.display == 'table'){
             table[0].style.display = '';
         }
-        
-    
-    
-   
+}
+
+/**
+ * 
+ * this function will be used in login page
+ */
+function submitForm() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    window.location.href = "/home";
 }

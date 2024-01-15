@@ -266,7 +266,7 @@ class User:
 
 
 
-@app.route("/") 
+@app.route("/home") 
 def homepage():
     members = getAllMembersData()
     text = get_members_table_text(members)
@@ -309,7 +309,7 @@ def addVitalDetails():
 
     vitaDetails=VitaDetails(allergy, disease,bodyFatPercentage,fitnessGoals,medications,member_id)
     vitaDetails.add_to_DB()
-    return flask.redirect("/")
+    return flask.redirect("/home")
 
 
 
@@ -317,14 +317,14 @@ def addVitalDetails():
 def deletemember():  
     id= flask.request.args.get("id")
     deleteMemberFromDB(id)
-    return flask.redirect("/") 
+    return flask.redirect("/home") 
 
 @app.route ("/deletepackage") 
 def deletepackage():
     id= flask.request.args.get("package_id")
     deletePackageFromDB(id)
     print ("delete package with id = " + str(id))
-    return flask.redirect("/") 
+    return flask.redirect("/home") 
 @app.route ("/search") #the next function will be called once user entered the name of contact he wanted to search for
 def search():
     result=[]
@@ -340,7 +340,7 @@ def search():
             members = cursor.fetchall()
         except Exception as e:
             print(f"Error retrieving members: {str(e)}")
-            return flask.redirect("/") 
+            return flask.redirect("/home") 
             
         finally:
             cursor.close()
@@ -354,7 +354,7 @@ def search():
             members = cursor.fetchall()
         except Exception as e:
             print(f"Error retrieving members: {str(e)}")
-            return flask.redirect("/")
+            return flask.redirect("/home")
          
     all_members = []
     for member in members:
@@ -419,7 +419,7 @@ def member_profile():
         member_data = cursor.fetchone()
     except Exception as e:
         print(f"Error retrieving members: {str(e)}")
-        return flask.redirect("/")
+        return flask.redirect("/home")
     finally:
         cursor.close()
     try:
@@ -429,7 +429,7 @@ def member_profile():
         member_vital_data = cursor.fetchone()
     except Exception as e:
         print(f"Error retrieving vital: {str(e)}")
-        return flask.redirect("/")
+        return flask.redirect("/home")
     finally:
         cursor.close()
     try:
@@ -440,7 +440,7 @@ def member_profile():
     except Exception as e:
         print(f"Error retrieving vital: {str(e)}")
         cursor.close()
-        return flask.redirect("/")
+        return flask.redirect("/home")
     
     
     if member_vital_data and member_data is not None:
@@ -483,6 +483,10 @@ def get_html(pagename):
     html_file.close()
     return content
 
+@app.route ("/") 
+def login():
+    return get_html("login")
+
 @app.route ("/newpacakge") 
 def newpackage():
     return get_html("add_package")
@@ -498,7 +502,7 @@ def addnewpackage():
     print(package.value)
     print(package.duration)
     package.add_to_DB()
-    return flask.redirect("/")
+    return flask.redirect("/home")
 
 
 
@@ -512,7 +516,7 @@ def subscribe():
     
     subscribe_to_package(package_id,member_id)
         # Redirect to member profile or wherever you want to go after subscription
-    return flask.redirect("/")
+    return flask.redirect("/home")
 
 
 def subscribe_to_package(package_id,member_id):
@@ -543,6 +547,6 @@ def subscribe_to_package(package_id,member_id):
             print("Member subscribed successfully")
     except Exception as e:
         print(f"Error retrieving vital: {str(e)}")
-        return flask.redirect("/")
+        return flask.redirect("/home")
     finally:
         cursor.close()
