@@ -45,7 +45,7 @@ strong{
 }
 
 .cont {
-  width: 80%;
+  width: 90%;
   margin: auto;
   overflow: hidden;
 }
@@ -129,6 +129,7 @@ strong{
   margin-top: 12px;
 }
 
+
 /* Hover effect on button */
 .profile-details button:hover {
   background-color: #555;
@@ -159,7 +160,7 @@ input[type="submit"] {
 }
 .members_info{
   float: left;
-  width: 27%; /* Adjust width as needed */
+  width: 30%; /* Adjust width as needed */
   margin-right: 2%; /* Optional: Create some space between the divs */
   font-size: 18px;
 }
@@ -188,5 +189,103 @@ footer a {
 
 footer a:hover {
   text-decoration: underline;
+}
+/*
+form textarea{
+  padding: 10px;
+    width: 50%;
+    height: 200px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin: 10px 0;
+}
+ */
+
+
+ /* Add new styles for the workout page */
+/* Add new styles for the workout page */
+
+.workout-form {
+  width: 80%;
+  text-align: center;
+  margin-top: 20px;
+  margin-left: 10%;
+  padding: 20px;
+}
+
+
+.table-containter{
+  text-align: center;
+  align-items: center;
+}
+
+
+
+.excel-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 30px auto; /* Center the table horizontally with some margin */
+  display: none;
+}
+
+.excel-table th, .excel-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.excel-table th {
+  background-color: #f2f2f2;
+}
+
+.excel-table input[type="text"][name^="exercise"] {
+  width: 80%; /* Larger width for Exercise */
+  height: 30px;
+}
+
+.excel-table input[type="text"][name^="sets"]{
+  width: 66%; /* Smaller width for Sets and Reps */
+  height: 30px;
+}
+.excel-table input[type="text"][name^="reps"] {
+  width: 50%; /* Smaller width for Sets and Reps */
+  height: 30px;
+}
+
+.excel-table input[type="text"][name^="video_link"] {
+  width: 75%; /* Larger width for Video Link */
+  height: 30px;
+}
+
+.row5, .row4, .row3, .row2, .row1 {
+  display: none;
+}
+#btn1,#btn2,#btn3,#btn4,#btn5,#workoutbtn {
+  display: none;
+}
+#btn,#workoutbtn{
+  width: 250px;
+}
+.table_btns {
+  width: 60%;
+  display: flex;
+  margin: 20px auto;
+}
+
+.table_btns button,#btn,#workoutbtn {
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 8px;
+  margin: 0 auto; 
+
+}
+
+.table_btns button:hover {
+  background-color: #555;
 }
 

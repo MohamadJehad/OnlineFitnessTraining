@@ -12,6 +12,8 @@
         <ul>
             <li><a class="" href="newmember">Add New Member</a></li>
             <li><a class="" href="/">View All Members</a></li>
+            <li><a class="" href="#add-workout">Add Workout Program</a></li>
+            
         </ul>
     </nav><!-- .navbar -->
 
@@ -70,7 +72,160 @@
 
        
     </div>
+    <br><br><br>
+   
+        
 
+    
+
+        
+        <div class="workout-info" id="add-workout">
+            
+            <div class="workout-form">
+                <h1>Workout Program</h1>
+                <h2>Add New Workout</h2>
+                <input type="hidden" name="member_id" value="{{ member.id }}">
+                <button id="btn">Show Workout Table</button>
+                <div class="table_btns">
+                    <button id="btn1">Show Day 1</button>
+                    <button id="btn2">Show Day 2</button>
+                    <button id="btn3">Show Day 3</button>
+                    <button id="btn4">Show Day 4</button>
+                    <button id="btn5">Show Day 5</button>
+                </div>
+               
+                <form method="POST" action="/add_workout">
+                    <div class="table-containter">
+                    <table class="excel-table">
+                        <thead >
+                            <tr>
+                                <th>Day</th>
+                                <th>Exercise</th>
+                                <th>Sets</th>
+                                <th>Reps</th>
+                                <th>Video Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Day 1 -->
+                            <tr class="row1">
+                                <td rowspan="3" class="day1">Day 1</td>
+                                <td><input type="text" class="day1" name="exercise_day1_1"></td>
+                                <td><input type="text" class="day1" name="sets_day1_1"></td>
+                                <td><input type="text" class="day1" name="reps_day1_1"></td>
+                                <td><input type="text" class="day1" name="video_link_day1_1"></td>
+                            </tr>
+                            <tr class="row1">
+                                <td><input type="text" class="day1" name="exercise_day1_2"></td>
+                                <td><input type="text" class="day1" name="sets_day1_2"></td>
+                                <td><input type="text"class="day1" name="reps_day1_2"></td>
+                                <td><input type="text"class="day1"  name="video_link_day1_2"></td>
+                            </tr >
+                            <tr class="row1">
+                                <td><input type="text" class="day1" name="exercise_day1_3"></td>
+                                <td><input type="text" class="day1" name="sets_day1_3"></td>
+                                <td><input type="text" class="day1" name="reps_day1_3"></td>
+                                <td><input type="text" class="day1" name="video_link_day1_3"></td>
+                            </tr>
+                            <!-- Day 2 -->
+                            <tr class="row2">
+                                <td rowspan="3">Day 2</td>
+                                <td><input type="text" class="day2" name="exercise_day2_1"></td>
+                                <td><input type="text" class="day2" name="sets_day2_1"></td>
+                                <td><input type="text" class="day2" name="reps_day2_1"></td>
+                                <td><input type="text" class="day2" name="video_link_day2_1"></td>
+                            </tr>
+                            <tr class="row2">
+                                <td><input type="text" class="day2" name="exercise_day2_2"></td>
+                                <td><input type="text" class="day2" name="sets_day2_2"></td>
+                                <td><input type="text" class="day2" name="reps_day2_2"></td>
+                                <td><input type="text" class="day2" name="video_link_day2_2"></td>
+                            </tr>
+                            <tr class="row2">
+                                <td><input type="text" class="day2" name="exercise_day2_3"></td>
+                                <td><input type="text" class="day2" name="sets_day2_3"></td>
+                                <td><input type="text" class="day2" name="reps_day2_3"></td>
+                                <td><input type="text" class="day2" name="video_link_day2_3"></td>
+                            </tr class="row2">
+                            <!-- Repeat for exercises 3 to 6 -->
+                            <!-- Day 3 -->
+                            <tr class="row3">
+                                <td rowspan="3">Day 3</td>
+                                <td><input type="text" class="day3" name="exercise_day3_1"></td>
+                                <td><input type="text" class="day3" name="sets_day3_1"></td>
+                                <td><input type="text" class="day3" name="reps_day3_1"></td>
+                                <td><input type="text" class="day3" name="video_link_day3_1"></td>
+                            </tr>
+                            <tr class="row3">
+                                <td><input type="text" class="day3" name="exercise_day3_2"></td>
+                                <td><input type="text" class="day3" name="sets_day3_2"></td>
+                                <td><input type="text" class="day3" name="reps_day3_2"></td>
+                                <td><input type="text" class="day3" name="video_link_day3_2"></td>
+                            </tr>
+                            <tr class="row3">
+                                <td><input type="text" class="day3" name="exercise_day3_3"></td>
+                                <td><input type="text" class="day3" name="sets_day3_3"></td>
+                                <td><input type="text" class="day3" name="reps_day3_3"></td>
+                                <td><input type="text" class="day3" name="video_link_day3_3"></td>
+                            </tr class="row3">
+                            <!-- ... -->
+                            <!-- Day 4 -->
+                            <tr class="row4">
+                                <td rowspan="3">Day 4</td>
+                                <td><input type="text" class="day4" name="exercise_day4_1"></td>
+                                <td><input type="text" class="day4" name="sets_day4_1"></td>
+                                <td><input type="text" class="day4" name="reps_day4_1"></td>
+                                <td><input type="text" class="day4" name="video_link_day4_1"></td>
+                            </tr>
+                            <tr class="row4">
+                                <td><input type="text" class="day4" name="exercise_day4_2"></td>
+                                <td><input type="text" class="day4" name="sets_day4_2"></td>
+                                <td><input type="text" class="day4" name="reps_day4_2"></td>
+                                <td><input type="text" class="day4" name="video_link_day4_2"></td>
+                            </tr>
+                            <tr class="row4">
+                                <td><input type="text" class="day4" name="exercise_day4_3"></td>
+                                <td><input type="text" class="day4" name="sets_day4_3"></td>
+                                <td><input type="text" class="day4" name="reps_day4_3"></td>
+                                <td><input type="text" class="day4" name="video_link_day4_3"></td>
+                            </tr>
+                            <!-- Day 5 -->
+                            <tr class="row5">
+                                <td rowspan="3">Day 5</td>
+                                <td><input type="text" class="day5" name="exercise_day5_1"></td>
+                                <td><input type="text" class="day5" name="sets_day5_1"></td>
+                                <td><input type="text" class="day5" name="reps_day5_1"></td>
+                                <td><input type="text" class="day5" name="video_link_day5_1"></td>
+                            </tr>
+                            <tr class="row5">
+                                <td><input type="text" class="day5" name="exercise_day5_2"></td>
+                                <td><input type="text" class="day5" name="sets_day5_2"></td>
+                                <td><input type="text" class="day5" name="reps_day5_2"></td>
+                                <td><input type="text" class="day5" name="video_link_day5_2"></td>
+                            </tr>
+                            <tr class="row5">
+                                <td><input type="text" class="day5" name="exercise_day5_3"></td>
+                                <td><input type="text" class="day5" name="sets_day5_3"></td>
+                                <td><input type="text" class="day5" name="reps_day5_3"></td>
+                                <td><input type="text" class="day5" name="video_link_day5_3"></td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+                    
+            
+                    <button type="submit" id="workoutbtn" >Add Workout</button>
+                </form>
+            </div>
+            
+            
+        </div>
+    
+       
+
+    <br><br><br><br><br><br>
     <script src="static/script.js"></script>
 </body>
 </html>
