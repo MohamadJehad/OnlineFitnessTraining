@@ -60,22 +60,28 @@ class Member:
     """
         this function return the package that the member subscriped in
     """
-    def get_package(self):
-        package_name=""
+    def get_subscription(self):
+        subscription=[]
 
-        query = f"SELECT package.name FROM subscription JOIN package ON subscription.package_id = package.id WHERE subscription.memberId = {self.id}"
+        query = f""" SELECT package.name, subscription.startDate, subscription.endDate
+                        FROM subscription
+                        JOIN package ON subscription.package_id = package.id
+                        WHERE subscription.memberId = {self.id};
+                    """
+
         try:
             db = mysql.connector.connect(**mysql_config)
             cursor = db.cursor()
             cursor.execute(query)
             #this must return tuple contains every subscriped backage and every name
             # so here we will have only one row and will take the only value in it
-            package_name = str(cursor.fetchall()[0][0])
+            subscription = cursor.fetchall()[0]
+            print(subscription)
         except Exception as e:
             print(f"Error getting package: {str(e)}")
         finally:
             cursor.close()
-        return package_name
+        return subscription
     
     
     """
@@ -368,14 +374,23 @@ def get_members_table_text(all_members):
         text += "<tr>"
         text += "<td>" + str(member.id) + "</td>"
         text += "<td>" + member.name + "</td>"
-        text += "<td>" + str(member.calculate_age()) + "</td>"
+        #text += "<td>" + str(member.calculate_age()) + "</td>"
         #text += "<td>" + str(member.height) + "</td>"
         #text += "<td>" + str(member.weight) + "</td>"
-        text += "<td>" + member.gender + "</td>"
+        #text += "<td>" + member.gender + "</td>"
         text += "<td>" + member.phone + "</td>"
-        text += "<td>" + member.email + "</td>"
+        #text += "<td>" + member.email + "</td>"
        # text += "<td>" + str(int(member.calculate_bmr()))+ "</td>"
-        text += "<td>" + member.get_package() + "</td>"
+        subscription_data = member.get_subscription()
+        if subscription_data:
+            print("00000000000000   "+ subscription_data[0])
+            text += "<td>" + subscription_data[0] + "</td>"
+            text += "<td>" + str(subscription_data[1]) + "</td>"
+            text += "<td>" + str(subscription_data[2]) + "</td>"
+        else:
+            text += "<td>" + "Not subscriped" + "</td>"
+            text += "<td>"  + " " + "</td>"
+            text += "<td>"  + " " + "</td>"
         text += "<td><a href='/deletemember?id=" + str(member.id) + "' class='delete'>Delete</a></td>"
         text += "<td><a href='/member_profile?id=" + str(member.id) + "' class='delete'>Profile</a></td>"
         text += "</tr>"
