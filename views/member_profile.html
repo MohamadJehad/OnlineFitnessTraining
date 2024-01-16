@@ -54,6 +54,10 @@
             <h2>Package Details</h2>
             <hr>
             <div class="profile-details">
+                <p class='member_info' id="package_name"><strong>Package Name: </strong>{{ subscription_data.name }}</p>
+                <p class='member_info' id="package_start_date"><strong>Package Start Date: </strong>{{ subscription_data.startDate }}</p>
+                <p class='member_info' id="package_end_date"><strong>Package End Date: </strong>{{ subscription_data.endDate }}</p>
+                
                 <br>
                 <strong><label for="packageDropdown">Select a Package:</label></strong>
                 <form method="POST" action="/subscribe">

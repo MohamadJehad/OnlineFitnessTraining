@@ -1,3 +1,25 @@
+/**
+ * in this section weill chaeck if the user is not subscriped in package yet
+ * then will disable the text of start and end dates
+ */
+
+const packageStart = document.getElementById("package_start_date");
+const packageEnd = document.getElementById("package_end_date");
+const packageName=document.getElementById("package_name");
+
+// Function to check if a given string is a valid date
+function isValidDate(dateString) {
+  const isValid = !isNaN(Date.parse(dateString));
+  return isValid;
+}
+
+// Check if packageEnd.innerText is not a valid date
+if (!isValidDate(packageEnd.innerText.trim()) || !isValidDate(packageStart.innerText.trim())) {
+  packageEnd.style.display = 'none';
+  packageStart.style.display = 'none';
+  packageName.style.display = 'none';
+}
+
 
 /**
  * This section is for the workout table

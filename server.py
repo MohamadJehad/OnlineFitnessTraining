@@ -452,6 +452,11 @@ def member_profile():
             member_data[7],
             int(member_data[0]),
         )
+        subscription=member.get_subscription()
+        if subscription:
+            subscription_data = {'name':subscription[0],'startDate': subscription[1] ,'endDate':subscription[2]}
+        else:
+            subscription_data = {'name':'Subscribe first','startDate': '' ,'endDate':''}
 
         vitaDetails = VitaDetails(
             member_vital_data[1],
@@ -466,9 +471,9 @@ def member_profile():
             workout_file_path = f"members/{id}/workout_summary.txt"
             with open(workout_file_path, 'r') as file:
                 file_content = file.read()
-            return render_template("member_profile.html", member=member, vitaDetails=vitaDetails, packages=packages, file_content=file_content)
+            return render_template("member_profile.html", member=member, vitaDetails=vitaDetails, packages=packages, subscription_data=subscription_data,file_content=file_content)
         except Exception as e:
-            return render_template("member_profile.html", member=member, vitaDetails=vitaDetails, packages=packages,file_content="Workout Not Added Yet")
+            return render_template("member_profile.html", member=member, vitaDetails=vitaDetails, packages=packages,subscription_data=subscription_data,file_content="Workout Not Added Yet")
 
                 
     else:
