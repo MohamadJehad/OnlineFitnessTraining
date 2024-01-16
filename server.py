@@ -77,7 +77,6 @@ class Member:
             #this must return tuple contains every subscriped backage and every name
             # so here we will have only one row and will take the only value in it
             subscription = cursor.fetchall()[0]
-            print(subscription)
         except Exception as e:
             print(f"Error getting package: {str(e)}")
         finally:
@@ -506,9 +505,6 @@ def addnewpackage():
     duration= flask.request.args.get("duration")
 
     package=Package(name, value,duration)
-    print(package.name)
-    print(package.value)
-    print(package.duration)
     package.add_to_DB()
     return flask.redirect("/home")
 
@@ -519,10 +515,14 @@ def addnewpackage():
 def subscribe():
     package_id = flask.request.form.get("package_id")
     member_id = flask.request.form.get("member_id")
+   
+    flag,remaining_months,remaining_days=subscribe_to_package(package_id,member_id)
+    if not flag:
+        print(f"flag ={flag} /member_profile?id="+str(member_id)+"&remaining_months="+str(remaining_months)+"&remaining_days="+str(remaining_days))
+        return flask.redirect("/member_profile?id="+str(member_id)+"&remaining_months="+str(remaining_months)+"&remaining_days="+str(remaining_days))
+    else:
+        return flask.redirect("/home")
     
-    subscribe_to_package(package_id,member_id)
-        # Redirect to member profile or wherever you want to go after subscription
-    return flask.redirect("/home")
 
 # New route to handle add workout to member
 @app.route("/add_workout", methods=["POST"])
@@ -564,17 +564,14 @@ def add_workout():
 
 def subscribe_to_package(package_id,member_id):
     #first chack if memebr already subscriped
+
     try:
         db = mysql.connector.connect(**mysql_config)
         cursor = db.cursor()
-        print("let's check")
         cursor.execute(f"SELECT * FROM subscription WHERE memberId={member_id}")
         existing_subscription = cursor.fetchone()
-        if existing_subscription:
-            # Member is already subscribed, handle accordingly (e.g., show a message)
-            print("Member is already subscribed to a package")
-        else:
-            print("let's sub")
+        current_date = datetime.now().date()
+        if not existing_subscription or (existing_subscription)[2] < current_date:
             # Get package duration from the package table
             cursor.execute(f"SELECT duration FROM package WHERE id={package_id}")
             duration = cursor.fetchone()[0]
@@ -587,9 +584,21 @@ def subscribe_to_package(package_id,member_id):
             cursor.execute("INSERT INTO subscription (memberId, package_id, startDate, endDate) VALUES (%s, %s, %s, %s)",
                            (member_id, package_id, start_date, end_date))
             db.commit()
-            print("Member subscribed successfully")
+            print("Member subscribed successfully ---------------------------------")
+            cursor.close()
+            ret= True,0,0
+        else:
+            existing_end_date=((existing_subscription)[2])
+            remaining_days = (existing_end_date - current_date).days # total number of days remaining 
+            remaining_months=remaining_days//30     # total number of Months remaining 
+            remaining_days=remaining_days-remaining_months*30   #  number of days remaining after months
+            print("---abc--------------"+str(remaining_days)+"-----------------"+str(remaining_months))
+            cursor.close()
+            ret= False,remaining_months,remaining_days
+
     except Exception as e:
-        print(f"Error retrieving vital: {str(e)}")
-        return flask.redirect("/home")
+        print(f"Error retrieving : {str(e)}")
+        
     finally:
         cursor.close()
+        return ret
