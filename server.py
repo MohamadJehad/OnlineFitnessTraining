@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import mysql.connector
 import flask
 from flask_mysqldb import MySQL
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 import os
 
 app =flask.Flask(__name__)
@@ -382,7 +382,6 @@ def get_members_table_text(all_members):
        # text += "<td>" + str(int(member.calculate_bmr()))+ "</td>"
         subscription_data = member.get_subscription()
         if subscription_data:
-            print("00000000000000   "+ subscription_data[0])
             text += "<td>" + subscription_data[0] + "</td>"
             text += "<td>" + str(subscription_data[1]) + "</td>"
             text += "<td>" + str(subscription_data[2]) + "</td>"
@@ -463,12 +462,17 @@ def member_profile():
             int(member_data[0])
         )
         packages=getAllPackagesData()
-        
+        try:
+            workout_file_path = f"members/{id}/workout_summary.txt"
+            with open(workout_file_path, 'r') as file:
+                file_content = file.read()
+            return render_template("member_profile.html", member=member, vitaDetails=vitaDetails, packages=packages, file_content=file_content)
+        except Exception as e:
+            return render_template("member_profile.html", member=member, vitaDetails=vitaDetails, packages=packages,file_content="Workout Not Added Yet")
 
-        return render_template("member_profile.html", member=member, vitaDetails=vitaDetails,packages=packages)
+                
     else:
         return "No vital details found for this member."
-
 
 
 
@@ -534,6 +538,7 @@ def add_workout():
         workout_file.write(f"Member ID: {member_id}\n\n")
         break_flag = False
         for day in range(1, 6):
+            #check if there is at least one exercise existed 
             if flask.request.form.get(f"exercise_day{day}_{1}"): 
                 workout_file.write(f"{'Day':<4}{day:<10}\n{'Exercise:':<40}{'Sets:':<20}{'Reps:':<20}{'Video Link:':<40}")
                 for j in range(1, 4):

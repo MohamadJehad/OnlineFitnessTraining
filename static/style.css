@@ -289,3 +289,18 @@ form textarea{
   background-color: #555;
 }
 
+.view-workout-form {
+  width: 90%;
+  margin: auto;
+  text-align: left;
+  padding: 20px;
+  background-color: #fff; 
+  border: 3px solid #041920; 
+  border-radius: 15px;
+}
+
+.view-workout-form pre {
+  font-family: Courier, monospace; 
+  font-size: 20px; 
+  color: #041920;
+}
