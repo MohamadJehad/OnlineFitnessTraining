@@ -112,3 +112,26 @@ function submitForm() {
     var password = document.getElementById("password").value;
     window.location.href = "/home";
 }
+
+/**
+ * 
+ */
+const print_workoutbtn = document.getElementById("print_workoutbtn");
+print_workoutbtn.onclick = function () {
+    printWorkoutPlan();
+};
+function printWorkoutPlan() {
+    var workoutContent = document.getElementById("workoutContent").innerText;
+
+    // Create a new window
+    var printWindow = window.open('', '_blank');
+
+    // Write the workout content to the new window
+    printWindow.document.write('<html><head><title>Workout Plan</title></head><body>');
+    printWindow.document.write('<pre>' + workoutContent + '</pre>');
+    printWindow.document.write('</body></html>');
+
+
+    printWindow.print();
+}
+

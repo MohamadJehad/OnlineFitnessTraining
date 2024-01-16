@@ -135,7 +135,7 @@ strong{
   background-color: #555;
 }
 #packageDropdown{
-  font-size: px;
+  font-size: 20px;
 }
 
 .box {
@@ -162,7 +162,7 @@ input[type="submit"] {
   float: left;
   width: 30%; /* Adjust width as needed */
   margin-right: 2%; /* Optional: Create some space between the divs */
-  font-size: 18px;
+  font-size: 22px;
 }
 #members{
   max-height: 450px; /* Adjust the maximum height of the table*/
@@ -303,4 +303,16 @@ form textarea{
   font-family: Courier, monospace; 
   font-size: 20px; 
   color: #041920;
+}
+
+#print_workoutbtn {
+  padding: 10px;
+  width: 250px;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 8px;
+  margin: 20px auto; 
+
 }

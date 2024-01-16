@@ -13,6 +13,8 @@
             <li><a class="" href="newmember">Add New Member</a></li>
             <li><a class="" href="/home">View All Members</a></li>
             <li><a class="" href="#add-workout">Add Workout Program</a></li>
+            <li><a class="" href="#view_workout">View Workout Program</a></li>
+            <li><a class="" href="#print_workoutbtn">Print Workout Program</a></li>
             
         </ul>
     </nav><!-- .navbar -->
@@ -26,12 +28,12 @@
                     <input type="hidden" name="member_id" id="memberId" value="{{ member.id }}">
                     <p class='member_info'><strong>ID: </strong>{{ member.id }}</p>
                     <p class='member_info'><strong>Name: </strong>{{ member.name }}</p>
+                    <p class='member_info'><strong>Age: </strong>{{ member.calculate_age() }}</p>
                     <p class='member_info'><strong>Email: </strong>{{ member.email }}</p>
                     <p class='member_info'><strong>Phone: </strong>{{ member.phone }}</p>
                     <p class='member_info'><strong>Gender: </strong>{{ member.gender }}</p>
                     <p class='member_info'><strong>Weight: </strong>{{ member.weight }}</p>
                     <p class='member_info'><strong>Height: </strong>{{ member.height }}</p>
-                    <p class='member_info'><strong>Birthdate: </strong>{{ member.birthdate }}</p>
                
                 </div>
             </div>
@@ -218,14 +220,15 @@
                 </form>
                 
                 <br><br><br>
-    <div class="workout-info" id="add-workout">
+    <div class="workout-info" id="view_workout">
         <div class="view-workout-form">
             <h1>Workout Plan</h1>
             <!-- Display the file content here -->
-            <pre>{{ file_content }}</pre>
+            <pre id="workoutContent">{{ file_content }}</pre>
         </div>
+        <button  id="print_workoutbtn" >print workout Program</button>
     </div>
-            </div>
+    </div>
             
             
         </div>

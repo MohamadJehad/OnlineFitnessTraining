@@ -557,7 +557,7 @@ def add_workout():
             workout_file.write("\n\n\n")
                 
     # Redirect to the member profile or another destination after subscription
-    return flask.redirect("/home")
+    return flask.redirect(f"/member_profile?id=" + str(member_id))
 
 
 
