@@ -4,6 +4,7 @@ import mysql.connector
 import flask
 from flask_mysqldb import MySQL
 from flask import Flask, render_template
+import os
 
 app =flask.Flask(__name__)
 app = Flask(__name__, template_folder="views")
@@ -158,7 +159,6 @@ class VitaDetails:
 
 
 def getAllMembersData():
-
     try:
         db = mysql.connector.connect(**mysql_config)
         cursor = db.cursor()
@@ -344,7 +344,6 @@ def search():
             
         finally:
             cursor.close()
-            ######################
     else:
         name=nameOrId
         try:
@@ -511,12 +510,46 @@ def addnewpackage():
 def subscribe():
     package_id = flask.request.form.get("package_id")
     member_id = flask.request.form.get("member_id")
-    print("member_id is =" + str(member_id))
-    print("package_id is =" + str(package_id))
     
     subscribe_to_package(package_id,member_id)
         # Redirect to member profile or wherever you want to go after subscription
     return flask.redirect("/home")
+
+# New route to handle add workout to member
+@app.route("/add_workout", methods=["POST"])
+def add_workout():
+    # Get member_id from the form data
+    member_id = flask.request.form.get("member_id")
+    print("member_id is =" + str(member_id))
+
+    # Create a directory if it doesn't exist for the member
+    member_directory = f"members/{member_id}"
+    os.makedirs(member_directory, exist_ok=True)
+
+    # Create a single file for all workout data
+    file_path = os.path.join(member_directory, "workout_summary.txt")
+    
+    
+    with open(file_path, 'w') as workout_file:
+        workout_file.write(f"Member ID: {member_id}\n\n")
+        break_flag = False
+        for day in range(1, 6):
+            if flask.request.form.get(f"exercise_day{day}_{1}"): 
+                workout_file.write(f"{'Day':<4}{day:<10}\n{'Exercise:':<40}{'Sets:':<20}{'Reps:':<20}{'Video Link:':<40}")
+                for j in range(1, 4):
+                    # Get exercise, sets, reps, and video_link for each day and exercise
+                    exercise = flask.request.form.get(f"exercise_day{day}_{j}")
+                    sets = flask.request.form.get(f"sets_day{day}_{j}")
+                    reps = flask.request.form.get(f"reps_day{day}_{j}")
+                    video_link = flask.request.form.get(f"video_link_day{day}_{j}")
+                    workout_file.write(f"\n{exercise:<40}{sets:<20}{reps:<20}{video_link:<40}")
+              
+            workout_file.write("\n\n\n")
+                
+    # Redirect to the member profile or another destination after subscription
+    return flask.redirect("/home")
+
+
 
 
 def subscribe_to_package(package_id,member_id):
