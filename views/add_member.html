@@ -18,28 +18,27 @@
     <div class="cont">
        
 
-    <form action="/addnewmember" method="get">
-        <input type="text" class="box" name="name" placeholder="Enter Member's Name">
-        <input type="text" class="box" name="height" placeholder="Enter Member's Height">
-        <input type="text" class="box" name="phone" placeholder="Enter Member's Phone Number">
-        <input type="text" class="box" name="weight" placeholder="Enter Member's Weight">
-        <input type="text" class="box" name="email" placeholder="Enter Member's Email">
-      <!--<h3 for="birthdate">Enter Member's Birthdate:</h3>-->  
-        <input type="date" class="box"  class="box_date" name="birthdate" placeholder="Enter Member's Birthdate">
+      <form name="myForm" id="add_member_form" action="/addnewmember" method="get">
+          <input type="text" id="member_name" class="box" name="name" placeholder="Enter Member's Name">
+          <input type="text" id="member_height" class="box" name="height" placeholder="Enter Member's Height">
+          <input type="text" id="member_phone" class="box" name="phone" placeholder="Enter Member's Phone Number">
+          <input type="text" id="member_weight" class="box" name="weight" placeholder="Enter Member's Weight">
+          <input type="text" id="member_email" class="box" name="email" placeholder="Enter Member's Email">
+          <input type="date" id="member_birthdate" class="box"  class="box_date" name="birthdate" placeholder="Enter Member's Birthdate">
 
-        <select class="box" name="gender">
-            <option value="" disabled selected>Choose Member's gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-        </select>
-        <br>
-        <input type="submit" value="Add Member">
-    </form>
+          <select id='member_gender' class="box" name="gender">
+              <option value="" disabled selected>Choose Member's gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+          </select>
+          <br>
+          <input type="submit" id="add_member" value="Add Member">
+      </form>
 
     <br><br>
-</div>
+    </div>
     
 
-    <script src="static/script.js"></script>
+    <script src="static/add_member_script.js"></script>
 </body>
 </html>
