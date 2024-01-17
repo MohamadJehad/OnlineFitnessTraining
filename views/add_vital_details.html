@@ -17,14 +17,14 @@
     
     <div class="cont">
        
-
-    <form action="/addVitalDetails" method="get">
+        <h3 id="errorMsg"></h3>
+    <form action="/addVitalDetails" id="add_vital_form" method="get">
         
-        <input type="text" class="box" name="bodyFatPercentage" placeholder="Enter Member's bodyFatPercentage">
-        <input type="text" class="box" name="disease" placeholder="Enter Member's disease">
-        <input type="text" class="box" name="medications" placeholder="Enter Member's medications">
-        <input type="text" class="box" name="allergy" placeholder="Enter Member's allergy">
-        <input type="text" class="box" name="fitnessGoals" placeholder="Enter Member's fitnessGoals">
+        <input type="text" class="box" id="vital_fat_prcent" name="bodyFatPercentage" placeholder="Enter Member's bodyFatPercentage">
+        <input type="text" class="box" id="vital_disease" name="disease" placeholder="Enter Member's disease">
+        <input type="text" class="box" id="vital_medication" name="medications" placeholder="Enter Member's medications">
+        <input type="text" class="box" id="vital_allergy" name="allergy" placeholder="Enter Member's allergy">
+        <input type="text" class="box" id="vital_fit_goal" name="fitnessGoals" placeholder="Enter Member's fitnessGoals">
         <input type="hidden" name="id" id="memberId" value="&&ID&&">
         <br>
         <input type="submit" value="Add Vital Details">
@@ -35,6 +35,6 @@
 </div>
     
 
-    <script src="static/script.js"></script>
+    <script src="static/add_vital_details_script.js"></script>
 </body>
 </html>

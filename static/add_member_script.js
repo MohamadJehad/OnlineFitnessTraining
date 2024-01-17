@@ -7,51 +7,58 @@
  * gender ::  only male, female 
  * phone :: must be 11 number with no strings
  */
-let errorMsg='';
-document.getElementById("add_member_form").addEventListener("click",()=>{
+let message='';
+const errorMsg=document.getElementById("errorMsg");
+document.getElementById("add_member_form").addEventListener("submit",()=>{
     
     //validate the name
     const MemberName=document.getElementById("member_name").value;
     containsNumber=false
     for (const char of MemberName) {
-        if (!isNaN(Number(char))) {
+        if (!isNaN(Number(char)) && char!=' ') {
             containsNumber = true;
             break;
         }
     }
     if(containsNumber){
-        console.log("containsNumber  "); 
+        errorMsg.innerText="Name must not contain any number";
         event.preventDefault();  
         return; 
     }
     if(MemberName.trim().length <3){
         event.preventDefault(); 
-        console.log("nooo");
+        errorMsg.innerText="Name length must be more than 3";
         return;
     }
 
     //valiadte the height
     const MemberHeight=Number(document.getElementById("member_height").value);
-    if (isNaN(MemberHeight)) {
+    if(MemberHeight==''){
+        errorMsg.innerText="enter a heighy first";
+        event.preventDefault();  
+        return; 
+    }
+    else if (isNaN(MemberHeight)) {
         event.preventDefault(); 
-        console.log("not  a number");
+        errorMsg.innerText="height must be a number";
         return
     }
     else if(MemberHeight > 230 || MemberHeight< 135){
         event.preventDefault(); 
-        console.log("must be bigger than 135 and smaller than 230");
+        errorMsg.innerText="height must be bigger than 135 and smaller than 230";
         return
     }
+    
     //valiadte the weight
     const MemberWeight=Number(document.getElementById("member_weight").value);
     if (isNaN(MemberWeight)) {
         event.preventDefault(); 
-        console.log("not  a number");
+        errorMsg.innerText="weight must be number";
         return
     }
     else if(MemberWeight > 230 || MemberWeight< 30){
         event.preventDefault(); 
-        console.log("weight must be bigger than 30 and smaller than 230");
+        errorMsg.innerText="weight must be bigger than 30 and smaller than 230";
         return
     }
     
@@ -59,12 +66,12 @@ document.getElementById("add_member_form").addEventListener("click",()=>{
     const MemberPhone=document.getElementById("member_phone").value;
     if (isNaN(Number(MemberPhone))) {
         event.preventDefault(); 
-        console.log("phone not  a number");
+        errorMsg.innerText="phone must be a number";
         return
     }
     else if(MemberPhone.length != 11){
         event.preventDefault(); 
-        console.log("phone must be 11 number");
+        errorMsg.innerText="phone length must be 11 numbers";
         return
     }
 
@@ -72,26 +79,26 @@ document.getElementById("add_member_form").addEventListener("click",()=>{
     const MemberEmail=document.getElementById("member_email").value;
     if(!MemberEmail.includes("@")){
         event.preventDefault(); 
-        console.log("Email must include @");
+        errorMsg.innerText="Email must contains @";
         return
     }
     else if(MemberEmail.trim().length <= 6){
         event.preventDefault(); 
-        console.log("Email length must be bigger than 6");
+        errorMsg.innerText="Email length must be more than 6 ";
         return
     }
     
     //validate the member_birthdate
     const member_birthdate=Number(document.getElementById("member_birthdate").value.slice(0,4));
     if(member_birthdate<1950 || member_birthdate>2020){
-        console.log("wrong birth date  "); 
+        errorMsg.innerText="Enter right birthdate"; 
         event.preventDefault();  
         return; 
     }
     //validate the member_gender
     const member_gender=document.getElementById("member_gender").value.toLowerCase();
     if(member_gender==''){
-        console.log("Choose gender  "); 
+        errorMsg.innerText="select a gender first";
         event.preventDefault();  
         return; 
     }
