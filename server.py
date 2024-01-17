@@ -518,10 +518,18 @@ def subscribe():
    
     flag,remaining_months,remaining_days=subscribe_to_package(package_id,member_id)
     if not flag:
-        print(f"flag ={flag} /member_profile?id="+str(member_id)+"&remaining_months="+str(remaining_months)+"&remaining_days="+str(remaining_days))
         return flask.redirect("/member_profile?id="+str(member_id)+"&remaining_months="+str(remaining_months)+"&remaining_days="+str(remaining_days))
     else:
         return flask.redirect("/home")
+    
+# New route to handle subscription form submission
+@app.route("/resubscribe", methods=["POST"])
+def resubscribe():
+    package_id = flask.request.form.get("package_id")
+    member_id = flask.request.form.get("member_id")
+   
+    re_subscribe_to_package(package_id,member_id)
+    return flask.redirect("/member_profile?id="+str(member_id))
     
 
 # New route to handle add workout to member
@@ -602,3 +610,28 @@ def subscribe_to_package(package_id,member_id):
     finally:
         cursor.close()
         return ret
+
+def re_subscribe_to_package(package_id,member_id):
+    #first chack if memebr already subscriped
+
+    try:
+        db = mysql.connector.connect(**mysql_config)
+        cursor = db.cursor()
+        cursor.execute(f"SELECT duration FROM package WHERE id={package_id}")
+        duration = cursor.fetchone()[0]
+
+        # Calculate start date (today) and end date (today + duration months)
+        start_date = datetime.now().date()
+        end_date = start_date + timedelta(30 * duration)   
+
+      
+        cursor.execute(" UPDATE subscription SET package_id = %s, startDate = %s, endDate = %s WHERE memberId = %s",
+                    (package_id, start_date, end_date,member_id))
+        db.commit()
+        cursor.close()
+    except Exception as e:
+        print(f"Error Updating : {str(e)}")
+        
+    finally:
+        cursor.close()
+    

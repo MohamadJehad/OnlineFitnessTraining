@@ -135,3 +135,63 @@ function printWorkoutPlan() {
     printWindow.print();
 }
 
+/**
+ * this code used to open window to user when subscripe for member who is already subscriped
+ */
+const remainingMonths=document.getElementById("remainingMonths");
+const remainingDays=document.getElementById("remainingDays");
+const popUp=document.getElementById("popUp");
+const dropDownPackage=document.getElementById("packageDropdown");
+const selectedPackage=document.getElementById("selected_package");
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Function to get URL parameters
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    // Check for URL parameters
+    var memberId = getParameterByName('id');
+    var remainingMonths = getParameterByName('remaining_months');
+    var remainingDays = getParameterByName('remaining_days');
+
+    // If the parameters are present, show a pop-up
+    if (memberId && remainingMonths && remainingDays) {
+      viewPopUpWindow(remainingMonths,remainingDays);   
+    }
+});
+function viewPopUpWindow(months,days){
+    remainingDays.innerText=days;
+    remainingMonths.innerText=months;
+    popUp.style.display='block';
+    selectedPackage.value=localStorage.getItem('selected package');
+    //reset local storage
+    localStorage.setItem("selected package"," ")
+
+}
+document.getElementById("close-popup").onclick=function(){
+    popUp.style.display='none'
+}
+
+dropDownPackage.addEventListener("change", function () {
+    //set local storage with the selected value
+    localStorage.setItem("selected package",dropDownPackage.value)
+});
+
+/**
+ * this section for validate that user choosed a package before submission 
+ */
+document.getElementById("subscribe-form").addEventListener("submit",()=>{
+    console.log(selectedPackage.value)
+    if(dropDownPackage.value==""){
+        document.getElementById("choose-package").style.display='block';
+        event.preventDefault(); 
+    }
+});
+
