@@ -389,7 +389,7 @@ def get_members_table_text(all_members):
             text += "<td>"  + " " + "</td>"
             text += "<td>"  + " " + "</td>"
         text += "<td><a href='/deletemember?id=" + str(member.id) + "' class='delete'>Delete</a></td>"
-        text += "<td><a href='/member_profile?id=" + str(member.id) + "' class='delete'>Profile</a></td>"
+        text += "<td><a href='/member_profile?id=" + str(member.id) + "' class='profile'>Profile</a></td>"
         text += "</tr>"
     return text
 
@@ -520,7 +520,7 @@ def subscribe():
     if not flag:
         return flask.redirect("/member_profile?id="+str(member_id)+"&remaining_months="+str(remaining_months)+"&remaining_days="+str(remaining_days))
     else:
-        return flask.redirect("/home")
+        return flask.redirect("/member_profile?id="+str(member_id))
     
 # New route to handle subscription form submission
 @app.route("/resubscribe", methods=["POST"])

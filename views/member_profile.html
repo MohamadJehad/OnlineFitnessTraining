@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Profile - Fit Trainer</title>
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="/static/profile_style.css">
 </head>
 <body>
     <h1>Member Profile</h1>
@@ -22,7 +22,6 @@
     <div class="cont">
         <div class="members_info">
             <h2>Member's Info</h2>
-            <hr>
             <div class="profile">
                 <div class="profile-details">
                     <input type="hidden" name="member_id" id="memberId" value="{{ member.id }}">
@@ -40,57 +39,58 @@
          </div>
         <div class="members_info">        
             <h2>Vital Details</h2>
-            <hr>
+           
             <div class="profile-details">
+                <div class="vital-info">
                 <p class='member_info'><strong>BMR: </strong>{{ member.calculate_bmr() }} kcal/day</p>
                 <p class='member_info'><strong>Allergy: </strong>{{ vitaDetails.allergy }}</p>
                 <p class='member_info'><strong>Disease: </strong>{{ vitaDetails.disease }}</p>
                 <p class='member_info'><strong>Medications: </strong>{{ vitaDetails.medications }}</p>
                 <p class='member_info'><strong>Fitness Goals: </strong>{{ vitaDetails.fitnessGoals }}</p>
                 <p class='member_info'><strong>Body Fat Percentage: </strong>{{ vitaDetails.bodyFatPercentage }}%</p>
-                
+                </div>
               </div>
         </div>
         <div class="members_info"> 
             
             <h2>Package Details</h2>
-            <hr>
+           
             <div class="profile-details">
-                <p class='member_info' id="package_name"><strong>Package Name: </strong>{{ subscription_data.name }}</p>
-                <p class='member_info' id="package_start_date"><strong>Package Start Date: </strong>{{ subscription_data.startDate }}</p>
-                <p class='member_info' id="package_end_date"><strong>Package End Date: </strong>{{ subscription_data.endDate }}</p>
-                
-                <br>
-                <strong><label for="packageDropdown">Select a Package:</label></strong>
-                
-                <form id="subscribe-form" method="POST" action="/subscribe">
-                    <input type="hidden" name="member_id" value="{{ member.id }}">
-                    <select id="packageDropdown" name="package_id">  
-                            <option value="" disabled selected>Choose Package</option>  
-                        {% for package in packages %}
-                            <option value="{{ package.package_id }}">{{ package.name  }}</option>
-                        {% endfor %}
-                    </select>
-                    <button type="submit">Subscribe</button>
-                    <h3 id="choose-package" >Choose Package First</h3>
-                </form>
+                <div class="package-info">
+                    <p class='member_info' id="package_name"><strong>Package Name: </strong>{{ subscription_data.name }}</p>
+                    <p class='member_info' id="package_start_date"><strong>Package Start Date: </strong>{{ subscription_data.startDate }}</p>
+                    <p class='member_info' id="package_end_date"><strong>Package End Date: </strong>{{ subscription_data.endDate }}</p>
+                    
+                    <br>
+                    <strong><label for="packageDropdown">Select a Package:</label></strong>
+                    
+                    <form id="subscribe-form" method="POST" action="/subscribe">
+                        <input type="hidden" name="member_id" value="{{ member.id }}">
+                        <select id="packageDropdown" name="package_id">  
+                                <option value="" disabled selected>Choose Package</option>  
+                            {% for package in packages %}
+                                <option value="{{ package.package_id }}">{{ package.name  }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Subscribe</button>
+                        <h3 id="choose-package" >Choose Package First</h3>
+                    </form>
+                </div>
             </div>
             
-
         </div>
 
-       
     </div>
-    <br><br><br>
+ 
     
         
-        <div class="workout-info" id="add-workout">
+        <div class="workout-info" >
             
-            <div class="workout-form">
+            <div  class="workout-form">
                 <h1>Workout Program</h1>
-                <h2>Add New Workout</h2>
+                <h2 id="add-workout">Add New Workout</h2>
                 <button id="btn">Show Workout Table</button>
-                <div class="table_btns">
+                <div  class="table_btns">
                     <button id="btn1">Show Day 1</button>
                     <button id="btn2">Show Day 2</button>
                     <button id="btn3">Show Day 3</button>
@@ -251,7 +251,7 @@
           
         </div>
    </div>
-    <script src="static/script.js"></script>
+    <script src="/static/profile_script.js"></script>
 
 =
 </body>

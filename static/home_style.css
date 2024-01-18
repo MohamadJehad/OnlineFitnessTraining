@@ -1,0 +1,152 @@
+/* style.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.navbar ul {
+  list-style: none;
+  background-color: #333;
+  text-align: center;
+  font-size: 17px;
+}
+
+.navbar ul li {
+  display: inline;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 15px;
+  color: #fff;
+  width: 200px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.navbar ul li a:hover {
+  background-color: #555;
+}
+
+
+.cont {
+  width: 90%;
+  margin: auto;
+}
+
+#members{
+  max-height: 450px; /* Adjusting the maximum height of the table*/
+  overflow-y: auto;
+}
+
+.members_table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+
+}
+
+.members_table th, .members_table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.members_table th {
+  background-color: #f2f2f2;
+}
+
+.members_table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+
+.delete{
+  color: red;
+  text-decoration: none;
+  padding: 8px; 
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out;
+}
+.profile{
+  color: green;
+  text-decoration: none;
+  padding: 8px; 
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out;
+}
+.profile:hover,.delete:hover {
+  color: #ddd;
+  background-color: #555;
+}
+
+.cont form {
+  text-align: center;
+  margin-top: 23px;
+}
+
+.cont form input[type="text"]{
+  padding: 10px;
+  width: 50%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.cont form input[type="submit"] {
+  background-color: #333;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+  width: 18%;
+  transition: background-color 0.3s ease-in-out;
+  font-size: 19px;
+  border-radius: 5px; /* Adding border-radius for rounded edges */
+  margin-top: 10px;
+}
+
+.cont form input[type="submit"]:hover {
+  background-color: #555;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 14px;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: auto;
+  font-size: 20px;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: rgb(122, 122, 139);
+}

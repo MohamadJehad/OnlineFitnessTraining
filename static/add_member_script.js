@@ -48,7 +48,18 @@ document.getElementById("add_member_form").addEventListener("submit",()=>{
         errorMsg.innerText="height must be bigger than 135 and smaller than 230";
         return
     }
-    
+    //validate the phone
+    const MemberPhone=document.getElementById("member_phone").value;
+    if (isNaN(Number(MemberPhone))) {
+        event.preventDefault(); 
+        errorMsg.innerText="phone must be a number";
+        return
+    }
+    else if(MemberPhone.length != 11){
+        event.preventDefault(); 
+        errorMsg.innerText="phone length must be 11 numbers";
+        return
+    }
     //valiadte the weight
     const MemberWeight=Number(document.getElementById("member_weight").value);
     if (isNaN(MemberWeight)) {
@@ -62,18 +73,7 @@ document.getElementById("add_member_form").addEventListener("submit",()=>{
         return
     }
     
-    //validate the phone
-    const MemberPhone=document.getElementById("member_phone").value;
-    if (isNaN(Number(MemberPhone))) {
-        event.preventDefault(); 
-        errorMsg.innerText="phone must be a number";
-        return
-    }
-    else if(MemberPhone.length != 11){
-        event.preventDefault(); 
-        errorMsg.innerText="phone length must be 11 numbers";
-        return
-    }
+    
 
     //validate the email
     const MemberEmail=document.getElementById("member_email").value;

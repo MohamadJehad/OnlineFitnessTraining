@@ -49,18 +49,7 @@ document.getElementById("add_vital_form").addEventListener("submit",()=>{
         return
     }
     
-    //validate the vital_fit_goal
-    const vital_fit_goal=document.getElementById("vital_fit_goal").value;
-    if(vital_fit_goal.trim() == ''){
-        event.preventDefault(); 
-        errorMsg.innerText="Enter vital_fit_goal";
-        return
-    }
-    else if(vital_fit_goal.length < 2){
-        event.preventDefault(); 
-        errorMsg.innerText="vital_fit_goal length must be 2";
-        return
-    }
+    
 
     //validate the vital_allergy
     const vital_allergy=document.getElementById("vital_allergy").value;
@@ -72,6 +61,18 @@ document.getElementById("add_vital_form").addEventListener("submit",()=>{
     else if(vital_allergy.length < 2){
         event.preventDefault(); 
         errorMsg.innerText="allergy length must be 2";
+        return
+    }
+    //validate the vital_fit_goal
+    const vital_fit_goal=document.getElementById("vital_fit_goal").value;
+    if(vital_fit_goal.trim() == ''){
+        event.preventDefault(); 
+        errorMsg.innerText="Enter vital_fit_goal";
+        return
+    }
+    else if(vital_fit_goal.length < 2){
+        event.preventDefault(); 
+        errorMsg.innerText="vital_fit_goal length must be 2";
         return
     }
       
