@@ -5,6 +5,7 @@ import flask
 from flask_mysqldb import MySQL
 from flask import Flask, render_template, send_from_directory
 import os
+#gsuy aysa ljqx hksy
 
 app =flask.Flask(__name__)
 app = Flask(__name__, template_folder="views")
@@ -108,10 +109,11 @@ class Member:
 
 class Package:
     def __init__(self, name, value,duration,package_id=None):
-        self.package_id = generate_new_id() if not package_id else  package_id
         self.name = name
         self.value=value
         self.duration=duration
+        if package_id:
+             self.package_id =package_id
 
     def add_to_DB(self):
         query = """INSERT INTO Package ( name, duration, value)
@@ -251,17 +253,6 @@ def deletePackageFromDB(package_id):
     finally:
         cursor.close()
 
-
-def generate_new_id():
-    file = open("latestID.txt")
-    id = int(file.read().strip())
-    file.close()
-    file = open("latestID.txt",'w')
-    file.write(str(id+1))
-    file.close()
-    return id
-class User:
-    name=""
 
 
 @app.route('/favicon.ico')
@@ -571,7 +562,6 @@ def add_workout():
 
 
 
-
 def subscribe_to_package(package_id,member_id):
     #first chack if memebr already subscriped
 
@@ -594,7 +584,6 @@ def subscribe_to_package(package_id,member_id):
             cursor.execute("INSERT INTO subscription (memberId, package_id, startDate, endDate) VALUES (%s, %s, %s, %s)",
                            (member_id, package_id, start_date, end_date))
             db.commit()
-            print("Member subscribed successfully ---------------------------------")
             cursor.close()
             ret= True,0,0
         else:

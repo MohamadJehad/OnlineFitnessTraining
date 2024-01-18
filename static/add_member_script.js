@@ -14,6 +14,11 @@ document.getElementById("add_member_form").addEventListener("submit",()=>{
     //validate the name
     const MemberName=document.getElementById("member_name").value;
     containsNumber=false
+    if(MemberName.trim().length == ''){
+        event.preventDefault(); 
+        errorMsg.innerText="You must enter the name";
+        return;
+    }
     for (const char of MemberName) {
         if (!isNaN(Number(char)) && char!=' ') {
             containsNumber = true;
@@ -25,7 +30,7 @@ document.getElementById("add_member_form").addEventListener("submit",()=>{
         event.preventDefault();  
         return; 
     }
-    if(MemberName.trim().length <3){
+    else if(MemberName.trim().length <3){
         event.preventDefault(); 
         errorMsg.innerText="Name length must be more than 3";
         return;
