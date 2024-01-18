@@ -8,15 +8,19 @@
     <link rel="icon" href="static/favicon.ico" >
 </head>
 <body>
-    <h1>Home Page </h1>
+  <div id="fixed_head">
+    <h1 >Home Page </h1>
     <nav id="navbar" class="navbar">
+    
         <ul>
           <li><a class="" href="newmember">Add New Member</a></li>
           <li><a class="" href="/home">View All Members</a></li>
           <li><a class="" href="/newpacakge">Add New Package</a></li>
           <li><a class="" href="#packages">View All Packages</a></li>
         </ul>
-      </nav><!-- .navbar -->    
+      </nav><!-- .navbar -->  
+  </div>
+    
     <div class="cont" >
       <form action="/search" method="get" >
         <input type="text" class="" name="search" placeholder="Enter Members's Name or ID">

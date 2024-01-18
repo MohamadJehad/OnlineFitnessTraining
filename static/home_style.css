@@ -8,7 +8,14 @@ h1 {
   text-align: center;
   color: #333;
 }
-
+#fixed_head{
+  background-color:#f4f4f4 ;
+  position: fixed; 
+  top: 0;
+  width: 100%;
+  height: 100px;
+  z-index: 1000;
+}
 .navbar ul {
   list-style: none;
   background-color: #333;
@@ -38,18 +45,18 @@ h1 {
 .cont {
   width: 90%;
   margin: auto;
+  translate: 0 160px;
 }
 
 #members{
   max-height: 450px; /* Adjusting the maximum height of the table*/
   overflow-y: auto;
+  margin-bottom: 50px;
 }
 
 .members_table {
   width: 100%;
-  margin-top: 20px;
   border-collapse: collapse;
-
 }
 
 .members_table th, .members_table td {
@@ -88,7 +95,6 @@ h1 {
 
 .cont form {
   text-align: center;
-  margin-top: 23px;
 }
 
 .cont form input[type="text"]{
@@ -125,10 +131,8 @@ h1 {
 
 
 
-
-
-
 footer {
+  margin-top: 100px;
   background-color: #333;
   color: #fff;
   text-align: center;

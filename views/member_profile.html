@@ -3,22 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Member Profile - Fit Trainer</title>
+    <title>Member Profile</title>
     <link rel="stylesheet" href="/static/profile_style.css">
     <link rel="icon" href="static/favicon.ico" >
 </head>
 <body>
-    <h1>Member Profile</h1>
-    <nav id="navbar" class="navbar">
-        <ul>
-            <li><a class="" href="newmember">Add New Member</a></li>
-            <li><a class="" href="/home">View All Members</a></li>
-            <li><a class="" href="#add-workout">Add Workout Program</a></li>
-            <li><a class="" href="#view_workout">View Workout Program</a></li>
-            <li><a class="" href="#print_workoutbtn">Print Workout Program</a></li>
-            
-        </ul>
-    </nav><!-- .navbar -->
+    <div id="fixed_head">
+        <h1>Member Profile</h1>
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a class="" href="newmember">Add New Member</a></li>
+                <li><a class="" href="/home">View All Members</a></li>
+                <li><a class="" href="#add-workout">Add Workout Program</a></li>
+                <li><a class="" href="#view_workout">View Workout Program</a></li>
+                <li><a class="" href="#print_workoutbtn">Print Workout Program</a></li>
+                
+            </ul>
+        </nav><!-- .navbar -->
+    </div>
 
     <div class="cont">
         <div class="members_info">
@@ -81,14 +83,13 @@
             
         </div>
 
-    </div>
- 
     
+
         
         <div class="workout-info" >
             
             <div  class="workout-form">
-                <h1>Workout Program</h1>
+                <h1 >Workout Program</h1>
                 <h2 id="add-workout">Add New Workout</h2>
                 <button id="btn">Show Workout Table</button>
                 <div  class="table_btns">
@@ -222,19 +223,18 @@
                 </form>
                 
                 <br><br><br>
-    <div class="workout-info" id="view_workout">
-        <div class="view-workout-form">
-            <h1>Workout Plan</h1>
-            <!-- Display the workout file content  -->
-            <pre id="workoutContent">{{ file_content }}</pre>
-        </div>
-        <button  id="print_workoutbtn" >print workout Program</button>
+                <div class="workout-info" id="view_workout">
+                    <div class="view-workout-form">
+                        <h1>Workout Plan</h1>
+                        <!-- Display the workout file content  -->
+                        <pre id="workoutContent">{{ file_content }}</pre>
+                    </div>
+                    <button  id="print_workoutbtn" >print workout Program</button>
+                </div>
     </div>
-    </div>
-            
-        </div>
+        </div>  
       
-
+    </div>
     <br><br><br><br><br><br>
 
     <div id="popUp" class="popUp">
