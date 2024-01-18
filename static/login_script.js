@@ -2,11 +2,6 @@
  * 
  * this function will be used in login page
  */
-function submitForm() {
-    var username = document.getElementById("username").value;
-    window.location.href = "/home";
-}
-
 
 const btn=document.getElementById("loginbtn");
 const text_filed =document.getElementById("text_filed");
