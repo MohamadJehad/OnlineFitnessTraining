@@ -1,0 +1,23 @@
+Member ID: 287
+
+Day 1         
+meal:                                   quantity:           
+chickken                                2                   
+boiled eggs                             3 pieces            
+rice                                    300gm               
+
+
+Day 3         
+meal:                                   quantity:           
+boiled egg                              5                   
+Turkey sandwich, veggies                2 pieces            
+Grilled fish, rice                      200gm for each      
+
+
+Day 5         
+meal:                                   quantity:           
+sweet potato                            500gm               
+Salmon                                  2 fishes            
+Chicken Caesar salad                    500gm               
+
+

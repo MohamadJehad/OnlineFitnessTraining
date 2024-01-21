@@ -1,9 +1,11 @@
 /**
- * package name     :: at least 3 char 
+ * Constrains:
+ * package name     :: at least 3 char must not be empty
  * package value    :: must not be empyt or char
  * package duration :: must not be empyt or char
  */
 let message='';
+//this message is empty by default and will be used to tell the trainser what data is wrong
 const errorMsg=document.getElementById("errorMsg");
 document.getElementById("add-package-form").addEventListener("submit",()=>{
     
@@ -14,7 +16,7 @@ document.getElementById("add-package-form").addEventListener("submit",()=>{
         errorMsg.innerText="Enter Package Name";
         return
     }
-    else if(name.length < 2){
+    else if(name.length < 3){
         event.preventDefault(); 
         errorMsg.innerText="Package Name must be at least 3 characters";
         return

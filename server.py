@@ -41,7 +41,6 @@ class Member:
             self.email=email
         except Exception as e:
             print(f"Error adding member: {str(e)}")
-            return get_html("errorPage").replace("$$MSG$$", "Enter Valid Data")
         if member_id == None:
             #this section will be executed if the member is not existed in the database so it will be added
             #and inside the finction members's ID will be assigned
@@ -300,7 +299,7 @@ def get_members_table_text(all_members):
         text += "<tr>"
         text += "<td>" + str(member.id) + "</td>"
         text += "<td>" + member.name + "</td>"
-        #text += "<td>" + str(member.calculate_age()) + "</td>"
+        text += "<td>" + str(member.calculate_age()) + "</td>"
         #text += "<td>" + str(member.height) + "</td>"
         #text += "<td>" + str(member.weight) + "</td>"
         #text += "<td>" + member.gender + "</td>"
@@ -678,8 +677,8 @@ def add_workout():
                     reps = flask.request.form.get(f"reps_day{day}_{j}")
                     video_link = flask.request.form.get(f"video_link_day{day}_{j}")
                     workout_file.write(f"\n{exercise:<40}{sets:<20}{reps:<20}{video_link:<40}")
-              
-            workout_file.write("\n\n\n")
+                workout_file.write("\n\n\n")   
+            
                 
     # Redirect to the member profile or another destination after subscription
     return flask.redirect(f"/member_profile?id=" + str(member_id))
@@ -705,14 +704,14 @@ def add_nutrition_plan():
         for day in range(1, 6):
             #check if there is at least one exercise existed for each day
             if flask.request.form.get(f"meal{day}_{1}"): 
-                nutrition_plan_file.write(f"{'Day':<4}{day:<10}\n{'meal:':<40}{'quantity:':<20}")
+                nutrition_plan_file.write(f"{'Day':<4}{day:<10}\n{'Meal:':<40}{'Quantity:':<20}")
                 for j in range(1, 4):
                     # Get exercise, sets, reps, and video_link for each day and exercise
                     meal = flask.request.form.get(f"meal{day}_{j}")
                     quantity = flask.request.form.get(f"quantity{day}_{j}")
                     nutrition_plan_file.write(f"\n{meal:<40}{quantity:<20}")
-              
-            nutrition_plan_file.write("\n\n\n")
+                nutrition_plan_file.write("\n\n\n")  
+            
                 
     # Redirect to the member profile or another destination after subscription
     return flask.redirect(f"/member_profile?id=" + str(member_id))

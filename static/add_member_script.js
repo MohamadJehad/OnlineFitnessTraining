@@ -1,4 +1,5 @@
 /**
+ * Constrains on member's data
  * name  ::  length > 3 , any number rejected 
  * hight ::   must be number  ,230 > hight  > 135  
  * weight::   must be a number 30 > weight > 230
@@ -8,6 +9,7 @@
  * phone :: must be 11 number with no strings
  */
 let message='';
+//this message is empty by default and will be used to tell the trainser what data is wrong
 const errorMsg=document.getElementById("errorMsg");
 document.getElementById("add_member_form").addEventListener("submit",()=>{
     
@@ -53,7 +55,7 @@ document.getElementById("add_member_form").addEventListener("submit",()=>{
         errorMsg.innerText="height must be bigger than 135 and smaller than 230";
         return
     }
-    //validate the phone
+    //validate the phone number
     const MemberPhone=document.getElementById("member_phone").value;
     if (isNaN(Number(MemberPhone))) {
         event.preventDefault(); 
