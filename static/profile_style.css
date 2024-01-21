@@ -198,10 +198,10 @@ strong{
   width: 30%; /* Larger width for Video Link */
   height: 30px;
 }
-.row5, .row4, .row3, .row2, .row1,.plan_row5,.plan_row4,.plan_row3,.plan_row2,.plan_row1 {
+.row5, .row4, .row3, .row2, .row1,.row5_plan,.row4_plan,.row3_plan,.row2_plan,.row1_plan  {
   display: none;
 }
-#btn1,#btn2,#btn3,#btn4,#btn5,.workoutbtn,#plan_btn1,#plan_btn2,#plan_btn3 {
+#btn1,#btn2,#btn3,#btn4,#btn5,.workoutbtn,#plan_btn1,#plan_btn2,#plan_btn3,#plan_btn4,#plan_btn5 {
   display: none;
 }
 #btn,.workoutbtn{
@@ -258,7 +258,8 @@ strong{
   cursor: pointer;
   font-size: 18px;
   border-radius: 8px;
-  margin: 50px auto; 
+  margin: 50px auto;
+   
 
 }
 /*

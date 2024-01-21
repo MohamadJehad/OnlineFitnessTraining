@@ -35,6 +35,8 @@ const btn5=document.getElementById("btn5");
 const plan_btn1=document.getElementById("plan_btn1");
 const plan_btn2=document.getElementById("plan_btn2");
 const plan_btn3=document.getElementById("plan_btn3");
+const plan_btn4=document.getElementById("plan_btn4");
+const plan_btn5=document.getElementById("plan_btn5");
 const workout_btn=document.getElementById("workoutbtn");
 const plan_btn=document.getElementById("plan_btn");
 
@@ -69,15 +71,22 @@ btn5.onclick = function () {
     toggleDay('row5',btn5);
 };
 plan_btn1.onclick = function () {
-    toggleDay('plan_row1',plan_btn1);
+    toggleDay('row1_plan',plan_btn1);
 };
 
 plan_btn2.onclick = function () {
-    toggleDay('plan_row2',plan_btn2);
+    toggleDay('row2_plan',plan_btn2);
 };
 
 plan_btn3.onclick = function () {
-    toggleDay('plan_row3',plan_btn3);
+    toggleDay('row3_plan',plan_btn3);
+};
+plan_btn4.onclick = function () {
+    toggleDay('row4_plan',plan_btn4);
+};
+
+plan_btn5.onclick = function () {
+    toggleDay('row5_plan',plan_btn5);
 };
 function toggleDay(day,btn) {
     // Convert HTMLCollection to an array
@@ -87,7 +96,7 @@ function toggleDay(day,btn) {
     rows.forEach(row => {
         if (row.style.display === 'none' || row.style.display === '') {
             row.style.display = 'table-row';
-            btn.textContent = 'Hide Day';
+            btn.textContent = 'Hide Day'+dayNum;
         } else {
             row.style.display = 'none';
             btn.textContent = 'Show Day '+dayNum;
@@ -97,7 +106,7 @@ function toggleDay(day,btn) {
 function toggleBtns() {
     // Convert HTMLCollection to an array
     console.log("toggle btns");
-    const btns = [btn1, btn2, btn3, btn4, btn5,workout_btn,plan_btn1,plan_btn2,plan_btn3,plan_btn];
+    const btns = [btn1, btn2, btn3, btn4, btn5,workout_btn,plan_btn1,plan_btn2,plan_btn3,plan_btn4,plan_btn5,plan_btn];
 
     for (let btn of btns) {
         if (btn.style.display != 'block') {

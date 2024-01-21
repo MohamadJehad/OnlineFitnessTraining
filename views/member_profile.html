@@ -230,6 +230,8 @@
                     <button id="plan_btn1">Show Day 1</button>
                     <button id="plan_btn2">Show Day 2</button>
                     <button id="plan_btn3">Show Day 3</button>
+                    <button id="plan_btn4">Show Day 4</button>
+                    <button id="plan_btn5">Show Day 5</button>
                 </div>
 
                 <form method="POST" action="/add_nutrition_plan">
@@ -245,72 +247,72 @@
                         </thead>
                         <tbody>
                             <!-- Day 1 -->
-                            <tr class="plan_row1">
+                            <tr class="row1_plan">
                                 <td rowspan="3" class="day1">Day 1</td>
                                 <td><input type="text" class="day1" name="meal1_1"></td>
                                 <td><input type="text" class="day1" name="quantity1_1"></td>
                             </tr>
-                            <tr class="plan_row1">
+                            <tr class="row1_plan">
                                 <td><input type="text" class="day1" name="meal1_2"></td>
                                 <td><input type="text" class="day1" name="quantity1_2"></td>
                             </tr >
-                            <tr class="plan_row1">
+                            <tr class="row1_plan">
                                 <td><input type="text" class="day1" name="meal1_3"></td>
                                 <td><input type="text" class="day1" name="quantity1_3"></td>
                             </tr>
                             <!-- Day 2 -->
-                            <tr class="plan_row2">
+                            <tr class="row2_plan">
                                 <td rowspan="3">Day 2</td>
                                 <td><input type="text" class="day2" name="meal2_1"></td>
                                 <td><input type="text" class="day2" name="quantity2_1"></td>
                             </tr>
-                            <tr class="plan_row2">
+                            <tr class="row2_plan">
                                 <td><input type="text" class="day2" name="meal2_2"></td>
                                 <td><input type="text" class="day2" name="quantity2_2"></td>                            
                             </tr>
-                            <tr class="plan_row2">
+                            <tr class="row2_plan">
                                 <td><input type="text" class="day2" name="meal2_3"></td>
                                 <td><input type="text" class="day2" name="quantity2_3"></td>
                             </tr>
-                            <tr class="plan_row3">
+                            <tr class="row3_plan">
                                 <td rowspan="3">Day 3</td>
                                 <td><input type="text" class="day3" name="meal3_1"></td>
                                 <td><input type="text" class="day3" name="quantity3_1"></td>
                             </tr>
-                            <tr class="plan_row3">
+                            <tr class="row3_plan">
                                 <td><input type="text" class="day3" name="meal3_2"></td>
                                 <td><input type="text" class="day3" name="quantity3_2"></td>
                             </tr>
-                            <tr class="plan_row3">
+                            <tr class="row3_plan">
                                 <td><input type="text" class="day3" name="meal3_3"></td>
                                 <td><input type="text" class="day3" name="quantity3_3"></td>
                             </tr class="row3">
                             <!-- ... -->
                             <!-- Day 4 -->
-                            <tr class="plan_row4">
+                            <tr class="row4_plan">
                                 <td rowspan="3">Day 4</td>
                                 <td><input type="text" class="day4" name="meal4_1"></td>
                                 <td><input type="text" class="day4" name="quantity4_1"></td>
                             </tr>
-                            <tr class="plan_row4">
+                            <tr class="row4_plan">
                                 <td><input type="text" class="day4" name="meal4_2"></td>
                                 <td><input type="text" class="day4" name="quantity4_2"></td>
                             </tr>
-                            <tr class="plan_row4">
+                            <tr class="row4_plan">
                                 <td><input type="text" class="day4" name="meal4_3"></td>
                                 <td><input type="text" class="day4" name="quantity4_3"></td>
                             </tr>
                             <!-- Day 5 -->
-                            <tr class="plan_row5">
+                            <tr class="row5_plan">
                                 <td rowspan="3">Day 5</td>
                                 <td><input type="text" class="day5" name="meal5_1"></td>
                                 <td><input type="text" class="day5" name="quantity5_1"></td>
                             </tr>
-                            <tr class="plan_row5">
+                            <tr class="row5_plan">
                                 <td><input type="text" class="day5" name="meal5_2"></td>
                                 <td><input type="text" class="day5" name="quantity5_2"></td>
                             </tr>
-                            <tr class="row5">
+                            <tr class="row5_plan">
                                 <td><input type="text" class="day5" name="meal5_3"></td>
                                 <td><input type="text" class="day5" name="quantity5_3"></td>
                             </tr>
@@ -328,10 +330,10 @@
 
 
 
-                <br><br><br>
+                <br id="view_workout"><br><br>
                 <div class="workout-nutrition" >
                      
-                    <div class="view-workout-form" id="view_workout">
+                    <div class="view-workout-form" >
                         <h1>Workout Program</h1>
                         <!-- Display the workout file content  -->
                         <pre id="workoutContent">{{ workout_file_content }}</pre>
