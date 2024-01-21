@@ -79,8 +79,10 @@
                         <h3 id="choose-package" >Choose Package First</h3>
                     </form>
                 </div>
+            <!-- this div will be used only for navigation-->
+            <div  id="add-workout"></div>
             </div>
-            
+             
         </div>
 
     
@@ -90,7 +92,7 @@
             
             <div  class="workout-form">
                 <h1 >Workout Program</h1>
-                <h2 id="add-workout">Add New Workout</h2>
+                <h2>Add New Workout</h2>
                 <button id="btn">Show Workout Table</button>
                 <div  class="table_btns">
                     <button id="btn1">Show Day 1</button>
@@ -223,8 +225,9 @@
                 </form>
                 
                 <br><br><br>
-                <div class="workout-info" id="view_workout">
-                    <div class="view-workout-form">
+                <div class="workout-info" >
+                     
+                    <div class="view-workout-form" id="view_workout">
                         <h1>Workout Plan</h1>
                         <!-- Display the workout file content  -->
                         <pre id="workoutContent">{{ file_content }}</pre>

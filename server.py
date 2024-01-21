@@ -1,17 +1,19 @@
 #(Online Fit trainer) APP
+#----------------------------- Includes section ------------------------#
 from datetime import datetime, timedelta
 import mysql.connector
 import flask
-from flask_mysqldb import MySQL
 from flask import Flask, render_template, send_from_directory
 import os
-#gsuy aysa ljqx hksy
 
+#----------------------------- Initialize the coed section ------------------------#
+#init flask
 app =flask.Flask(__name__)
 app = Flask(__name__, template_folder="views")
 if __name__=='__main__':
     app.run(debug=True)
 
+#init the mysql database
 mysql_config = {
     'host': 'localhost',
     'user': 'root',
@@ -42,10 +44,14 @@ class Member:
             print(f"Error adding member: {str(e)}")
             return get_html("errorPage").replace("$$MSG$$", "Enter Valid Data")
         if member_id == None:
+            #this section will be executed if the member is not existed in the database so it will be added
+            #and inside the finction members's ID will be assigned
             self.add_to_DB()    
         else:
+            #this line will be executed if the member already exited in the database
             self.id=member_id
 
+#this function add the member to the databse and retrieve it's ID 
     def add_to_DB(self):
         query = """ INSERT INTO members (name, birthdate, height, weight, gender, phone, email)
         VALUES (%s, %s, %s, %s, %s, %s, %s)"""
@@ -59,8 +65,10 @@ class Member:
             print("member id =" + str(self.id))
         except Exception as e:
             print(f"Error adding member to the database: {str(e)}")
+    
     """
-        this function return the package that the member subscriped in
+        this function return the subscription of the member (package name , start date,end date)
+        and if he is not subscriped it will return empty array
     """
     def get_subscription(self):
         subscription=[]
@@ -82,6 +90,7 @@ class Member:
             print(f"Error getting package: {str(e)}")
         finally:
             cursor.close()
+            print(f"subscription: {subscription}")
         return subscription
     
     
@@ -94,7 +103,7 @@ class Member:
          return age
     
     """
-    this function calculate the member's bmr
+    this function calculate the member's bmr based on his weight, height, gender and age
     """
     def calculate_bmr(self):
         if self.gender == "male":
@@ -107,14 +116,20 @@ class Member:
         deleteMemberFromDB(self.id)
         del self
 
+
+
+
+#this class will contain the main info about each package
 class Package:
     def __init__(self, name, value,duration,package_id=None):
         self.name = name
         self.value=value
         self.duration=duration
+#the condition will be valid if the package already existed in the database
         if package_id:
              self.package_id =package_id
 
+#this function will add the package to the database and retrieve it's ID
     def add_to_DB(self):
         query = """INSERT INTO Package ( name, duration, value)
                    VALUES ( %s, %s, %s)"""
@@ -131,7 +146,7 @@ class Package:
         finally:
             cursor.close()
 
-
+#this class will contain the vital details info about each member
 class VitaDetails:
     def __init__(self, allergy,disease,bodyFatPercentage, fitnessGoals,medications,member_id=None):
         self.member_id =  member_id
@@ -141,7 +156,7 @@ class VitaDetails:
         self.disease=disease
         self.bodyFatPercentage=bodyFatPercentage
 
-        
+#this function will add the info the database    
     def add_to_DB(self):
         query = """INSERT INTO VitalDetails (memberId, allergy, disease, bodyFatPercentage, fitnessGoals, medications)
                    VALUES (%s, %s, %s, %s, %s, %s)"""
@@ -159,6 +174,11 @@ class VitaDetails:
 
 
 
+"""
+this function will retrieve all members data from the database and create 
+objects of member's class for each one of them
+and will return array of members objects
+"""
 def getAllMembersData():
     try:
         db = mysql.connector.connect(**mysql_config)
@@ -171,7 +191,6 @@ def getAllMembersData():
     finally:
         cursor.close()
     all_members = []
-    #if members=='':
     for member in members:
         member_data = member
         member_obj = Member(member_data[1],(member_data[2]) , int(member_data[3]), int(member_data[4]), member_data[5], member_data[6], member_data[7],member_data[0])
@@ -179,6 +198,11 @@ def getAllMembersData():
     
     return all_members
 
+"""
+this function will retrieve all pacages data from the database and create 
+objects of package's class for each one of them
+and will return array of packages objects
+"""
 def getAllPackagesData():
     try:
         db = mysql.connector.connect(**mysql_config)
@@ -191,7 +215,6 @@ def getAllPackagesData():
     finally:
         cursor.close()
     all_packages = []
-    #if members=='':
     for package in packages:
         package_obj = Package(package[1], int(package[3]),int(package[2]) , int(package[0]))
         all_packages.append(package_obj)
