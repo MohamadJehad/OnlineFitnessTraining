@@ -21,8 +21,7 @@ mysql_config = {
     'database': 'fittrackdb'
 }
 
-
-
+#----------------------------- Classes section ------------------------#
 """
 this class will contain the main info about each member
 """
@@ -338,7 +337,70 @@ def get_packages_table_text(packages):
         text += "</tr>"
     return text
 
+#this function subscribe the member in specific package
+def subscribe_to_package(package_id,member_id):
+    #first chack if memebr already subscriped
+    try:
+        db = mysql.connector.connect(**mysql_config)
+        cursor = db.cursor()
+        cursor.execute(f"SELECT * FROM subscription WHERE memberId={member_id}")
+        existing_subscription = cursor.fetchone()
+        current_date = datetime.now().date()
+#this condition if the member is not subscriped or if his subscriptin expired then let's subscripe
+        if not existing_subscription or (existing_subscription)[2] < current_date:
+            # Get package duration from the package table
+            cursor.execute(f"SELECT duration FROM package WHERE id={package_id}")
+            duration = cursor.fetchone()[0]
 
+            # Calculate start date (today) and end date (today + duration months)
+            start_date = datetime.now().date()
+            end_date = start_date + timedelta(30 * duration)
+
+            # Subscribe the member to the selected package with start and end dates
+            cursor.execute("INSERT INTO subscription (memberId, package_id, startDate, endDate) VALUES (%s, %s, %s, %s)",
+                           (member_id, package_id, start_date, end_date))
+            db.commit()
+            cursor.close()
+            ret= True,0,0
+#this section if the member have subscripe and still valid So confirm to him with the remaining duration
+        else:
+            existing_end_date=((existing_subscription)[2])
+            remaining_days = (existing_end_date - current_date).days # total number of days remaining 
+            remaining_months=remaining_days//30     # total number of Months remaining 
+            remaining_days=remaining_days-remaining_months*30   #  number of days remaining after months
+            cursor.close()
+            ret= False,remaining_months,remaining_days
+
+    except Exception as e:
+        print(f"Error retrieving : {str(e)}")
+        
+    finally:
+        cursor.close()
+        return ret
+
+#here if the member wants to subscribe even if his subscription still valid
+def re_subscribe_to_package(package_id,member_id):
+    try:
+        db = mysql.connector.connect(**mysql_config)
+        cursor = db.cursor()
+        cursor.execute(f"SELECT duration FROM package WHERE id={package_id}")
+        duration = cursor.fetchone()[0]
+
+        # Calculate start date (today) and end date (today + duration months)
+        start_date = datetime.now().date()
+        end_date = start_date + timedelta(30 * duration)   
+
+      
+        cursor.execute(" UPDATE subscription SET package_id = %s, startDate = %s, endDate = %s WHERE memberId = %s",
+                    (package_id, start_date, end_date,member_id))
+        db.commit()
+        cursor.close()
+    except Exception as e:
+        print(f"Error Updating : {str(e)}")
+        
+    finally:
+        cursor.close()
+    
 
 #----------------------------- Routes section ------------------------#
 
@@ -528,22 +590,25 @@ def member_profile():
         )
 #get all packages data for the trainer if he want to subscribe or resubscripe for the memebr in package
         packages=getAllPackagesData()
+#this section to get workout info for the member
         try:
             workout_file_path = f"members/{id}/workout_summary.txt"
             with open(workout_file_path, 'r') as file:
-                file_content = file.read()
-            return render_template("member_profile.html", member=member, vitaDetails=vitaDetails, packages=packages, subscription_data=subscription_data,file_content=file_content)
+                workout_file_content = file.read()    
         except Exception as e:
-            return render_template("member_profile.html", member=member, vitaDetails=vitaDetails, packages=packages,subscription_data=subscription_data,file_content="Workout Not Added Yet")
+            workout_file_content="Workout not Added Yet"
+        try:
+            nutrition_file_path = f"members/{id}/nutrition_plan.txt"
+            with open(nutrition_file_path, 'r') as file:
+                nutrition_file_content = file.read()    
+        except Exception as e:
+            nutrition_file_content="Nutrition not Added Yet"
+        return render_template("member_profile.html", member=member, vitaDetails=vitaDetails, packages=packages, subscription_data=subscription_data,workout_file_content=workout_file_content,nutrition_file_content=nutrition_file_content)
 #this condition will be valid if the member already exist but does not has vital data   
     elif member_data is not None:
         return flask.redirect("/newVital?id="+str(id))
     else:
         return flask.redirect("/home"+str(id))
-
-
-
-
 
 
 @app.route ("/newpacakge") 
@@ -584,7 +649,8 @@ def resubscribe():
     return flask.redirect("/member_profile?id="+str(member_id))
     
 
-# New route to handle add workout to member
+
+# this route to handle add workout to member
 @app.route("/add_workout", methods=["POST"])
 def add_workout():
     # Get member_id from the form data
@@ -601,9 +667,8 @@ def add_workout():
     
     with open(file_path, 'w') as workout_file:
         workout_file.write(f"Member ID: {member_id}\n\n")
-        break_flag = False
         for day in range(1, 6):
-            #check if there is at least one exercise existed 
+            #check if there is at least one exercise existed for each day
             if flask.request.form.get(f"exercise_day{day}_{1}"): 
                 workout_file.write(f"{'Day':<4}{day:<10}\n{'Exercise:':<40}{'Sets:':<20}{'Reps:':<20}{'Video Link:':<40}")
                 for j in range(1, 4):
@@ -620,68 +685,36 @@ def add_workout():
     return flask.redirect(f"/member_profile?id=" + str(member_id))
 
 
+# this route to handle add nutrition_plan to member
+@app.route("/add_nutrition_plan", methods=["POST"])
+def add_nutrition_plan():
+    # Get member_id from the form data
+    member_id = flask.request.form.get("member_id")
+    print("member_id is =" + str(member_id))
 
-def subscribe_to_package(package_id,member_id):
-    #first chack if memebr already subscriped
+    # Create a directory if it doesn't exist for the member
+    member_directory = f"members/{member_id}"
+    os.makedirs(member_directory, exist_ok=True)
 
-    try:
-        db = mysql.connector.connect(**mysql_config)
-        cursor = db.cursor()
-        cursor.execute(f"SELECT * FROM subscription WHERE memberId={member_id}")
-        existing_subscription = cursor.fetchone()
-        current_date = datetime.now().date()
-        if not existing_subscription or (existing_subscription)[2] < current_date:
-            # Get package duration from the package table
-            cursor.execute(f"SELECT duration FROM package WHERE id={package_id}")
-            duration = cursor.fetchone()[0]
-
-            # Calculate start date (today) and end date (today + duration months)
-            start_date = datetime.now().date()
-            end_date = start_date + timedelta(30 * duration)
-
-            # Subscribe the member to the selected package with start and end dates
-            cursor.execute("INSERT INTO subscription (memberId, package_id, startDate, endDate) VALUES (%s, %s, %s, %s)",
-                           (member_id, package_id, start_date, end_date))
-            db.commit()
-            cursor.close()
-            ret= True,0,0
-        else:
-            existing_end_date=((existing_subscription)[2])
-            remaining_days = (existing_end_date - current_date).days # total number of days remaining 
-            remaining_months=remaining_days//30     # total number of Months remaining 
-            remaining_days=remaining_days-remaining_months*30   #  number of days remaining after months
-            print("---abc--------------"+str(remaining_days)+"-----------------"+str(remaining_months))
-            cursor.close()
-            ret= False,remaining_months,remaining_days
-
-    except Exception as e:
-        print(f"Error retrieving : {str(e)}")
-        
-    finally:
-        cursor.close()
-        return ret
-
-def re_subscribe_to_package(package_id,member_id):
-    #first chack if memebr already subscriped
-
-    try:
-        db = mysql.connector.connect(**mysql_config)
-        cursor = db.cursor()
-        cursor.execute(f"SELECT duration FROM package WHERE id={package_id}")
-        duration = cursor.fetchone()[0]
-
-        # Calculate start date (today) and end date (today + duration months)
-        start_date = datetime.now().date()
-        end_date = start_date + timedelta(30 * duration)   
-
-      
-        cursor.execute(" UPDATE subscription SET package_id = %s, startDate = %s, endDate = %s WHERE memberId = %s",
-                    (package_id, start_date, end_date,member_id))
-        db.commit()
-        cursor.close()
-    except Exception as e:
-        print(f"Error Updating : {str(e)}")
-        
-    finally:
-        cursor.close()
+    # Create a single file for all workout data
+    file_path = os.path.join(member_directory, "nutrition_plan.txt")
     
+    
+    with open(file_path, 'w') as nutrition_plan_file:
+        nutrition_plan_file.write(f"Member ID: {member_id}\n\n")
+        for day in range(1, 6):
+            #check if there is at least one exercise existed for each day
+            if flask.request.form.get(f"meal{day}_{1}"): 
+                nutrition_plan_file.write(f"{'Day':<4}{day:<10}\n{'meal:':<40}{'quantity:':<20}")
+                for j in range(1, 4):
+                    # Get exercise, sets, reps, and video_link for each day and exercise
+                    meal = flask.request.form.get(f"meal{day}_{j}")
+                    quantity = flask.request.form.get(f"quantity{day}_{j}")
+                    nutrition_plan_file.write(f"\n{meal:<40}{quantity:<20}")
+              
+            nutrition_plan_file.write("\n\n\n")
+                
+    # Redirect to the member profile or another destination after subscription
+    return flask.redirect(f"/member_profile?id=" + str(member_id))
+
+

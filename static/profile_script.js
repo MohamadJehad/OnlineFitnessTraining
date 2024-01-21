@@ -31,16 +31,22 @@ const btn2=document.getElementById("btn2");
 const btn3=document.getElementById("btn3");
 const btn4=document.getElementById("btn4");
 const btn5=document.getElementById("btn5");
+
+const plan_btn1=document.getElementById("plan_btn1");
+const plan_btn2=document.getElementById("plan_btn2");
+const plan_btn3=document.getElementById("plan_btn3");
 const workout_btn=document.getElementById("workoutbtn");
+const plan_btn=document.getElementById("plan_btn");
+
 const table=document.getElementsByClassName("excel-table");
 btn.onclick = function () {
     toggleBtns();
     toggleTable();
-    if(btn.textContent == 'Show Workout Table'){
-        btn.textContent = 'Hide Table';
+    if(btn.textContent == 'Show Tables'){
+        btn.textContent = 'Hide Tables';
     }
     else{
-        btn.textContent = 'Show Workout Table';
+        btn.textContent = 'Show Tables';
     }
 };
 btn1.onclick = function () {
@@ -62,6 +68,17 @@ btn4.onclick = function () {
 btn5.onclick = function () {
     toggleDay('row5',btn5);
 };
+plan_btn1.onclick = function () {
+    toggleDay('plan_row1',plan_btn1);
+};
+
+plan_btn2.onclick = function () {
+    toggleDay('plan_row2',plan_btn2);
+};
+
+plan_btn3.onclick = function () {
+    toggleDay('plan_row3',plan_btn3);
+};
 function toggleDay(day,btn) {
     // Convert HTMLCollection to an array
     let rows = Array.from(document.getElementsByClassName(`${day}`));
@@ -80,7 +97,7 @@ function toggleDay(day,btn) {
 function toggleBtns() {
     // Convert HTMLCollection to an array
     console.log("toggle btns");
-    const btns = [btn1, btn2, btn3, btn4, btn5,workout_btn];
+    const btns = [btn1, btn2, btn3, btn4, btn5,workout_btn,plan_btn1,plan_btn2,plan_btn3,plan_btn];
 
     for (let btn of btns) {
         if (btn.style.display != 'block') {
@@ -100,6 +117,12 @@ function toggleTable() {
         }
         else if(table[0].style.display == 'table'){
             table[0].style.display = '';
+        }
+        if(table[1].style.display == ''){
+            table[1].style.display = 'table';
+        }
+        else if(table[1].style.display == 'table'){
+            table[1].style.display = '';
         }
 }
 

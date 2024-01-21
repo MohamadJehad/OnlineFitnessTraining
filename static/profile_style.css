@@ -190,18 +190,21 @@ strong{
   height: 30px;
 }
 
-.excel-table input[type="text"][name^="video_link"] {
-  width: 75%; /* Larger width for Video Link */
+.excel-table input[type="text"][name^="meal"] {
+  width: 45%; /* Larger width for Video Link */
   height: 30px;
 }
-
-.row5, .row4, .row3, .row2, .row1 {
+.excel-table input[type="text"][name^="quantity"] {
+  width: 30%; /* Larger width for Video Link */
+  height: 30px;
+}
+.row5, .row4, .row3, .row2, .row1,.plan_row5,.plan_row4,.plan_row3,.plan_row2,.plan_row1 {
   display: none;
 }
-#btn1,#btn2,#btn3,#btn4,#btn5,#workoutbtn {
+#btn1,#btn2,#btn3,#btn4,#btn5,.workoutbtn,#plan_btn1,#plan_btn2,#plan_btn3 {
   display: none;
 }
-#btn,#workoutbtn{
+#btn,.workoutbtn{
   width: 250px;
 }
 .table_btns {
@@ -210,7 +213,7 @@ strong{
   margin: 20px auto;
 }
 
-.table_btns button,#btn,#workoutbtn {
+.table_btns button,#btn,.workoutbtn {
   padding: 10px;
   background-color: #333;
   color: #fff;
@@ -225,7 +228,7 @@ strong{
   background-color: #555;
 }
 
-.view-workout-form {
+.view-workout-form,.view-plan-form {
   width: 90%;
   margin: auto;
   text-align: left;
@@ -240,7 +243,7 @@ strong{
   margin-left: -5%;
 }
 
-.view-workout-form pre {
+.view-workout-form,.view-plan-form pre {
   font-family: Courier, monospace; 
   font-size: 20px; 
   color: #041920;
