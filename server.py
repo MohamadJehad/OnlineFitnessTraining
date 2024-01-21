@@ -172,8 +172,17 @@ class VitaDetails:
             print(f"Error adding VitaDetails to the database: {str(e)}")
 
 
+#----------------------------- Functions section ------------------------#
 
-
+"""
+this function will get the html content from any page 
+and send it to browser
+"""
+def get_html(pagename):
+    html_file = open("views/"+pagename+".html")
+    content =html_file.read()
+    html_file.close()
+    return content
 """
 this function will retrieve all members data from the database and create 
 objects of member's class for each one of them
@@ -220,7 +229,11 @@ def getAllPackagesData():
         all_packages.append(package_obj)
     return all_packages
 
-
+"""
+this function will delete the member from database based on it's ID
+note the function is not created inside the class because it will be called using post 
+method which will pass only member's ID
+"""
 def deleteMemberFromDB(member_id):
     try:
         db = mysql.connector.connect(**mysql_config)
@@ -252,7 +265,11 @@ def deleteMemberFromDB(member_id):
     finally:
         cursor.close()
 
-
+"""
+this function will delete the package from database based on it's ID
+note the function is not created inside the class because it will be called using post 
+method which will pass only package's ID
+"""
 def deletePackageFromDB(package_id):
     try:
         db = mysql.connector.connect(**mysql_config)
@@ -263,125 +280,21 @@ def deletePackageFromDB(package_id):
         package = cursor.fetchall()
 
         if package:
-            # If the member has vital details, delete them first
+            # If the package already exist in subscription table then delete it from this table first 
             cursor.execute(f"DELETE FROM subscription WHERE package_id = {package_id}")
 
-        # Now delete the package
+        # Now delete the package from it's table
         cursor.execute(f"DELETE FROM package WHERE id = {package_id}")
 
         db.commit()
-        print(f"Package with ID {package_id} deleted successfully")
     except mysql.connector.Error as error:
         print(f"Error deleting package: {error}")
     finally:
         cursor.close()
-
-
-
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico', mimetype='image/vnd.microsoft.icon')
-@app.route("/home") 
-def homepage():
-    members = getAllMembersData()
-    text = get_members_table_text(members)
-        
-    packages=getAllPackagesData()
-    text2=get_packages_table_text(packages)
-    return get_html("index").replace("$$MEMBERS$$", text).replace("$$PACKAGES$$",text2)
-
-
-@app.route ("/newmember") 
-def newmemberpage():
-    return get_html("add_member")
-
-@app.route ("/addnewmember") 
-def addnewmember():
-    name= flask.request.args.get("name")
-    height= flask.request.args.get("height")
-    email= flask.request.args.get("email")
-    weight= flask.request.args.get("weight")
-    phone= flask.request.args.get("phone")
-    birthdate= flask.request.args.get("birthdate")
-    gender= flask.request.args.get("gender")
-    member=Member(name,birthdate,height,weight,gender,phone,email)
-
-    return flask.redirect(f"/newVital?id={member.id}")
-
-@app.route ("/newVital") 
-def newVitalpage():
-    id= flask.request.args.get("id")
-    return get_html("add_vital_details").replace("&&ID&&",id)
-   
-@app.route ("/addVitalDetails") 
-def addVitalDetails():
-    member_id= flask.request.args.get("id")
-    bodyFatPercentage= flask.request.args.get("bodyFatPercentage")
-    disease= flask.request.args.get("disease")
-    medications= flask.request.args.get("medications")
-    allergy= flask.request.args.get("allergy")
-    fitnessGoals= flask.request.args.get("fitnessGoals")
-
-    vitaDetails=VitaDetails(allergy, disease,bodyFatPercentage,fitnessGoals,medications,member_id)
-    vitaDetails.add_to_DB()
-    return flask.redirect("/home")
-
-
-
-@app.route ("/deletemember") 
-def deletemember():  
-    id= flask.request.args.get("id")
-    deleteMemberFromDB(id)
-    return flask.redirect("/home") 
-
-@app.route ("/deletepackage") 
-def deletepackage():
-    id= flask.request.args.get("package_id")
-    deletePackageFromDB(id)
-    print ("delete package with id = " + str(id))
-    return flask.redirect("/home") 
-@app.route ("/search") #the next function will be called once user entered the name of contact he wanted to search for
-def search():
-    result=[]
-    nameOrId= flask.request.args.get("search") 
-    print("nameOrId = "+str(nameOrId))
-    if nameOrId.isdigit():
-        id=nameOrId
-        #search by id
-        try:
-            db = mysql.connector.connect(**mysql_config)
-            cursor = db.cursor()
-            cursor.execute(f"SELECT * FROM members where member_id={id}")
-            members = cursor.fetchall()
-        except Exception as e:
-            print(f"Error retrieving members: {str(e)}")
-            return flask.redirect("/home") 
-            
-        finally:
-            cursor.close()
-    else:
-        name=nameOrId
-        try:
-            db = mysql.connector.connect(**mysql_config)
-            cursor = db.cursor()
-            cursor.execute(f"SELECT * FROM members where name='{name}'")
-            members = cursor.fetchall()
-        except Exception as e:
-            print(f"Error retrieving members: {str(e)}")
-            return flask.redirect("/home")
-         
-    all_members = []
-    for member in members:
-        member_data = member
-        member_obj = Member(member_data[1],(member_data[2]) , int(member_data[3]), int(member_data[4]), member_data[5], member_data[6], member_data[7], (member_data[0]))
-        all_members.append(member_obj)
-    
-    text = get_members_table_text(all_members)
-
-    packages=getAllPackagesData()
-    text2=get_packages_table_text(packages)
-    return get_html("index").replace("$$MEMBERS$$", text).replace("$$PACKAGES$$",text2)
-
+"""
+this function will take array of member's objects andd make them in shape of
+members table to be placed in the homepage instead of placeholder
+"""
 def get_members_table_text(all_members):
     text = ""
     for member in all_members:
@@ -409,6 +322,10 @@ def get_members_table_text(all_members):
         text += "</tr>"
     return text
 
+"""
+this function will take array of package's objects and make them in shape of
+packages table to be placed in the homepage instead of placeholder
+"""
 def get_packages_table_text(packages):
     text=""
     for package in packages:
@@ -421,10 +338,144 @@ def get_packages_table_text(packages):
         text += "</tr>"
     return text
 
+
+
+#----------------------------- Routes section ------------------------#
+
+#this route used for the icon of the website
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+#the first route in the website whech is welcome page
+@app.route ("/") 
+def login():
+    return get_html("login")
+#the home page route which will view member's, packages, subscriptions main info
+@app.route("/home") 
+def homepage():
+    members = getAllMembersData()
+    text = get_members_table_text(members)
+        
+    packages=getAllPackagesData()
+    text2=get_packages_table_text(packages)
+    return get_html("index").replace("$$MEMBERS$$", text).replace("$$PACKAGES$$",text2)
+
+
+#this route will return the page where trainer will insert the main info of the member
+@app.route ("/newmember") 
+def newmemberpage():
+    return get_html("add_member")
+"""
+this route will be called after inserting the main info to create object
+for the member and then will go to page where  trainer insert member's vital details
+"""
+@app.route ("/addnewmember") 
+def addnewmember():
+    name= flask.request.args.get("name")
+    height= flask.request.args.get("height")
+    email= flask.request.args.get("email")
+    weight= flask.request.args.get("weight")
+    phone= flask.request.args.get("phone")
+    birthdate= flask.request.args.get("birthdate")
+    gender= flask.request.args.get("gender")
+    member=Member(name,birthdate,height,weight,gender,phone,email)
+
+    return flask.redirect(f"/newVital?id={member.id}")
+
+#this route will return the page where trainer will insert the vital details of the member
+@app.route ("/newVital") 
+def newVitalpage():
+    id= flask.request.args.get("id")
+    return get_html("add_vital_details").replace("&&ID&&",id)
+   
+"""
+this route will be called after inserting the Vital Details to create object
+for the Vital Details and then will go to the home page
+"""
+@app.route ("/addVitalDetails") 
+def addVitalDetails():
+    member_id= flask.request.args.get("id")
+    bodyFatPercentage= flask.request.args.get("bodyFatPercentage")
+    disease= flask.request.args.get("disease")
+    medications= flask.request.args.get("medications")
+    allergy= flask.request.args.get("allergy")
+    fitnessGoals= flask.request.args.get("fitnessGoals")
+
+    vitaDetails=VitaDetails(allergy, disease,bodyFatPercentage,fitnessGoals,medications,member_id)
+    vitaDetails.add_to_DB()
+    return flask.redirect("/home")
+
+
+#this route will used to pass id for member to the delete from database function
+@app.route ("/deletemember") 
+def deletemember():  
+    id= flask.request.args.get("id")
+    deleteMemberFromDB(id)
+    return flask.redirect("/home") 
+
+#this route will used to pass id for package to the delete from database function
+@app.route ("/deletepackage") 
+def deletepackage():
+    id= flask.request.args.get("package_id")
+    deletePackageFromDB(id)
+    print ("delete package with id = " + str(id))
+    return flask.redirect("/home") 
+
+#this route will be called once user entered the name or id of the member he wanted to search for
+@app.route ("/search") 
+def search():
+    nameOrId= flask.request.args.get("search") 
+#check iff trainer entered an ID
+    if nameOrId.isdigit():
+        id=nameOrId
+        #search by id
+        try:
+            db = mysql.connector.connect(**mysql_config)
+            cursor = db.cursor()
+            cursor.execute(f"SELECT * FROM members where member_id={id}")
+            members = cursor.fetchall()
+        except Exception as e:
+            print(f"Error retrieving members: {str(e)}")
+            #if there is an error so go to home page 
+            return flask.redirect("/home") 
+            
+        finally:
+            cursor.close()
+#if it is not by id so search by member's name    
+    else:
+        name=nameOrId
+        try:
+            db = mysql.connector.connect(**mysql_config)
+            cursor = db.cursor()
+            cursor.execute(f"SELECT * FROM members where name='{name}'")
+            members = cursor.fetchall()
+        except Exception as e:
+            print(f"Error retrieving members: {str(e)}")
+            return flask.redirect("/home")
+         
+    all_members = []
+    for member in members:
+        member_data = member
+        member_obj = Member(member_data[1],(member_data[2]) , int(member_data[3]), int(member_data[4]), member_data[5], member_data[6], member_data[7], (member_data[0]))
+        all_members.append(member_obj)
+#now get the data (the html element of the member's table) which will be replaced with the placeholder in the home page(index.html)
+    text = get_members_table_text(all_members)
+
+#this section will be called any way to view packages table in the home page
+    packages=getAllPackagesData()
+    text2=get_packages_table_text(packages)
+    return get_html("index").replace("$$MEMBERS$$", text).replace("$$PACKAGES$$",text2)
+
+
+"""
+this route responsible for viewing all the details of the member in his profile page
+so it will render the profile page with all member's data (info, vital info, sunscription info, workout info)
+"""
 @app.route("/member_profile")
 def member_profile():
-    result = []
     id = flask.request.args.get("id")
+#this section will get main info of the member
     try:
         db = mysql.connector.connect(**mysql_config)
         cursor = db.cursor()
@@ -435,6 +486,8 @@ def member_profile():
         return flask.redirect("/home")
     finally:
         cursor.close()
+    
+#this section will get Vitaldetails of the member
     try:
         db = mysql.connector.connect(**mysql_config)
         cursor = db.cursor()
@@ -445,17 +498,9 @@ def member_profile():
         return flask.redirect("/home")
     finally:
         cursor.close()
-    try:
-        db = mysql.connector.connect(**mysql_config)
-        cursor = db.cursor()
-        cursor.execute(f"SELECT * FROM package")
-        packages_data = cursor.fetchone()
-    except Exception as e:
-        print(f"Error retrieving vital: {str(e)}")
-        cursor.close()
-        return flask.redirect("/home")
-    
-    
+
+#if the member already exist and has vital data then get his subscription data if he has previous one
+#then pass all of them to the template of member profile
     if member_vital_data and member_data is not None:
         member = Member(
             member_data[1],
@@ -481,6 +526,7 @@ def member_profile():
             member_vital_data[5],
             int(member_data[0])
         )
+#get all packages data for the trainer if he want to subscribe or resubscripe for the memebr in package
         packages=getAllPackagesData()
         try:
             workout_file_path = f"members/{id}/workout_summary.txt"
@@ -489,26 +535,16 @@ def member_profile():
             return render_template("member_profile.html", member=member, vitaDetails=vitaDetails, packages=packages, subscription_data=subscription_data,file_content=file_content)
         except Exception as e:
             return render_template("member_profile.html", member=member, vitaDetails=vitaDetails, packages=packages,subscription_data=subscription_data,file_content="Workout Not Added Yet")
-
-                
+#this condition will be valid if the member already exist but does not has vital data   
+    elif member_data is not None:
+        return flask.redirect("/newVital?id="+str(id))
     else:
-        return "No vital details found for this member."
+        return flask.redirect("/home"+str(id))
 
 
 
-"""
-this function will get the html content from any page 
-and send it to browser
-"""
-def get_html(pagename):
-    html_file = open("views/"+pagename+".html")
-    content =html_file.read()
-    html_file.close()
-    return content
 
-@app.route ("/") 
-def login():
-    return get_html("login")
+
 
 @app.route ("/newpacakge") 
 def newpackage():
