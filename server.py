@@ -609,11 +609,12 @@ def member_profile():
     else:
         return flask.redirect("/home"+str(id))
 
-
+#this route send the new package page
 @app.route ("/newpacakge") 
 def newpackage():
     return get_html("add_package")
 
+#this route recieve the new package data and create instance of it's class then add to database
 @app.route ("/addnewpackage") 
 def addnewpackage():
     name= flask.request.args.get("name")
@@ -715,5 +716,3 @@ def add_nutrition_plan():
                 
     # Redirect to the member profile or another destination after subscription
     return flask.redirect(f"/member_profile?id=" + str(member_id))
-
-

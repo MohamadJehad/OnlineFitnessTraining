@@ -13,13 +13,3 @@ Zottman DB Curl                         4                   8 to 12             
 DB row                                  2                   8 to 10             no link                                 
 Back extension                          3                   12 then 10 then 8   click here                              
 
-
-
-
-
-
-
-
-
-
-

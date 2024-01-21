@@ -6,16 +6,3 @@ chickken                                2
 rice                                    3                   
 food                                    4                   
 
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -19,5 +19,3 @@ meal:                                   quantity:
 sweet potato                            500gm               
 Salmon                                  2 fishes            
 Chicken Caesar salad                    500gm               
-
-
