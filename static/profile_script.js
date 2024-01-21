@@ -131,8 +131,12 @@ function toggleTable() {
  * 
  */
 const print_workoutbtn = document.getElementById("print_workoutbtn");
+const print_nutrition = document.getElementById("print_nutrition");
 print_workoutbtn.onclick = function () {
     printWorkoutPlan();
+};
+print_nutrition.onclick = function () {
+    printNutritionPlan();
 };
 function printWorkoutPlan() {
     var workoutContent = document.getElementById("workoutContent").innerText;
@@ -143,6 +147,21 @@ function printWorkoutPlan() {
     // Write the workout content to the new window
     printWindow.document.write('<html><head><title>Workout Plan</title></head><body>');
     printWindow.document.write('<pre>' + workoutContent + '</pre>');
+    printWindow.document.write('</body></html>');
+
+
+    printWindow.print();
+}
+
+function printNutritionPlan() {
+    var nutritionContent = document.getElementById("nutritionContent").innerText;
+
+    // Create a new window
+    var printWindow = window.open('', '_blank');
+
+    // Write the workout content to the new window
+    printWindow.document.write('<html><head><title>Nutrition Plan</title></head><body>');
+    printWindow.document.write('<pre>' + nutritionContent + '</pre>');
     printWindow.document.write('</body></html>');
 
 

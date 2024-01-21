@@ -237,19 +237,20 @@ strong{
   border: 3px solid #041920; 
   border-radius: 15px;
 }
-.workout-info{
+.workout-nutrition{
   margin-top: 100px;
   width: 110%;
   margin-left: -5%;
 }
 
-.view-workout-form,.view-plan-form pre {
+.view-workout-form,.view-plan-form  {
   font-family: Courier, monospace; 
   font-size: 20px; 
   color: #041920;
+  margin-bottom: 40px;
 }
 
-#print_workoutbtn {
+.print_btn {
   padding: 10px;
   width: 250px;
   background-color: #333;

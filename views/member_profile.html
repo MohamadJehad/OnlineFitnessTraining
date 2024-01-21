@@ -14,9 +14,9 @@
             <ul>
                 <li><a class="" href="newmember">Add New Member</a></li>
                 <li><a class="" href="/home">View All Members</a></li>
-                <li><a class="" href="#add-workout">Add Workout Program</a></li>
-                <li><a class="" href="#view_workout">View Workout Program</a></li>
-                <li><a class="" href="#print_workoutbtn">Print Workout Program</a></li>
+                <li><a class="" href="#add-workout">Add Workout/ Nutrition</a></li>
+                <li><a class="" href="#view_workout">View Workout/ Nutrition</a></li>
+                <li><a class="" href="#print_workoutbtn">Print Workout/ Nutrition</a></li>
                 
             </ul>
         </nav><!-- .navbar -->
@@ -329,20 +329,22 @@
 
 
                 <br><br><br>
-                <div class="workout-info" >
+                <div class="workout-nutrition" >
                      
                     <div class="view-workout-form" id="view_workout">
                         <h1>Workout Program</h1>
                         <!-- Display the workout file content  -->
                         <pre id="workoutContent">{{ workout_file_content }}</pre>
+
                     </div>
-                    <button  id="print_workoutbtn" >print workout Program</button>
+                   
                     <div class="view-plan-form" id="view_plan">
                         <h1>Nutrition Plan</h1>
                         <!-- Display the workout file content  -->
-                        <pre id="workoutContent">{{ nutrition_file_content }}</pre>
+                        <pre id="nutritionContent">{{ nutrition_file_content }}</pre>
                     </div>
-                    <button  id="print_workoutbtn" >print Nutrition plan</button>
+                    <button  id="print_nutrition" class="print_btn">print Nutrition plan</button>
+                    <button  id="print_workoutbtn" class="print_btn" >print workout Program</button>
                 </div>
     </div>
         </div>  
