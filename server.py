@@ -162,7 +162,7 @@ def member_profile():
     elif member_data:
         return flask.redirect("/newVital?id="+str(id))
     else:
-        return flask.redirect("/home"+str(id))
+        return get_html("error_page").replace("&&ERROR&&","Error") 
 
 #this route send the new package page
 @app.route ("/newpacakge") 
@@ -179,6 +179,15 @@ def addnewpackage():
     package=Package(name, value,duration)
     package.add_to_DB()
     return flask.redirect("/home")
+
+
+#this route will used reender page with the current data of member 
+@app.route ("/editmember") 
+def editmember():  
+    id= flask.request.args.get("id")
+    member=search_by_id(id)
+    return render_template("edit_member.html",member=member)
+
 
 #this route will be called when trainer submit his changes to member's data
 @app.route("/submit_edit_member")
@@ -253,12 +262,4 @@ def add_nutrition_plan():
 
     # Redirect to the member profile or another destination after subscription
     return flask.redirect(f"/member_profile?id=" + str(member_id))
-
-
-#this route will used to pass id for member to the delete from database function
-@app.route ("/editmember") 
-def editmember():  
-    id= flask.request.args.get("id")
-    member=search_by_id(id)
-    return render_template("edit_member.html",member=member)
 
