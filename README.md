@@ -12,6 +12,8 @@ A fitness management application designed for trainers to keep track of members'
 - Modern web browser with localStorage support
 - Jinja (only used in one html page)
 
+- to run the website use `flask --app .\server.py run --debug  `
+
 
 ## Project Checklist
 
