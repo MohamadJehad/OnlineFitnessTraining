@@ -110,9 +110,6 @@ class Member:
             bmr = 447.593 + (9.247 * self.weight)+(3.098 * self.height)-(4.330 * self.calculate_age())
         return int(bmr)
 
-    def deletemember(self):
-        deleteMemberFromDB(self.id)
-        del self
 
 
 
@@ -186,7 +183,7 @@ this function will retrieve all members data from the database and create
 objects of member's class for each one of them
 and will return array of members objects
 """
-def getAllMembersData():
+def get_all_members_data():
     try:
         db = mysql.connector.connect(**mysql_config)
         cursor = db.cursor()
@@ -210,7 +207,7 @@ this function will retrieve all pacages data from the database and create
 objects of package's class for each one of them
 and will return array of packages objects
 """
-def getAllPackagesData():
+def get_all_packages_data():
     try:
         db = mysql.connector.connect(**mysql_config)
         cursor = db.cursor()
@@ -268,7 +265,7 @@ this function will delete the package from database based on it's ID
 note the function is not created inside the class because it will be called using post 
 method which will pass only package's ID
 """
-def deletePackageFromDB(package_id):
+def delete_package_from_DB(package_id):
     try:
         db = mysql.connector.connect(**mysql_config)
         cursor = db.cursor()
@@ -415,10 +412,10 @@ def login():
 #the home page route which will view member's, packages, subscriptions main info
 @app.route("/home") 
 def homepage():
-    members = getAllMembersData()
+    members = get_all_members_data()
     text = get_members_table_text(members)
         
-    packages=getAllPackagesData()
+    packages=get_all_packages_data()
     text2=get_packages_table_text(packages)
     return get_html("index").replace("$$MEMBERS$$", text).replace("$$PACKAGES$$",text2)
 
@@ -479,7 +476,7 @@ def deletemember():
 @app.route ("/deletepackage") 
 def deletepackage():
     id= flask.request.args.get("package_id")
-    deletePackageFromDB(id)
+    delete_package_from_DB(id)
     print ("delete package with id = " + str(id))
     return flask.redirect("/home") 
 
@@ -524,7 +521,7 @@ def search():
     text = get_members_table_text(all_members)
 
 #this section will be called any way to view packages table in the home page
-    packages=getAllPackagesData()
+    packages=get_all_packages_data()
     text2=get_packages_table_text(packages)
     return get_html("index").replace("$$MEMBERS$$", text).replace("$$PACKAGES$$",text2)
 
@@ -588,7 +585,7 @@ def member_profile():
             int(member_data[0])
         )
 #get all packages data for the trainer if he want to subscribe or resubscripe for the memebr in package
-        packages=getAllPackagesData()
+        packages=get_all_packages_data()
 #this section to get workout info for the member
         try:
             workout_file_path = f"members/{id}/workout_summary.txt"
