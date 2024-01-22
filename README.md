@@ -7,7 +7,7 @@ A fitness management application designed for trainers to keep track of members'
 - Python with Flask
 - MySQL workbench 
    1- You will need to import my files(stored in database folder) in your workbench
-   2- You will need to change the mysql_config(lines: `17 to 22`) with yours
+   2- You will need to change the mysql_config(file `app/database.py`) with yours
    3- mysql.connector: Ensure that you have the mysql.connector module installed to interact with MySQL databases in the Python environment.
 - Modern web browser with localStorage support
 - Jinja (only used in one html page)
@@ -20,28 +20,33 @@ A fitness management application designed for trainers to keep track of members'
 - [x] Uses modules from the Python Standard Library.
   - Module name: `datetime`, `os`,`mysql`
 - [x] Contains at least one class with properties and methods.
-  - File name for the class definition: `server.py`
-  - Line number(s) for the class definition: `28-117` ,`122-147` , `149-172`
+  - File name for the class definition: `app/classes.py`
+  - Line number(s) for the class definition: `7` ,`94` , `121`
   - Name of properties for `Member` class: `name`, `birthdate`,`gender`,`name`,
         `height`,`weight`, `phone`,`email`,`id`
    - Name of properties for `Package` class: `name`, `value`,`duration`,`id`
    - Name of properties for `vital-details` class: `member_id`, `fitnessGoals`,`medications`
         ,`allergy`,`disease`,`bodyFatPercentage`
-  - Name of two methods for `Member` class: `add_to_DB`, `get_subscription`,
+  - Name of all methods for `Member` class: `add_to_DB`, `get_subscription`,
         `calculate_age`,`calculate_bmr`
-  - Name of two methods for `package` class: `add_to_DB`
-  - Name of two methods for `Vital-details` class: `add_to_DB`
-  - File name and line numbers where the methods used: `server.py` -> `47`,`158`,`302`,`467`,`624`
-                                                        `member_profile.html`-> `33`,``48``
+  - Name of method for `package` class: `add_to_DB`
+  - Name of method for `Vital-details` class: `add_to_DB`
+  - File name and line numbers where the methods used:
+   `app/functions.py` -> `192`,
+   `app/html_handling` ->`22`,`29` 
+   `member_profile.html`-> `33`,`48`
+   `app/classes.py`-> `29`,`48`
+   `server.py`-> `179`,`48`
+   
 - [x] Uses JavaScript in the front end and localStorage. 
 - [x] Uses modern JavaScript.
 - [x] Makes use of reading and writing to the same file feature.
 - [x] Contains conditional statements.
   - File name: `server.py`
-  - Line number(s): `34`,`45`,`108`, `128`,`245`,......
+  - Line number(s): `106`,`144`,`194`, `208`,`245`,......
 - [x] Contains loops.
-  - File name: `server.py`
-  - Line number(s): `202`, `226`, `299`,`330`,`670`,....
+  - File name: `app/files_handling.py`
+  - Line number(s): `24`, `28`, `39`,`43`,....
 - [x] Lets the user enter a value in a text box.
 - [x] Styled using CSS.
 - [x] Follows code and style conventions.
@@ -49,7 +54,7 @@ A fitness management application designed for trainers to keep track of members'
 
 ## Features
 
-- Member management(`add`,`search by name or ID`,`delete`,`view`, `view profile`)
+- Member management(`add`,`edit`,`search by name or ID`,`delete`,`view`, `view profile`)
 - Vital details tracking(`add`,`delete`,`view`)
 - Subscription handling(`subscripe` if not subscriped or expired,
                         `resubscripe` if already has valid subscription)

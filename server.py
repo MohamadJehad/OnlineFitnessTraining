@@ -1,7 +1,7 @@
 #(Online Fit trainer) APP
 #----------------------------- Imports section ------------------------#
 import flask
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory,redirect,request
 import os
 from app.classes import Member,Package,VitaDetails
 from app.functions import get_all_members_data,get_all_packages_data,get_vital_info,get_member_subscription,edit_member_data
@@ -179,7 +179,24 @@ def addnewpackage():
     package.add_to_DB()
     return flask.redirect("/home")
 
-
+#this route will be called when trainer submit his changes to member's data
+@app.route("/submit_edit_member")
+def submit_edit_member():
+    id= flask.request.args.get("id")
+    name= flask.request.args.get("name")
+    height= flask.request.args.get("height")
+    email= flask.request.args.get("email")
+    weight= flask.request.args.get("weight")
+    phone= flask.request.args.get("phone")
+    birthdate= flask.request.args.get("birthdate")
+    gender= flask.request.args.get("gender")
+    member=Member(name,birthdate,height,weight,gender,phone,email,id)
+    if edit_member_data(member):
+        return redirect("member_profile?id=" + str(id))
+    else:
+        return get_html("error_page").replace("&&ERROR&&","Edit Failed") 
+    
+    
 
 # New route to handle subscription form submission
 @app.route("/subscribe", methods=["POST"])
@@ -201,9 +218,7 @@ def resubscribe():
    
     re_subscribe_to_package(package_id,member_id)
     return flask.redirect("/member_profile?id="+str(member_id))
-  
-import os
-from flask import request, redirect
+
 
 # Function to handle adding workout to a member
 @app.route("/add_workout", methods=["POST"])
@@ -251,20 +266,3 @@ def editmember():
     member=search_by_id(id)
     return render_template("edit_member.html",member=member)
 
-@app.route("/submit_edit_member")
-def submit_edit_member():
-    id= flask.request.args.get("id")
-    name= flask.request.args.get("name")
-    height= flask.request.args.get("height")
-    email= flask.request.args.get("email")
-    weight= flask.request.args.get("weight")
-    phone= flask.request.args.get("phone")
-    birthdate= flask.request.args.get("birthdate")
-    gender= flask.request.args.get("gender")
-    member=Member(name,birthdate,height,weight,gender,phone,email,id)
-    if edit_member_data(member):
-        return redirect("member_profile?id=" + str(id))
-    else:
-        return get_html("error_page").replace("&&ERROR&&","Edit Failed") 
-    
-    
