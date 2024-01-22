@@ -5,9 +5,10 @@ A fitness management application designed for trainers to keep track of members'
 ## Prerequisites
 
 - Python with Flask
-- MySQL database
+- MySQL workbench (as you will need to import my files(stored in database folder) in your workbench)
 - Modern web browser with localStorage support
-- Jinja (only used in one html file)
+- Jinja (only used in one html page)
+
 
 ## Project Checklist
 
@@ -65,3 +66,8 @@ A fitness management application designed for trainers to keep track of members'
 
 ## Usage of database 
 - Three tables created to hold the main information of the (members, packages, vital details) 
+
+## Contact
+- Gmail: m.jehad.kh@gmail.com
+- linkedIn: https://eg.linkedin.com/in/jehadkh
+- GitHub: https://github.com/jehadkh
