@@ -1,20 +1,22 @@
 #(Online Fit trainer) APP
 #----------------------------- Imports section ------------------------#
-
 import mysql.connector
 import flask
 from flask import Flask, render_template, send_from_directory
 import os
 from app.classes import Member,Package,VitaDetails
 from app.database import mysql_config
-from app.functions import get_html,get_all_members_data,get_all_packages_data,deleteMemberFromDB,re_subscribe_to_package
-from app.functions import delete_package_from_DB,get_members_table_text,get_packages_table_text,subscribe_to_package,get_workout_nutrition
+from app.functions import get_html,get_all_members_data,get_all_packages_data,delete_member_from_DB,get_vital_info
+from app.functions import delete_package_from_DB,subscribe_to_package,re_subscribe_to_package,search_by_id,search_by_name
+from app.html_hanlding import get_members_table_text,get_packages_table_text
+from app.files_handling import get_workout_nutrition
 #----------------------------- Initialize the coed section ------------------------#
 #init flask
 app =flask.Flask(__name__)
 app = Flask(__name__, template_folder="views")
 if __name__=='__main__':
     app.run(debug=True)
+
 #----------------------------- Routes section ------------------------#
 #this route used for the icon of the website
 @app.route('/favicon.ico')
@@ -25,6 +27,7 @@ def favicon():
 @app.route ("/") 
 def login():
     return get_html("login")
+
 #the home page route which will view member's, packages, subscriptions main info
 @app.route("/home") 
 def homepage():
@@ -85,7 +88,7 @@ def addVitalDetails():
 @app.route ("/deletemember") 
 def deletemember():  
     id= flask.request.args.get("id")
-    deleteMemberFromDB(id)
+    delete_member_from_DB(id)
     return flask.redirect("/home") 
 
 #this route will used to pass id for package to the delete from database function
@@ -103,43 +106,25 @@ def search():
 #check iff trainer entered an ID
     if nameOrId.isdigit():
         id=nameOrId
-        #search by id
-        try:
-            db = mysql.connector.connect(**mysql_config)
-            cursor = db.cursor()
-            cursor.execute(f"SELECT * FROM members where member_id={id}")
-            members = cursor.fetchall()
-        except Exception as e:
-            print(f"Error retrieving members: {str(e)}")
-            #if there is an error so go to home page 
-            return flask.redirect("/home") 
-            
-        finally:
-            cursor.close()
+        members=search_by_id(id)   
 #if it is not by id so search by member's name    
     else:
         name=nameOrId
-        try:
-            db = mysql.connector.connect(**mysql_config)
-            cursor = db.cursor()
-            cursor.execute(f"SELECT * FROM members where name='{name}'")
-            members = cursor.fetchall()
-        except Exception as e:
-            print(f"Error retrieving members: {str(e)}")
-            return flask.redirect("/home")
+        members=search_by_name(name)   
          
     all_members = []
     for member in members:
         member_data = member
-        member_obj = Member(member_data[1],(member_data[2]) , int(member_data[3]), int(member_data[4]), member_data[5], member_data[6], member_data[7], (member_data[0]))
+        member_obj = Member(member_data[1],(member_data[2]) , int(member_data[3]),
+                            int(member_data[4]), member_data[5], member_data[6], member_data[7], (member_data[0]))
         all_members.append(member_obj)
 #now get the data (the html element of the member's table) which will be replaced with the placeholder in the home page(index.html)
-    text = get_members_table_text(all_members)
+    members_table = get_members_table_text(all_members)
 
 #this section will be called any way to view packages table in the home page
     packages=get_all_packages_data()
-    text2=get_packages_table_text(packages)
-    return get_html("index").replace("$$MEMBERS$$", text).replace("$$PACKAGES$$",text2)
+    packages_table=get_packages_table_text(packages)
+    return get_html("index").replace("$$MEMBERS$$", members_table).replace("$$PACKAGES$$",packages_table)
 
 
 """
@@ -149,29 +134,12 @@ so it will render the profile page with all member's data (info, vital info, sun
 @app.route("/member_profile")
 def member_profile():
     id = flask.request.args.get("id")
-#this section will get main info of the member
-    try:
-        db = mysql.connector.connect(**mysql_config)
-        cursor = db.cursor()
-        cursor.execute(f"SELECT * FROM members WHERE member_id={id}")
-        member_data = cursor.fetchone()
-    except Exception as e:
-        print(f"Error retrieving members: {str(e)}")
-        return flask.redirect("/home")
-    finally:
-        cursor.close()
+#this will get main info of the member
+    member_data=search_by_id(id)[0]
     
 #this section will get Vitaldetails of the member
-    try:
-        db = mysql.connector.connect(**mysql_config)
-        cursor = db.cursor()
-        cursor.execute(f"SELECT * FROM Vitaldetails WHERE memberId={id}")
-        member_vital_data = cursor.fetchone()
-    except Exception as e:
-        print(f"Error retrieving vital: {str(e)}")
-        return flask.redirect("/home")
-    finally:
-        cursor.close()
+    member_vital_data=get_vital_info(id)
+    
 
 #if the member already exist and has vital data then get his subscription data if he has previous one
 #then pass all of them to the template of member profile
@@ -179,20 +147,21 @@ def member_profile():
         member = Member(member_data[1],(member_data[2]),int(member_data[3]),int(member_data[4])
             ,member_data[5],member_data[6],member_data[7],int(member_data[0]),
         )
-        subscription=member.get_subscription()
-        if subscription:
-            subscription_data = {'name':subscription[0],'startDate': subscription[1] ,'endDate':subscription[2]}
-        else:
-            subscription_data = {'name':'Subscribe first','startDate': '' ,'endDate':''}
 
         vitaDetails = VitaDetails(member_vital_data[1],member_vital_data[2],member_vital_data[3],member_vital_data[4],
                                   member_vital_data[5],int(member_data[0])
         )
 #get all packages data for the trainer if he want to subscribe or resubscripe for the memebr in package
         packages=get_all_packages_data()
-#this section to get workout info and nutrition plan for the member
-        workout_file_content,nutrition_file_content=get_workout_nutrition(id)
 
+#this line to get workout info and nutrition plan for the member
+        workout_file_content,nutrition_file_content=get_workout_nutrition(id)
+        
+        subscription=member.get_subscription()
+        if subscription:
+            subscription_data = {'name':subscription[0],'startDate': subscription[1] ,'endDate':subscription[2]}
+        else:
+            subscription_data = {'name':'Subscribe first','startDate': '' ,'endDate':''}
         return render_template("member_profile.html", member=member, vitaDetails=vitaDetails, packages=packages, subscription_data=subscription_data,workout_file_content=workout_file_content,nutrition_file_content=nutrition_file_content)
 #this condition will be valid if the member already exist but does not has vital data   
     elif member_data is not None:
@@ -239,14 +208,11 @@ def resubscribe():
     re_subscribe_to_package(package_id,member_id)
     return flask.redirect("/member_profile?id="+str(member_id))
     
-
-
 # this route to handle add workout to member
 @app.route("/add_workout", methods=["POST"])
 def add_workout():
     # Get member_id from the form data
     member_id = flask.request.form.get("member_id")
-    print("member_id is =" + str(member_id))
 
     # Create a directory if it doesn't exist for the member
     member_directory = f"members/{member_id}"
@@ -254,7 +220,6 @@ def add_workout():
 
     # Create a single file for all workout data
     file_path = os.path.join(member_directory, "workout_summary.txt")
-    
     
     with open(file_path, 'w') as workout_file:
         workout_file.write(f"Member ID: {member_id}\n\n")
@@ -281,7 +246,6 @@ def add_workout():
 def add_nutrition_plan():
     # Get member_id from the form data
     member_id = flask.request.form.get("member_id")
-    print("member_id is =" + str(member_id))
 
     # Create a directory if it doesn't exist for the member
     member_directory = f"members/{member_id}"
@@ -289,7 +253,6 @@ def add_nutrition_plan():
 
     # Create a single file for all workout data
     file_path = os.path.join(member_directory, "nutrition_plan.txt")
-    
     
     with open(file_path, 'w') as nutrition_plan_file:
         nutrition_plan_file.write(f"Member ID: {member_id}\n\n")

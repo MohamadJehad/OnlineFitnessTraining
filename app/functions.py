@@ -2,7 +2,6 @@ from app.classes import Member,Package
 from app.database import mysql_config
 import mysql.connector
 from datetime import datetime, timedelta
-import os
 #----------------------------- Functions section ------------------------#
 
 """
@@ -65,7 +64,7 @@ this function will delete the member from database based on it's ID
 note the function is not created inside the class because it will be called using post 
 method which will pass only member's ID
 """
-def deleteMemberFromDB(member_id):
+def delete_member_from_DB(member_id):
     try:
         db = mysql.connector.connect(**mysql_config)
         cursor = db.cursor()
@@ -122,53 +121,6 @@ def delete_package_from_DB(package_id):
         print(f"Error deleting package: {error}")
     finally:
         cursor.close()
-"""
-this function will take array of member's objects andd make them in shape of
-members table to be placed in the homepage instead of placeholder
-"""
-def get_members_table_text(all_members):
-    text = ""
-    for member in all_members:
-        text += "<tr>"
-        text += "<td>" + str(member.id) + "</td>"
-        text += "<td>" + member.name + "</td>"
-        text += "<td>" + str(member.calculate_age()) + "</td>"
-        #text += "<td>" + str(member.height) + "</td>"
-        #text += "<td>" + str(member.weight) + "</td>"
-        #text += "<td>" + member.gender + "</td>"
-        text += "<td>" + member.phone + "</td>"
-        #text += "<td>" + member.email + "</td>"
-       # text += "<td>" + str(int(member.calculate_bmr()))+ "</td>"
-        subscription_data = member.get_subscription()
-        if subscription_data:
-            text += "<td>" + subscription_data[0] + "</td>"
-            text += "<td>" + str(subscription_data[1]) + "</td>"
-            text += "<td>" + str(subscription_data[2]) + "</td>"
-        else:
-            text += "<td>" + "Not subscriped" + "</td>"
-            text += "<td>"  + " " + "</td>"
-            text += "<td>"  + " " + "</td>"
-        text += "<td><a href='/deletemember?id=" + str(member.id) + "' class='delete'>Delete</a></td>"
-        text += "<td><a href='/member_profile?id=" + str(member.id) + "' class='profile'>Profile</a></td>"
-        text += "</tr>"
-    return text
-
-"""
-this function will take array of package's objects and make them in shape of
-packages table to be placed in the homepage instead of placeholder
-"""
-def get_packages_table_text(packages):
-    text=""
-    for package in packages:
-        text += "<tr>"
-        text += "<td>" + str(package.package_id) + "</td>"
-        text += "<td>" + package.name + "</td>"
-        text += "<td>" + str(package.value) + "</td>"
-        text += "<td>" + str(package.duration) + "</td>"
-        text += "<td><a href='/deletepackage?package_id=" + str(package.package_id) + "' class='delete'>Delete " + "</a></td>"
-        text += "</tr>"
-    return text
-
 #this function subscribe the member in specific package
 def subscribe_to_package(package_id,member_id):
     #first chack if memebr already subscriped
@@ -232,17 +184,41 @@ def re_subscribe_to_package(package_id,member_id):
     finally:
         cursor.close()
 
-def get_workout_nutrition(id):
+#search from member by id
+def search_by_id(id):
+
+        try:
+            db = mysql.connector.connect(**mysql_config)
+            cursor = db.cursor()
+            cursor.execute(f"SELECT * FROM members where member_id={id}")
+            members = cursor.fetchall()
+        except Exception as e:
+            print(f"Error retrieving members: {str(e)}")
+        finally:
+            cursor.close()
+#if nothing found it will return empty []
+        return members
+
+#get vital info of member
+def get_vital_info(id):
     try:
-        workout_file_path = f"members/{id}/workout_summary.txt"
-        with open(workout_file_path, 'r') as file:
-            workout_file_content = file.read()    
+        db = mysql.connector.connect(**mysql_config)
+        cursor = db.cursor()
+        cursor.execute(f"SELECT * FROM Vitaldetails WHERE memberId={id}")
+        member_vital_data = cursor.fetchone()
     except Exception as e:
-        workout_file_content="Workout not Added Yet"
+        print(f"Error retrieving vital: {str(e)}")
+    finally:
+        cursor.close()
+    return member_vital_data
+#search from member by name
+def search_by_name(name):
     try:
-        nutrition_file_path = f"members/{id}/nutrition_plan.txt"
-        with open(nutrition_file_path, 'r') as file:
-            nutrition_file_content = file.read()    
+        db = mysql.connector.connect(**mysql_config)
+        cursor = db.cursor()
+        cursor.execute(f"SELECT * FROM members where name='{name}'")
+        members = cursor.fetchall()
     except Exception as e:
-        nutrition_file_content="Nutrition not Added Yet"
-    return workout_file_content,nutrition_file_content
+        print(f"Error retrieving members: {str(e)}")
+#if nothing found it will return empty []
+    return members
