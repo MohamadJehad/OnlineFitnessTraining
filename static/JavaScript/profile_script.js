@@ -95,7 +95,7 @@ function toggleDay(day,btn) {
     rows.forEach(row => {
         if (row.style.display === 'none' || row.style.display === '') {
             row.style.display = 'table-row';
-            btn.textContent = 'Hide Day'+dayNum;
+            btn.textContent = 'Hide Day '+dayNum;
         } else {
             row.style.display = 'none';
             btn.textContent = 'Show Day '+dayNum;

@@ -179,7 +179,10 @@ strong{
   width: 80%; /* Larger width for Exercise */
   height: 30px;
 }
-
+.excel-table input[type="text"][name^="video_link"] {
+  width: 80%; /* Larger width for Exercise */
+  height: 30px;
+}
 .excel-table input[type="text"][name^="sets"]{
   width: 66%; /* Smaller width for Sets and Reps */
   height: 30px;

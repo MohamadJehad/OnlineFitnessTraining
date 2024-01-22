@@ -1,0 +1,23 @@
+Member ID: 286
+
+Day 1         
+Meal:                                   Quantity:           
+chickken                                2                   
+rice                                    3                   
+food                                    300gm               
+
+
+Day 2         
+Meal:                                   Quantity:           
+salad                                   200gm               
+Salmon                                  500gm               
+banana                                  3                   
+
+
+Day 5         
+Meal:                                   Quantity:           
+sweet potato                            500gm               
+Salmon                                  2 fishes            
+Chicken Caesar salad                    500gm               
+
+
