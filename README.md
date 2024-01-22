@@ -5,7 +5,9 @@ A fitness management application designed for trainers to keep track of members'
 ## Prerequisites
 
 - Python with Flask
-- MySQL workbench (as you will need to import my files(stored in database folder) in your workbench)
+- MySQL workbench 
+   As you will need to import my files(stored in database folder) in your workbench
+   And you will need to change the mysql_config(lines: `17 to 22`) with yours
 - Modern web browser with localStorage support
 - Jinja (only used in one html page)
 
@@ -46,7 +48,7 @@ A fitness management application designed for trainers to keep track of members'
 
 ## Features
 
-- Member management(`add`,`search`,`delete`,`view`, `view profile`)
+- Member management(`add`,`search by name or ID`,`delete`,`view`, `view profile`)
 - Vital details tracking(`add`,`delete`,`view`)
 - Subscription handling(`subscripe` if not subscriped or expired,
                         `resubscripe` if already has valid subscription)
