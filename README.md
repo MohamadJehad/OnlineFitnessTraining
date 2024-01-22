@@ -6,8 +6,9 @@ A fitness management application designed for trainers to keep track of members'
 
 - Python with Flask
 - MySQL workbench 
-   As you will need to import my files(stored in database folder) in your workbench
-   And you will need to change the mysql_config(lines: `17 to 22`) with yours
+   1- You will need to import my files(stored in database folder) in your workbench
+   2- You will need to change the mysql_config(lines: `17 to 22`) with yours
+   3- mysql.connector: Ensure that you have the mysql.connector module installed to interact with MySQL databases in the Python environment.
 - Modern web browser with localStorage support
 - Jinja (only used in one html page)
 
