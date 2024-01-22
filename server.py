@@ -85,10 +85,10 @@ class Member:
             # so here we will have only one row and will take the only value in it
             subscription = cursor.fetchall()[0]
         except Exception as e:
-            print(f"Error getting package: {str(e)}")
+            print(f"member is not suscriped so: {str(e)}")
         finally:
             cursor.close()
-            print(f"subscription: {subscription}")
+
         return subscription
     
     
