@@ -7,7 +7,7 @@ from app.classes import Member,Package,VitaDetails
 from app.functions import get_all_members_data,get_all_packages_data,get_vital_info,get_member_subscription
 from app.functions import subscribe_to_package,re_subscribe_to_package,search_by_id,search_by_name,delete_member_from_DB,delete_package_from_DB
 from app.html_hanlding import get_members_table_text,get_packages_table_text,get_html
-from app.files_handling import get_workout_nutrition
+from app.files_handling import get_workout_nutrition,write_nutrition_plan_to_file,write_workout_to_file
 #----------------------------- Initialize the coed section ------------------------#
 #init flask
 app =flask.Flask(__name__)
@@ -200,12 +200,15 @@ def resubscribe():
    
     re_subscribe_to_package(package_id,member_id)
     return flask.redirect("/member_profile?id="+str(member_id))
-    
-# this route to handle add workout to member
+  
+import os
+from flask import request, redirect
+
+# Function to handle adding workout to a member
 @app.route("/add_workout", methods=["POST"])
 def add_workout():
     # Get member_id from the form data
-    member_id = flask.request.form.get("member_id")
+    member_id = request.form.get("member_id")
 
     # Create a directory if it doesn't exist for the member
     member_directory = f"members/{member_id}"
@@ -213,28 +216,15 @@ def add_workout():
 
     # Create a single file for all workout data
     file_path = os.path.join(member_directory, "workout_summary.txt")
-    
-    with open(file_path, 'w') as workout_file:
-        workout_file.write(f"Member ID: {member_id}\n\n")
-        for day in range(1, 6):
-            #check if there is at least one exercise existed for each day
-            if flask.request.form.get(f"exercise_day{day}_{1}"): 
-                workout_file.write(f"{'Day':<4}{day:<10}\n{'Exercise:':<40}{'Sets:':<20}{'Reps:':<20}{'Video Link:':<40}")
-                for j in range(1, 4):
-                    # Get exercise, sets, reps, and video_link for each day and exercise
-                    exercise = flask.request.form.get(f"exercise_day{day}_{j}")
-                    sets = flask.request.form.get(f"sets_day{day}_{j}")
-                    reps = flask.request.form.get(f"reps_day{day}_{j}")
-                    video_link = flask.request.form.get(f"video_link_day{day}_{j}")
-                    workout_file.write(f"\n{exercise:<40}{sets:<20}{reps:<20}{video_link:<40}")
-                workout_file.write("\n\n\n")   
-            
-                
+
+    # Call the function to write workout data to the file
+    write_workout_to_file(request.form, file_path, member_id)
+
     # Redirect to the member profile or another destination after subscription
-    return flask.redirect(f"/member_profile?id=" + str(member_id))
+    return redirect(f"/member_profile?id=" + str(member_id))
+  
 
-
-# this route to handle add nutrition_plan to member
+# Function to handle adding nutrition plan to a member
 @app.route("/add_nutrition_plan", methods=["POST"])
 def add_nutrition_plan():
     member_id = flask.request.form.get("member_id")
@@ -245,19 +235,9 @@ def add_nutrition_plan():
 
     # Create a single file for all workout data
     file_path = os.path.join(member_directory, "nutrition_plan.txt")
-    
-    with open(file_path, 'w') as nutrition_plan_file:
-        nutrition_plan_file.write(f"Member ID: {member_id}\n\n")
-        for day in range(1, 6):
-            #check if there is at least one exercise existed for each day
-            if flask.request.form.get(f"meal{day}_{1}"): 
-                nutrition_plan_file.write(f"{'Day':<4}{day:<10}\n{'Meal:':<40}{'Quantity:':<20}")
-                for j in range(1, 4):
-                    # Get exercise, sets, reps, and video_link for each day and exercise
-                    meal = flask.request.form.get(f"meal{day}_{j}")
-                    quantity = flask.request.form.get(f"quantity{day}_{j}")
-                    nutrition_plan_file.write(f"\n{meal:<40}{quantity:<20}")
-                nutrition_plan_file.write("\n\n\n")  
-                
+
+    # Call the function to write nutrition plan to the file
+    write_nutrition_plan_to_file(flask.request.form, file_path, member_id)
+
     # Redirect to the member profile or another destination after subscription
     return flask.redirect(f"/member_profile?id=" + str(member_id))
