@@ -1,8 +1,8 @@
 from datetime import datetime
 import mysql.connector
 from app.database import mysql_config
-#----------------------------- Classes section ------------------------#
 
+#----------------------------- Classes section ------------------------#
 #this class will contain the main info about each member
 class Member:
     id=None

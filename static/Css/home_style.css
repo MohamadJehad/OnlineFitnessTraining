@@ -77,20 +77,19 @@ h1 {
 .delete{
   color: red;
   text-decoration: none;
-  padding: 8px; 
   border-radius: 5px;
-  transition: background-color 0.3s ease-in-out;
+  transition: 0.3s ease-in-out ;
 }
 .profile{
   color: green;
   text-decoration: none;
-  padding: 8px; 
   border-radius: 5px;
-  transition: background-color 0.3s ease-in-out;
+  transition:  0.3s ease-in-out;
 }
 .profile:hover,.delete:hover {
   color: #ddd;
   background-color: #555;
+  padding: 8px;
 }
 
 .cont form {

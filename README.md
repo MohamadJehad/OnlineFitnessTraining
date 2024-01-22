@@ -35,8 +35,7 @@ A fitness management application designed for trainers to keep track of members'
    `app/functions.py` -> `192`,
    `app/html_handling` ->`22`,`29` 
    `member_profile.html`-> `33`,`48`
-   `app/classes.py`-> `29`,`48`
-   `server.py`-> `179`,`48`
+   `app/classes.py`-> `26` , 
    
 - [x] Uses JavaScript in the front end and localStorage. 
 - [x] Uses modern JavaScript.

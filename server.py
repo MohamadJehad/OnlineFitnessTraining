@@ -3,12 +3,13 @@
 import flask
 from flask import Flask, render_template, send_from_directory,redirect,request
 import os
-from app.classes import Member,Package,VitaDetails
-from app.functions import get_all_members_data,get_all_packages_data,get_vital_info,get_member_subscription,edit_member_data
-from app.functions import subscribe_to_package,re_subscribe_to_package,delete_member_from_DB,delete_package_from_DB
-from app.search import search_by_id,search_by_name
-from app.html_hanlding import get_members_table_text,get_packages_table_text,get_html
-from app.files_handling import get_workout_nutrition,write_nutrition_plan_to_file,write_workout_to_file
+from app.functions import *
+from app.classes import *
+from app.search import *
+from app.html_hanlding import *
+from app.files_handling import *
+
+
 #----------------------------- Initialize the coed section ------------------------#
 #init flask
 app =flask.Flask(__name__)
@@ -226,17 +227,12 @@ def add_workout():
     # Get member_id from the form data
     member_id = request.form.get("member_id")
 
-    # Create a directory if it doesn't exist for the member
+    # Create a directory and file if it doesn't exist for the member
     member_directory = f"members/{member_id}"
     os.makedirs(member_directory, exist_ok=True)
-
-    # Create a single file for all workout data
     file_path = os.path.join(member_directory, "workout_summary.txt")
 
-    # Call the function to write workout data to the file
     write_workout_to_file(request.form, file_path, member_id)
-
-    # Redirect to the member profile or another destination after subscription
     return redirect(f"/member_profile?id=" + str(member_id))
   
 
