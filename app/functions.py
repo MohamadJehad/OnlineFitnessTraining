@@ -3,16 +3,6 @@ from app.database import mysql_config
 import mysql.connector
 from datetime import datetime, timedelta
 #----------------------------- Functions section ------------------------#
-
-"""
-this function will get the html content from any page 
-and send it to browser
-"""
-def get_html(pagename):
-    html_file = open("views/"+pagename+".html")
-    content =html_file.read()
-    html_file.close()
-    return content
 """
 this function will retrieve all members data from the database and create 
 objects of member's class for each one of them
@@ -34,7 +24,6 @@ def get_all_members_data():
         member_data = member
         member_obj = Member(member_data[1],(member_data[2]) , int(member_data[3]), int(member_data[4]), member_data[5], member_data[6], member_data[7],member_data[0])
         all_members.append(member_obj)
-    
     return all_members
 
 """
@@ -186,7 +175,6 @@ def re_subscribe_to_package(package_id,member_id):
 
 #search from member by id
 def search_by_id(id):
-
         try:
             db = mysql.connector.connect(**mysql_config)
             cursor = db.cursor()
@@ -211,6 +199,7 @@ def get_vital_info(id):
     finally:
         cursor.close()
     return member_vital_data
+
 #search from member by name
 def search_by_name(name):
     try:
@@ -222,3 +211,13 @@ def search_by_name(name):
         print(f"Error retrieving members: {str(e)}")
 #if nothing found it will return empty []
     return members
+
+#this will return the subscription of the member 
+def get_member_subscription(member):
+    subscription= member.get_subscription()
+    if subscription:
+        subscription_data = {'name':subscription[0],'startDate': subscription[1] ,'endDate':subscription[2]}
+    else:
+        #then he has no subscription
+        subscription_data = {'name':'Subscribe first','startDate': '' ,'endDate':''}
+    return subscription_data

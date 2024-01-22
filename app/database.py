@@ -1,3 +1,4 @@
+import mysql.connector
 #init the mysql database
 mysql_config = {
     'host': 'localhost',
@@ -5,3 +6,5 @@ mysql_config = {
     'password': 'K1d02370@2024',
     'database': 'fittrackdb'
 }
+
+

@@ -1,3 +1,14 @@
+
+"""
+this function will get the html content from any page 
+and send it to browser
+"""
+def get_html(pagename):
+    html_file = open("views/"+pagename+".html")
+    content =html_file.read()
+    html_file.close()
+    return content
+
 """
 this function will take array of member's objects andd make them in shape of
 members table to be placed in the homepage instead of placeholder

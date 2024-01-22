@@ -1,14 +1,12 @@
 #(Online Fit trainer) APP
 #----------------------------- Imports section ------------------------#
-import mysql.connector
 import flask
 from flask import Flask, render_template, send_from_directory
 import os
 from app.classes import Member,Package,VitaDetails
-from app.database import mysql_config
-from app.functions import get_html,get_all_members_data,get_all_packages_data,delete_member_from_DB,get_vital_info
-from app.functions import delete_package_from_DB,subscribe_to_package,re_subscribe_to_package,search_by_id,search_by_name
-from app.html_hanlding import get_members_table_text,get_packages_table_text
+from app.functions import get_all_members_data,get_all_packages_data,get_vital_info,get_member_subscription
+from app.functions import subscribe_to_package,re_subscribe_to_package,search_by_id,search_by_name,delete_member_from_DB,delete_package_from_DB
+from app.html_hanlding import get_members_table_text,get_packages_table_text,get_html
 from app.files_handling import get_workout_nutrition
 #----------------------------- Initialize the coed section ------------------------#
 #init flask
@@ -21,7 +19,7 @@ if __name__=='__main__':
 #this route used for the icon of the website
 @app.route('/favicon.ico')
 def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return send_from_directory(os.path.join(app.root_path, 'static/img'),'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 #the first route in the website whech is welcome page
 @app.route ("/") 
@@ -140,31 +138,26 @@ def member_profile():
 #this section will get Vitaldetails of the member
     member_vital_data=get_vital_info(id)
     
-
 #if the member already exist and has vital data then get his subscription data if he has previous one
 #then pass all of them to the template of member profile
-    if member_vital_data and member_data is not None:
+    if member_vital_data and member_data:
         member = Member(member_data[1],(member_data[2]),int(member_data[3]),int(member_data[4])
             ,member_data[5],member_data[6],member_data[7],int(member_data[0]),
         )
-
         vitaDetails = VitaDetails(member_vital_data[1],member_vital_data[2],member_vital_data[3],member_vital_data[4],
                                   member_vital_data[5],int(member_data[0])
         )
+        subscription_data=get_member_subscription(member)
+        
 #get all packages data for the trainer if he want to subscribe or resubscripe for the memebr in package
         packages=get_all_packages_data()
 
 #this line to get workout info and nutrition plan for the member
         workout_file_content,nutrition_file_content=get_workout_nutrition(id)
-        
-        subscription=member.get_subscription()
-        if subscription:
-            subscription_data = {'name':subscription[0],'startDate': subscription[1] ,'endDate':subscription[2]}
-        else:
-            subscription_data = {'name':'Subscribe first','startDate': '' ,'endDate':''}
+
         return render_template("member_profile.html", member=member, vitaDetails=vitaDetails, packages=packages, subscription_data=subscription_data,workout_file_content=workout_file_content,nutrition_file_content=nutrition_file_content)
 #this condition will be valid if the member already exist but does not has vital data   
-    elif member_data is not None:
+    elif member_data:
         return flask.redirect("/newVital?id="+str(id))
     else:
         return flask.redirect("/home"+str(id))
@@ -244,7 +237,6 @@ def add_workout():
 # this route to handle add nutrition_plan to member
 @app.route("/add_nutrition_plan", methods=["POST"])
 def add_nutrition_plan():
-    # Get member_id from the form data
     member_id = flask.request.form.get("member_id")
 
     # Create a directory if it doesn't exist for the member
@@ -266,7 +258,6 @@ def add_nutrition_plan():
                     quantity = flask.request.form.get(f"quantity{day}_{j}")
                     nutrition_plan_file.write(f"\n{meal:<40}{quantity:<20}")
                 nutrition_plan_file.write("\n\n\n")  
-            
                 
     # Redirect to the member profile or another destination after subscription
     return flask.redirect(f"/member_profile?id=" + str(member_id))

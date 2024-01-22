@@ -2,9 +2,8 @@ from datetime import datetime
 import mysql.connector
 from app.database import mysql_config
 #----------------------------- Classes section ------------------------#
-"""
-this class will contain the main info about each member
-"""
+
+#this class will contain the main info about each member
 class Member:
     id=None
     def __init__(self, name, birthdate,height,weight,gender,phone,email,member_id=None):
@@ -91,13 +90,6 @@ class Member:
         return int(bmr)
 
 
-
-
-
-
-
-
-
 #this class will contain the main info about each package
 class Package:
     def __init__(self, name, value,duration,package_id=None):
@@ -149,5 +141,4 @@ class VitaDetails:
             print("VitaDetails added to the database for member ID =", str(self.member_id))
         except Exception as e:
             print(f"Error adding VitaDetails to the database: {str(e)}")
-
 
