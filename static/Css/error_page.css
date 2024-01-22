@@ -1,0 +1,10 @@
+
+h1 {
+    color: #dc3545;
+}
+
+#error-message {
+    color: #dc3545;
+    font-size: 1.5em;
+    font-weight: bold;
+}

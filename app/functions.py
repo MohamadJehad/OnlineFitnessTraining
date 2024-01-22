@@ -173,20 +173,6 @@ def re_subscribe_to_package(package_id,member_id):
     finally:
         cursor.close()
 
-#search from member by id
-def search_by_id(id):
-        try:
-            db = mysql.connector.connect(**mysql_config)
-            cursor = db.cursor()
-            cursor.execute(f"SELECT * FROM members where member_id={id}")
-            members = cursor.fetchall()
-        except Exception as e:
-            print(f"Error retrieving members: {str(e)}")
-        finally:
-            cursor.close()
-#if nothing found it will return empty []
-        return members
-
 #get vital info of member
 def get_vital_info(id):
     try:
@@ -200,17 +186,6 @@ def get_vital_info(id):
         cursor.close()
     return member_vital_data
 
-#search from member by name
-def search_by_name(name):
-    try:
-        db = mysql.connector.connect(**mysql_config)
-        cursor = db.cursor()
-        cursor.execute(f"SELECT * FROM members where name='{name}'")
-        members = cursor.fetchall()
-    except Exception as e:
-        print(f"Error retrieving members: {str(e)}")
-#if nothing found it will return empty []
-    return members
 
 #this will return the subscription of the member 
 def get_member_subscription(member):
@@ -221,3 +196,22 @@ def get_member_subscription(member):
         #then he has no subscription
         subscription_data = {'name':'Subscribe first','startDate': '' ,'endDate':''}
     return subscription_data
+
+def edit_member_data(member):
+    flag=False
+    try:
+        db = mysql.connector.connect(**mysql_config)
+        cursor = db.cursor()
+
+        # Update member details
+        cursor.execute("UPDATE members SET name=%s, birthdate=%s, height=%s, weight=%s, gender=%s, phone=%s, email=%s WHERE member_id=%s",
+                       (member.name, member.birthdate, member.height, member.weight, member.gender, member.phone, member.email, member.id))
+
+        db.commit()
+        print(f"Member with ID {member.id} updated successfully")
+        flag=True
+    except mysql.connector.Error as error:
+        print(f"Error updating member data: {error}")
+    finally:
+        cursor.close()
+    return flag

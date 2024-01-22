@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Member</title>
+    <link rel="stylesheet" href="/static/Css/add_member_package.css">
+    <link rel="icon" href="static/favicon.ico" >
+</head>
+<body>
+    <h1 id="homePageText">Edit Member Page </h1>  
+    <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="home" href="/home" >Home Page</a></li>
+        </ul>
+      </nav><!-- .navbar -->   
+    <br><br>  
+    
+    <div class="cont">
+       
+      <h3 id="errorMsg"></h3>
+      <form name="myForm" id="add_member_form" action="/submit_edit_member" method="get">
+        <input type="hidden" id="member_id"  name="id"  value="{{member[0][0]}}">
+        <input type="text" id="member_name"  name="name" placeholder="Enter Member's Name" value="{{member[0][1]}}">
+          <input type="text" id="member_height" name="height" placeholder="Enter Member's Height" value="{{member[0][3]}}">
+          <input type="text" id="member_phone"  name="phone" placeholder="Enter Member's Phone Number" value="{{member[0][6]}}">
+          <input type="text" id="member_weight"  name="weight" placeholder="Enter Member's Weight" value="{{member[0][4]}}">
+          <input type="text" id="member_email"  name="email" placeholder="Enter Member's Email" value="{{member[0][7]}}">
+          <input type="date" id="member_birthdate" class="box"  class="box_date" name="birthdate" placeholder="Enter Member's Birthdate" value="{{member[0][2]}}">
+
+          <select id='member_gender' class="box" name="gender" >
+              <option value="{{member[0][5]}}" >{{member[0][5]}}</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+          </select>
+          <br>
+          <input type="submit" id="add_member" value="Submit New Data">
+      </form>
+
+    <br><br>
+    </div>
+    
+
+    <script src="/static/JavaScript/add_member_script.js"></script>
+</body>
+</html>

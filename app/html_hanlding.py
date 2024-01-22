@@ -36,6 +36,7 @@ def get_members_table_text(all_members):
             text += "<td>"  + " " + "</td>"
             text += "<td>"  + " " + "</td>"
         text += "<td><a href='/deletemember?id=" + str(member.id) + "' class='delete'>Delete</a></td>"
+        text += "<td><a href='/editmember?id=" + str(member.id) + "' class='profile'>Edit</a></td>"
         text += "<td><a href='/member_profile?id=" + str(member.id) + "' class='profile'>Profile</a></td>"
         text += "</tr>"
     return text

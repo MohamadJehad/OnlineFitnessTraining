@@ -4,8 +4,9 @@ import flask
 from flask import Flask, render_template, send_from_directory
 import os
 from app.classes import Member,Package,VitaDetails
-from app.functions import get_all_members_data,get_all_packages_data,get_vital_info,get_member_subscription
-from app.functions import subscribe_to_package,re_subscribe_to_package,search_by_id,search_by_name,delete_member_from_DB,delete_package_from_DB
+from app.functions import get_all_members_data,get_all_packages_data,get_vital_info,get_member_subscription,edit_member_data
+from app.functions import subscribe_to_package,re_subscribe_to_package,delete_member_from_DB,delete_package_from_DB
+from app.search import search_by_id,search_by_name
 from app.html_hanlding import get_members_table_text,get_packages_table_text,get_html
 from app.files_handling import get_workout_nutrition,write_nutrition_plan_to_file,write_workout_to_file
 #----------------------------- Initialize the coed section ------------------------#
@@ -241,3 +242,29 @@ def add_nutrition_plan():
 
     # Redirect to the member profile or another destination after subscription
     return flask.redirect(f"/member_profile?id=" + str(member_id))
+
+
+#this route will used to pass id for member to the delete from database function
+@app.route ("/editmember") 
+def editmember():  
+    id= flask.request.args.get("id")
+    member=search_by_id(id)
+    return render_template("edit_member.html",member=member)
+
+@app.route("/submit_edit_member")
+def submit_edit_member():
+    id= flask.request.args.get("id")
+    name= flask.request.args.get("name")
+    height= flask.request.args.get("height")
+    email= flask.request.args.get("email")
+    weight= flask.request.args.get("weight")
+    phone= flask.request.args.get("phone")
+    birthdate= flask.request.args.get("birthdate")
+    gender= flask.request.args.get("gender")
+    member=Member(name,birthdate,height,weight,gender,phone,email,id)
+    if edit_member_data(member):
+        return redirect("member_profile?id=" + str(id))
+    else:
+        return get_html("error_page").replace("&&ERROR&&","Edit Failed") 
+    
+    
