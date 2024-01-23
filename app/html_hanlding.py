@@ -23,7 +23,7 @@ def get_members_table_text(all_members):
         #text += "<td>" + str(member.height) + "</td>"
         #text += "<td>" + str(member.weight) + "</td>"
         #text += "<td>" + member.gender + "</td>"
-        text += "<td>" + member.phone + "</td>"
+        text += "<td class='mob'>" + member.phone + "</td>"
         #text += "<td>" + member.email + "</td>"
        # text += "<td>" + str(int(member.calculate_bmr()))+ "</td>"
         subscription_data = member.get_subscription()

@@ -1,8 +1,161 @@
 /* style.css */
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
+ font-size: 11px;
 }
+
+h1 {
+  text-align: center;
+  color: #333;
+  font-size: 30px;
+}
+#fixed_head{
+  width: 80%;
+  margin: auto;
+}
+.navbar ul {
+  list-style: none;
+  text-align: center;
+  font-size: 14px;
+  border-radius: 10px;
+}
+.navbar ul li {
+  list-style: none;
+  text-align: center;
+  font-size: 14px;
+  border-radius: 10px;
+  background-color: #333;
+  margin-bottom: 3%;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 3%;
+  color: #fff;
+  width: 80%;
+  border-radius: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.navbar ul li a:hover {
+  background-color: #555;
+}
+
+.cont {
+  width: 100%;
+  margin: auto;
+}
+
+#members{
+  max-height: 300px; /* Adjusting the maximum height of the table*/
+  overflow-y: auto;
+  margin-bottom: 50px;
+}
+
+.members_table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.members_table th, .members_table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.members_table th {
+  background-color: #f2f2f2;
+}
+.mob {
+  display: none;
+}
+
+.members_table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+
+.delete{
+  color: red;
+  text-decoration: none;
+  border-radius: 3px;
+  transition: 0.3s ease-in-out ;
+}
+.profile{
+  color: green;
+  text-decoration: none;
+  border-radius: 3px;
+  transition:  0.3s ease-in-out;
+}
+.profile:hover,.delete:hover {
+  color: #ddd;
+  background-color: #555;
+  padding: 2px;
+}
+
+.cont form {
+  text-align: center;
+}
+
+.cont form input[type="text"]{
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 13px;
+}
+
+.cont form input[type="submit"] {
+  background-color: #333;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+  width: 30%;
+  transition: background-color 0.3s ease-in-out;
+  font-size: 19px;
+  border-radius: 5px; /* Adding border-radius for rounded edges */
+  margin-top: 10px;
+}
+
+.cont form input[type="submit"]:hover {
+  background-color: #555;
+}
+
+footer {
+  margin-top: 100px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 14px;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: auto;
+  font-size: 20px;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: rgb(122, 122, 139);
+}
+@media screen and (min-width: 960px) {
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  font-size: large;
+}
+
 
 h1 {
   text-align: center;
@@ -68,6 +221,9 @@ h1 {
 .members_table th {
   background-color: #f2f2f2;
 }
+.mob {
+  display: block;
+}
 
 .members_table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
@@ -123,15 +279,6 @@ h1 {
   background-color: #555;
 }
 
-
-
-
-
-
-
-
-
-
 footer {
   margin-top: 100px;
   background-color: #333;
@@ -154,4 +301,5 @@ footer a {
 footer a:hover {
   text-decoration: underline;
   color: rgb(122, 122, 139);
+}
 }

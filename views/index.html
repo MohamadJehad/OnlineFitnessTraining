@@ -13,17 +13,18 @@
     <nav id="navbar" class="navbar">
     
         <ul>
-          <li><a class="" href="newmember">Add New Member</a></li>
-          <li><a class="" href="/home">View All Members</a></li>
-          <li><a class="" href="/newpacakge">Add New Package</a></li>
-          <li><a class="" href="#packages">View All Packages</a></li>
+          <li><a class="add-m" href="newmember">Add New Member</a></li>
+          <li><a class="view" href="/home">View All Members</a></li>
+          <li><a class="add-p" href="/newpacakge">Add New Package</a></li>
+          <li><a class="view-p" href="#packages">View All Packages</a></li>
         </ul>
       </nav><!-- .navbar -->  
+      
   </div>
     
     <div class="cont" >
-      <form action="/search" method="get" >
-        <input type="text" class="" name="search" placeholder="Enter Members's Name or ID" required>
+      <form  action="/search" method="get" >
+        <input type="text" name="search" placeholder="Enter Members's Name or ID" required>
         <br>
         <input type="submit" value="Search">
         <br><br>
@@ -41,7 +42,7 @@
           <!--      <th>Height  
                     <th>Weight  
                     <th>Gender -->
-                    <th>Mobile
+                    <th class="mob">Mobile
              <!--      <th>Email 
                     <th>BMR-->
                     <th>package

@@ -10,7 +10,7 @@ A fitness management application designed for trainers to keep track of members'
    2- You will need to change the mysql_config(file `app/database.py`) with yours
    3- mysql.connector: Ensure that you have the mysql.connector module installed to interact with MySQL databases in the Python environment.
 - Modern web browser with localStorage support
-- Jinja (only used in one html page)
+- Jinja (only used in two html pages(edit_member, member_profile))
 
 - to run the website use `flask --app .\server.py run --debug  `
 
