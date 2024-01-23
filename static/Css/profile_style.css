@@ -136,11 +136,9 @@
    margin-top: 12px;
   }
   
+
   
-  
-  
-  
-   /* Add new styles for the workout page */
+  /* Add new styles for the workout page */
   /* Add new styles for the workout page */
   
   .workout-form {
@@ -301,4 +299,121 @@
   }  
   
 
+  @media screen and (max-width: 1250px) {
+      body {
+        font-size: 14px;
+        text-align: center;
+      }
+    
+      #fixed_head {
+        width: 80%;
+        height: auto;
+        position: static;
+        margin-left: auto;
+        margin-right: auto;
+        
+      }
+    
+      .navbar ul {
+        list-style: none;
+        text-align: center;
+        font-size: 14px;
+        border-radius: 10px;
+        background-color: #f4f4f4;
+      }
+    
+      .navbar ul li {
+        list-style: none;
+        text-align: center;
+        font-size: 14px;
+        border-radius: 10px;
+        padding: 12px;
+        margin-bottom: 3%;
+      }
+    
+      .navbar ul li a {
+        width: 80%;
+        font-size: 15px;
+        margin-top: 5px;
+        background-color: #333;
+      }
 
+      
+    
+      .cont {
+        width: 95%;
+        translate: 0;
+      }
+    
+      .members_info {
+        text-align: left;
+        width: 90%;
+        height: auto;
+        max-height: 600px;
+        float: none;
+        margin-bottom: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 12px;
+        font-size: 18px;
+      }
+      strong{
+        font-size: 22px;
+      }
+    
+      .profile-details {
+        padding-left: 15px;
+        padding-right: 15px;
+        height: auto;
+        max-height: 400px;
+      }
+      .profile-details p{
+        margin-bottom: 5px;
+      }
+      .package-info select {
+        width: 100%;
+      }
+    
+      .package-info button {
+        width: 100%;
+      }
+    
+      #choose-package {
+        margin-top: 10px;
+      }
+    
+      .excel-table input[type="text"] {
+        width: 100%;
+      }
+    
+      .table_btns {
+        width: 80%;
+      }
+    
+      .table_btns button,
+      .workoutbtn {
+        width: 100%;
+      }
+    
+      .view-workout-form,
+      .view-plan-form {
+        width: 100%;
+        margin-left: 0;
+      }
+    
+      .workout-nutrition {
+        margin-top: 50px;
+        width: 100%;
+        margin-left: 0;
+      }
+    
+      .popUp-content {
+        width: 70%;
+      }
+    
+      .submitBtn {
+        width: 100%;
+        margin-top: 10px;
+      }
+    }
+    

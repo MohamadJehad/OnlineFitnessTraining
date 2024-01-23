@@ -80,7 +80,7 @@ body {
 
 @media screen and (max-width: 800px) {
   h1{
-    font-size: 25px;
+    font-size: 25px;  
   }
   .navbar ul{
     width: 80%;
@@ -98,9 +98,9 @@ body {
   }
   
   .cont form input[type="submit"] {
-    width: 60%;
+    width: 40%;
     margin-top: 10px;
-    font-size: 18;
+    font-size: 16;
   }
 }
 
