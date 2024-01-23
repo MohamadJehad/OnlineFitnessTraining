@@ -199,6 +199,7 @@
     width: 30%; /* Larger width for Video Link */
     height: 30px;
   }
+
   .row5, .row4, .row3, .row2, .row1,.row5_plan,.row4_plan,.row3_plan,.row2_plan,.row1_plan  {
     display: none;
   }
@@ -387,12 +388,15 @@
       }
     
       .table_btns {
-        width: 80%;
+        width: 100%;
+        
       }
     
       .table_btns button,
       .workoutbtn {
-        width: 100%;
+        width: 90%;
+        font-size: 10px;
+        margin-right: 3px;
       }
     
       .view-workout-form,
@@ -415,5 +419,28 @@
         width: 100%;
         margin-top: 10px;
       }
+
+
+      .excel-table input[type="text"][name^="exercise"] {
+        height: 16px;
+      }
+      .excel-table input[type="text"][name^="video_link"] {
+        height: 16px;
+      }
+      .excel-table input[type="text"][name^="sets"]{
+        height: 16px;
+      }
+      .excel-table input[type="text"][name^="reps"] {
+        height: 16px;
+      }
+      
+      .excel-table input[type="text"][name^="meal"] {
+        height: 16px;
+      }
+      .excel-table input[type="text"][name^="quantity"] {
+        height: 16px;
+      }
+
+
     }
     
