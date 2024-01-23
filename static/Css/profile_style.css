@@ -1,305 +1,304 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-}
-.member_info{
-  color: #280b0b;
-}
-h1 {
-  text-align: center;
-  color: #333;
-}
-#fixed_head{
-  background-color:#f4f4f4 ;
-  position: fixed; 
-  top: 0;
-  width: 100%;
-  height: 100px;
-  z-index: 1000;
-}
-.navbar ul {
-  list-style: none;
-  background-color: #333;
-  text-align: center;
-  font-size: 17px;
-}
-
-.navbar ul li {
-  display: inline;
-}
-
-.navbar ul li a {
-  text-decoration: none;
-  display: inline-block;
-  padding: 15px;
-  color: #fff;
-  width: 200px;
-  border-radius: 10px;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.navbar ul li a:hover {
-  background-color: #555;
-}
-
-
-.cont {
-  width: 90%;
-  margin: auto;
-  translate: 0 140px;
-}
-
-.cont form {
-  text-align: center;
-  margin-top: 20px;
-}
-
-
-
-strong{
-  font-size: 24px;
-  color: #041920;
-}
-
-.members_info {
-  float: left;
-  width: 30%;
-  font-size: 22px;
-  background-color: #555;
-  color: #f8f8f8;
-  padding: 10px;
-  box-sizing: border-box; /* Include padding and border in the width calculation */
-  height: 550px;
-  border-radius: 10px; 
-  margin-right: 30px;
-  margin-bottom: 100px;
-}
-.members_info h2{
-
-  margin-left: 20px;
-}
-.profile-details {
-  background-color: #f8f8f8; 
-  padding-left  : 22px;
-  padding-bottom: 10px;
-  border: 2px solid #ddd; /* Border color */
-  border-radius: 10px; 
-  margin-top: 15px; /* Add some space between sections */
-  height: 420px;
-  margin-bottom: 10px;
-}
-.profile-details p {
-  margin-bottom: 12px ;
-}
-.vital-info p {
-  margin-bottom: 40px;
-}
-.package-info p{
-  margin-right: 25px;
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+  .member_info{
+    color: #280b0b;
+  }
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  #fixed_head{
+    background-color:#f4f4f4 ;
+    position: fixed; 
+    top: 0;
+    width: 100%;
+    height: 100px;
+    z-index: 1000;
+  }
+  .navbar ul {
+    list-style: none;
+    background-color: #333;
+    text-align: center;
+  }
   
-}
-.package-info select {
-  padding: 7px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 60%;
-  font-size: 20px;
-  text-align: center;
-  margin-top: 12px;
-  margin-bottom: 20px;
-}
-
-/* Button style */
-.package-info  button {
-  padding: 10px;
-  background-color: #333;
-  color: #fff;
-  cursor: pointer;
-  font-size: 18px;
-  border-radius: 6px;
-  width: 60%;
-  margin-top: 12px;
-
-}
-
-/* Hover effect on button */
-.package-info button:hover {
-  background-color: #555;
-}
-
-#choose-package{
-  color: red;
-  display: none;
-  margin-top: 2px;
- text-align: left;
- margin-top: 12px;
-}
-
-
-
-
-
- /* Add new styles for the workout page */
-/* Add new styles for the workout page */
-
-.workout-form {
-  width: 80%;
-  text-align: center;
-  margin-top: 20px;
-  margin-left: 10%;
-  padding: 20px;
-}
-
-
-.table-containter{
-  text-align: center;
-  align-items: center;
-}
-
-
-
-.excel-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 30px auto; /* Center the table horizontally with some margin */
-  display: none;
-}
-
-.excel-table th, .excel-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-}
-
-.excel-table th {
-  background-color: #f2f2f2;
-}
-
-.excel-table input[type="text"][name^="exercise"] {
-  width: 80%; /* Larger width for Exercise */
-  height: 30px;
-}
-.excel-table input[type="text"][name^="video_link"] {
-  width: 80%; /* Larger width for Exercise */
-  height: 30px;
-}
-.excel-table input[type="text"][name^="sets"]{
-  width: 66%; /* Smaller width for Sets and Reps */
-  height: 30px;
-}
-.excel-table input[type="text"][name^="reps"] {
-  width: 50%; /* Smaller width for Sets and Reps */
-  height: 30px;
-}
-
-.excel-table input[type="text"][name^="meal"] {
-  width: 45%; /* Larger width for Video Link */
-  height: 30px;
-}
-.excel-table input[type="text"][name^="quantity"] {
-  width: 30%; /* Larger width for Video Link */
-  height: 30px;
-}
-.row5, .row4, .row3, .row2, .row1,.row5_plan,.row4_plan,.row3_plan,.row2_plan,.row1_plan  {
-  display: none;
-}
-#btn1,#btn2,#btn3,#btn4,#btn5,.workoutbtn,#plan_btn1,#plan_btn2,#plan_btn3,#plan_btn4,#plan_btn5 {
-  display: none;
-}
-#btn,.workoutbtn{
-  width: 250px;
-}
-.table_btns {
-  width: 60%;
-  display: flex;
-  margin: 20px auto;
-}
-
-.table_btns button,#btn,.workoutbtn {
-  padding: 10px;
-  background-color: #333;
-  color: #fff;
-  cursor: pointer;
-  font-size: 18px;
-  border-radius: 8px;
-  margin: 0 auto; 
-
-}
-
-.table_btns button:hover {
-  background-color: #555;
-}
-
-.view-workout-form,.view-plan-form {
-  width: 90%;
-  margin: auto;
-  text-align: left;
-  padding: 20px;
-  background-color: #fff; 
-  border: 3px solid #041920; 
-  border-radius: 15px;
-}
-.workout-nutrition{
-  margin-top: 100px;
-  width: 110%;
-  margin-left: -5%;
-}
-
-.view-workout-form,.view-plan-form  {
-  font-family: Courier, monospace; 
-  font-size: 20px; 
-  color: #041920;
-  margin-bottom: 40px;
-}
-
-.print_btn {
-  padding: 10px;
-  width: 250px;
-  background-color: #333;
-  color: #fff;
-  cursor: pointer;
-  font-size: 18px;
-  border-radius: 8px;
-  margin: 50px auto;
-   
-
-}
-/*
-This style for pop up window 
-*/
-.popUp {
-  display: none;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.popUp-content {
-  background-color: #fefefe;
-  margin: 14% auto;
-  padding: 20px;
-  width: 25%;
+  .navbar ul li {
+    display: inline;
+  }
   
-  box-sizing: border-box;/* to include padding and borders in the total width */
-  font-size: 22px;
-  border: 3px solid #041920; 
-  border-radius: 15px;
-  background-color:  #e7e0e0;
-}
-.submitBtn{
-  padding: 10px;
-  width: 120px;
-  background-color: #333;
-  color: #fff;
-  cursor: pointer;
-  font-size: 16px;
-  border-radius: 8px;
-  margin-top: 8px;
-}
-
-
-
+  .navbar ul li a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 15px;
+    color: #fff;
+    width: 200px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease-in-out;
+    font-size: 17px;
+  }
+  
+  .navbar ul li a:hover {
+    background-color: #555;
+  }
+  
+  
+  .cont {
+    width: 90%;
+    margin: auto;
+    translate: 0 140px;
+  }
+  
+  .cont form {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  
+  
+  strong{
+    font-size: 24px;
+    color: #041920;
+  }
+  
+  .members_info {
+    float: left;
+    width: 30%;
+    font-size: 22px;
+    background-color: #555;
+    color: #f8f8f8;
+    padding: 10px;
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+    height: 550px;
+    border-radius: 10px; 
+    margin-right: 30px;
+    margin-bottom: 100px;
+    margin-left: 0;
+  }
+  .members_info h2{
+  
+    margin-left: 20px;
+  }
+  .profile-details {
+    background-color: #f8f8f8; 
+    padding-left  : 22px;
+    padding-bottom: 10px;
+    border: 2px solid #ddd; /* Border color */
+    border-radius: 10px; 
+    margin-top: 15px; /* Add some space between sections */
+    height: 420px;
+    margin-bottom: 10px;
+  }
+  .profile-details p {
+    margin-bottom: 12px ;
+  }
+  .vital-info p {
+    margin-bottom: 40px;
+  }
+  .package-info p{
+    margin-right: 25px;
+    
+  }
+  .package-info select {
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 60%;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 20px;
+  }
+  
+  /* Button style */
+  .package-info  button {
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 6px;
+    width: 60%;
+    margin-top: 12px;
+  
+  }
+  
+  /* Hover effect on button */
+  .package-info button:hover {
+    background-color: #555;
+  }
+  
+  #choose-package{
+    color: red;
+    display: none;
+    margin-top: 2px;
+   text-align: left;
+   margin-top: 12px;
+  }
+  
+  
+  
+  
+  
+   /* Add new styles for the workout page */
+  /* Add new styles for the workout page */
+  
+  .workout-form {
+    width: 80%;
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 10%;
+    padding: 20px;
+  }
+  
+  
+  .table-containter{
+    text-align: center;
+    align-items: center;
+  }
+  
+  
+  
+  .excel-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px auto; /* Center the table horizontally with some margin */
+    display: none;
+  }
+  
+  .excel-table th, .excel-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .excel-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .excel-table input[type="text"][name^="exercise"] {
+    width: 80%; /* Larger width for Exercise */
+    height: 30px;
+  }
+  .excel-table input[type="text"][name^="video_link"] {
+    width: 80%; /* Larger width for Exercise */
+    height: 30px;
+  }
+  .excel-table input[type="text"][name^="sets"]{
+    width: 66%; /* Smaller width for Sets and Reps */
+    height: 30px;
+  }
+  .excel-table input[type="text"][name^="reps"] {
+    width: 50%; /* Smaller width for Sets and Reps */
+    height: 30px;
+  }
+  
+  .excel-table input[type="text"][name^="meal"] {
+    width: 45%; /* Larger width for Video Link */
+    height: 30px;
+  }
+  .excel-table input[type="text"][name^="quantity"] {
+    width: 30%; /* Larger width for Video Link */
+    height: 30px;
+  }
+  .row5, .row4, .row3, .row2, .row1,.row5_plan,.row4_plan,.row3_plan,.row2_plan,.row1_plan  {
+    display: none;
+  }
+  #btn1,#btn2,#btn3,#btn4,#btn5,.workoutbtn,#plan_btn1,#plan_btn2,#plan_btn3,#plan_btn4,#plan_btn5 {
+    display: none;
+  }
+  #btn,.workoutbtn{
+    width: 250px;
+  }
+  .table_btns {
+    width: 60%;
+    display: flex;
+    margin: 20px auto;
+  }
+  
+  .table_btns button,#btn,.workoutbtn {
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 8px;
+    margin: 0 auto; 
+  
+  }
+  
+  .table_btns button:hover {
+    background-color: #555;
+  }
+  
+  .view-workout-form,.view-plan-form {
+    width: 90%;
+    margin: auto;
+    text-align: left;
+    padding: 20px;
+    background-color: #fff; 
+    border: 3px solid #041920; 
+    border-radius: 15px;
+  }
+  .workout-nutrition{
+    margin-top: 100px;
+    width: 110%;
+    margin-left: -5%;
+  }
+  
+  .view-workout-form,.view-plan-form  {
+    font-family: Courier, monospace; 
+    font-size: 20px; 
+    color: #041920;
+    margin-bottom: 40px;
+  }
+  
+  .print_btn {
+    padding: 10px;
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 8px;
+    margin: 50px auto;
+     
+  
+  }
+  /*
+  This style for pop up window 
+  */
+  .popUp {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .popUp-content {
+    background-color: #fefefe;
+    margin: 14% auto;
+    padding: 20px;
+    width: 25%;
+    
+    box-sizing: border-box;/* to include padding and borders in the total width */
+    font-size: 22px;
+    border: 3px solid #041920; 
+    border-radius: 15px;
+    background-color:  #e7e0e0;
+  }
+  .submitBtn{
+    padding: 10px;
+    width: 120px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-top: 8px;
+  }  
+  
 
 
