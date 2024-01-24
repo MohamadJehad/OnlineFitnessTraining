@@ -15,19 +15,18 @@
         </ul>
       </nav><!-- .navbar -->   
     <br><br>  
-    
     <div class="cont">
        
       <h3 id="errorMsg"></h3>
-      <form name="myForm" id="add_member_form" action="/addnewmember" method="get">
-          <input type="text" id="member_name"  name="name" placeholder="Enter Member's Name" >
-          <input type="text" id="member_height" name="height" placeholder="Enter Member's Height" >
-          <input type="text" id="member_phone"  name="phone" placeholder="Enter Member's Phone Number" >
-          <input type="text" id="member_weight"  name="weight" placeholder="Enter Member's Weight" >
-          <input type="text" id="member_email"  name="email" placeholder="Enter Member's Email" >
-          <input type="date" id="member_birthdate" class="box"  class="box_date" name="birthdate" placeholder="Enter Member's Birthdate" >
+      <form name="myForm" id="add_member_form" class="form" action="/addnewmember" method="get">
+          <input type="text" class="input" id="member_name"  name="name" placeholder="Enter Member's Name" >
+          <input type="text" class="input" id="member_height" name="height" placeholder="Enter Member's Height" >
+          <input type="text" class="input" id="member_phone"  name="phone" placeholder="Enter Member's Phone Number" >
+          <input type="text" class="input" id="member_weight"  name="weight" placeholder="Enter Member's Weight" >
+          <input type="text" class="input" id="member_email"  name="email" placeholder="Enter Member's Email" >
+          <input type="date" class="input box" id="member_birthdate"    name="birthdate" placeholder="Enter Member's Birthdate" >
 
-          <select id='member_gender' class="box" name="gender" >
+          <select id='member_gender' class="input box" name="gender" >
               <option value="" disabled selected>Choose Member's gender</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
@@ -40,6 +39,6 @@
     </div>
     
 
-    <script src="/static/JavaScript/add_member_script.js"></script>
+    <script type="module" src="/static/JavaScript/formConstrains.js"></script>
 </body>
 </html>

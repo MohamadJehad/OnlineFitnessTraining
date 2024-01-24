@@ -19,10 +19,10 @@
     <div class="cont">
        
       <h3 id="errorMsg"></h3>
-    <form action="/addnewpackage" id="add-package-form" method="get">
-        <input id="package-name" type="text" class="box" name="name" placeholder="Enter Package's Name">
-        <input id="package-value" type="number" class="box" name="value" placeholder="Enter Package's value" step="100" min="0">
-        <input id="package-duration" type="number" class="box" name="duration" placeholder="Enter Package's Duration" min="1">
+    <form action="/addnewpackage" id="add-package-form" class="form" method="get">
+        <input id="package-name" type="text" class="input box" name="name" placeholder="Enter Package's Name">
+        <input id="package-value" type="number" class="input box" name="value" placeholder="Enter Package's value" step="100" min="0">
+        <input id="package-duration" type="number" class="input box" name="duration" placeholder="Enter Package's Duration" min="1">
       <!--<h3 for="birthdate">Enter Member's Birthdate:</h3>-->  
         <br>
         <input type="submit" value="Add Package">
@@ -32,7 +32,7 @@
 </div>
     
 
-    <script src="/static/JavaScript/addpackage_script.js"></script>
+    <script type="module" src="/static/JavaScript/formConstrains.js"></script>
 </body>
 
 </html>
