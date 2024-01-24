@@ -186,7 +186,6 @@
     margin: auto;
     text-align: left;
     padding: 20px;
-    background-color: #fff; 
     border: 3px solid #041920; 
     border-radius: 15px;
     font-family: Courier, monospace; 
@@ -194,6 +193,12 @@
     color: #041920;
     margin-bottom: 40px;
     overflow: auto; /* Add scrollbar if content overflows */
+    background-image: url('../img/try2.jpg');
+    color: #e7e0e0  ;
+    background-size: cover;
+    background-repeat: no-repeat; 
+    background-position: center center; 
+    font-weight: bold;
 
   }
   .print_btn_container{
