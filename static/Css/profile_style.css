@@ -381,7 +381,13 @@
       #choose-package {
         margin-top: 10px;
       }
-    
+      .workout-form h1{
+        font-size: 18px;
+      }
+      #btn{
+        padding: 5px;
+      }
+  
       .excel-table input[type="text"] {
         width: 100%;
       }
@@ -393,9 +399,9 @@
     
       .table_btns button,
       .workoutbtn {
-        width: 90%;
-        font-size: 10px;
-        margin-right: 3px;
+        padding: 5px;
+        width: 40%;
+        font-size: 13px;
       }
     
       .view-workout-form,
