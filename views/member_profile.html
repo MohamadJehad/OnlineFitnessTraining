@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Profile</title>
     <link rel="stylesheet" href="/static/Css/profile_style.css">
+    <link rel="stylesheet" href="/static/Css/general_style.css">
     <link rel="icon" href="static/favicon.ico" >
 </head>
 <body>
@@ -15,8 +16,8 @@
                 <li><a class="" href="newmember">Add New Member</a></li>
                 <li><a class="" href="/home">View All Members</a></li>
                 <li><a class="" href="#add-workout">Add Workout/ Nutrition</a></li>
-                <li><a class="" href="#view_workout">View Workout/ Nutrition</a></li>
-                <li><a class="" href="#print_workoutbtn">Print Workout/ Nutrition</a></li>
+                <li><a class="" href="#program">Workout Program</a></li>
+                <li><a class="" href="#view_plan">Nutrition Plan </a></li>
                 
             </ul>
         </nav><!-- .navbar -->
@@ -330,10 +331,11 @@
         
       
     </div>
+    <div ></div>
     <br id="view_workout"><br><br>
-                <div class="workout-nutrition" >
+                <div class="workout-nutrition"  >
                      
-                    <div class="view-workout-form" >
+                    <div class="view-workout-form" id="program">
                         <h1>Workout Program</h1>
                         <!-- Display the workout file content  -->
                         <pre id="workoutContent">{{ workout_file_content}}</pre>

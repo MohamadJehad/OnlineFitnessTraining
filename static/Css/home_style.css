@@ -1,54 +1,3 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  font-size: large;
-}
-
-h1 {
-  text-align: center;
-  color: #333;
-}
-#fixed_head{
-  background-color:#f4f4f4 ;
-  position: fixed; 
-  top: 0;
-  width: 100%;
-  height: 100px;
-  z-index: 1000;
-}
-.navbar ul {
-  list-style: none;
-  background-color: #333;
-  text-align: center;
-  font-size: 17px;
-  margin-left: -10px;
-}
-
-.navbar ul li {
-  display: inline;
-}
-
-.navbar ul li a {
-  text-decoration: none;
-  display: inline-block;
-  padding: 15px;
-  color: #fff;
-  width: 200px;
-  border-radius: 10px;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.navbar ul li a:hover {
-  background-color: #555;
-}
-
-
-.cont {
-  width: 90%;
-  margin: auto;
-  translate: 0 160px;
-}
-
 #members{
   max-height: 450px; /* Adjusting the maximum height of the table*/
   overflow-y: auto;
@@ -76,7 +25,6 @@ h1 {
 .members_table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
-
 
 .delete{
   color: red;
@@ -130,73 +78,8 @@ h1 {
   margin-bottom: 60px;
 }
 
-footer {
-  margin-top: 100px;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 14px;
-}
-
-.footer-content {
-  max-width: 800px;
-  margin: auto;
-  font-size: 20px;
-}
-
-footer a {
-  color: #fff;
-  text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline;
-  color: rgb(122, 122, 139);
-}
-
+  
 @media screen and (max-width: 1250px) {
-  body {
-    font-size: 14px;
-    text-align: center;
-  }
-
-  #fixed_head {
-    width: 80%;
-    height: auto;
-    position: static;
-    margin-left: auto;
-    margin-right: auto;
-    
-  }
-
-  .navbar ul {
-    list-style: none;
-    text-align: center;
-    font-size: 14px;
-    border-radius: 10px;
-    background-color: #f4f4f4;
-  }
-
-  .navbar ul li {
-    list-style: none;
-    text-align: center;
-    font-size: 14px;
-    border-radius: 10px;
-    padding: 12px;
-    margin-bottom: 3%;
-  }
-
-  .navbar ul li a {
-    width: 80%;
-    font-size: 15px;
-    margin-top: 5px;
-    background-color: #333;
-  }
-
-  .cont {
-    width: 95%;
-    translate: 0;
-  }
 
 #members{
   max-height: 300px; /* Adjusting the maximum height of the table*/
@@ -215,9 +98,6 @@ footer a:hover {
 .profile:hover,.delete:hover {
   padding: 2px;
 }
-
-
-
 .cont form input[type="text"]{
   width: 100%;
   font-size: 13px;
@@ -229,13 +109,10 @@ footer a:hover {
 #packages{
   margin-bottom: 5px;
 }
-
-
 footer {
   padding: 10px;
   margin-top: 10px;
 }
-
 .footer-content {
   font-size: 15px;
 }

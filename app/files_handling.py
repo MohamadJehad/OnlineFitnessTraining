@@ -1,3 +1,4 @@
+import os
 #this function will return the text stored in nutrition,workout files
 def get_workout_nutrition(id):
     #workout
@@ -18,7 +19,13 @@ def get_workout_nutrition(id):
 
 
 # Function to write nutrition plan to a file
-def write_nutrition_plan_to_file(form_data, file_path, member_id):
+def write_nutrition_plan_to_file(form_data, member_id):
+     # Create a directory if it doesn't exist for the member
+    member_directory = f"members/{member_id}"
+    os.makedirs(member_directory, exist_ok=True)
+
+    # Create a single file for all workout data
+    file_path = os.path.join(member_directory, "nutrition_plan.txt")
     with open(file_path, 'w') as nutrition_plan_file:
         nutrition_plan_file.write(f"Member ID: {member_id}\n\n")
         for day in range(1, 6):
@@ -33,7 +40,11 @@ def write_nutrition_plan_to_file(form_data, file_path, member_id):
                 nutrition_plan_file.write("\n\n\n")
 
 # Function to write workout data to a file
-def write_workout_to_file(form_data, file_path, member_id):
+def write_workout_to_file(form_data, member_id):
+     # Create a directory and file if it doesn't exist for the member
+    member_directory = f"members/{member_id}"
+    os.makedirs(member_directory, exist_ok=True)
+    file_path = os.path.join(member_directory, "workout_summary.txt")
     with open(file_path, 'w') as workout_file:
         workout_file.write(f"Member ID: {member_id}\n\n")
         for day in range(1, 6):

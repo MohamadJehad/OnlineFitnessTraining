@@ -233,15 +233,8 @@ def resubscribe():
 # Function to handle adding workout to a member
 @app.route("/add_workout", methods=["POST"])
 def add_workout():
-    # Get member_id from the form data
     member_id = request.form.get("member_id")
-
-    # Create a directory and file if it doesn't exist for the member
-    member_directory = f"members/{member_id}"
-    os.makedirs(member_directory, exist_ok=True)
-    file_path = os.path.join(member_directory, "workout_summary.txt")
-
-    write_workout_to_file(request.form, file_path, member_id)
+    write_workout_to_file(flask.request.form, member_id)
     return redirect(f"/member_profile?id=" + str(member_id))
   
 
@@ -250,16 +243,7 @@ def add_workout():
 def add_nutrition_plan():
     member_id = flask.request.form.get("member_id")
 
-    # Create a directory if it doesn't exist for the member
-    member_directory = f"members/{member_id}"
-    os.makedirs(member_directory, exist_ok=True)
-
-    # Create a single file for all workout data
-    file_path = os.path.join(member_directory, "nutrition_plan.txt")
-
     # Call the function to write nutrition plan to the file
-    write_nutrition_plan_to_file(flask.request.form, file_path, member_id)
-
-    # Redirect to the member profile or another destination after subscription
+    write_nutrition_plan_to_file(flask.request.form, member_id)
     return flask.redirect(f"/member_profile?id=" + str(member_id))
 
