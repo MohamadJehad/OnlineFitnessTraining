@@ -14,11 +14,13 @@
     background-color: #555;
     padding: 10px;
     box-sizing: border-box; /* Include padding and border in the width calculation */
-    height: 550px;
+    height: 599px;
     border-radius: 10px; 
     margin-right: 10px;
     margin-bottom: 100px;
     margin-left: 25px;
+ 
+
   }
   .members_info h2{
     color: #f8f8f8;
@@ -31,17 +33,24 @@
     border: 2px solid #ddd; /* Border color */
     border-radius: 10px; 
     margin-top: 15px; /* Add some space between sections */
-    height: 420px;
+    height: 460px;
     margin-bottom: 10px;
+    background-image: url('../img/black.jpg');
+    color: #e7e0e0  ;
+    background-size: cover;
+    background-repeat: no-repeat; 
+    background-position: center center; 
+    font-weight: bold;
   }
-  .profile-details p {
-    margin-bottom: 12px ;
+  .profile-details strong{
+    color: #ddd;
   }
+ 
   .vital-info p {
-    margin-bottom: 40px;
+    margin-bottom: 18px;
   }
   .package-info p{
-    margin-right: 25px;
+    margin-right: 8px;
     
   }
   .package-info select {
@@ -185,6 +194,7 @@
     color: #041920;
     margin-bottom: 40px;
     overflow: auto; /* Add scrollbar if content overflows */
+
   }
   .print_btn_container{
     text-align: center;
