@@ -21,6 +21,7 @@
     list-style: none;
     background-color: #333;
     text-align: center;
+    margin-left: -10px;
   }
   
   .navbar ul li {
@@ -230,15 +231,6 @@
     background-color: #555;
   }
   
-  .view-workout-form,.view-plan-form {
-    width: 90%;
-    margin: auto;
-    text-align: left;
-    padding: 20px;
-    background-color: #fff; 
-    border: 3px solid #041920; 
-    border-radius: 15px;
-  }
   .workout-nutrition{
     margin-top: 100px;
     width: 110%;
@@ -246,12 +238,22 @@
   }
   
   .view-workout-form,.view-plan-form  {
+    width: 60%;
+    margin: auto;
+    text-align: left;
+    padding: 20px;
+    background-color: #fff; 
+    border: 3px solid #041920; 
+    border-radius: 15px;
     font-family: Courier, monospace; 
     font-size: 20px; 
     color: #041920;
     margin-bottom: 40px;
+    overflow: auto; /* Add scrollbar if content overflows */
   }
-  
+  .print_btn_container{
+    text-align: center;
+  }
   .print_btn {
     padding: 10px;
     width: 250px;
@@ -260,9 +262,6 @@
     cursor: pointer;
     font-size: 18px;
     border-radius: 8px;
-    margin-bottom: 20px;
-    margin-right: 20px;
-  
   }
   /*
   This style for pop up window 
@@ -401,8 +400,11 @@
     
       .view-workout-form,
       .view-plan-form {
-        width: 100%;
-        margin-left: 0;
+        width: 80%;
+      }
+      .view-workout-form pre,
+      .view-plan-form pre{
+        font-size: 15px;
       }
     
       .workout-nutrition {
@@ -411,6 +413,10 @@
         margin-left: 0;
       }
     
+      .print_btn {
+        padding: 10px;
+        font-size: 14px;
+      }
       .popUp-content {
         width: 70%;
       }
@@ -440,7 +446,6 @@
       .excel-table input[type="text"][name^="quantity"] {
         height: 16px;
       }
-
 
     }
     

@@ -330,29 +330,36 @@
 
 
 
-                <br id="view_workout"><br><br>
+                
+    </div>
+        </div>  
+        
+      
+    </div>
+    <br id="view_workout"><br><br>
                 <div class="workout-nutrition" >
                      
                     <div class="view-workout-form" >
                         <h1>Workout Program</h1>
                         <!-- Display the workout file content  -->
                         <pre id="workoutContent">{{ workout_file_content}}</pre>
-
+                        <div class="print_btn_container">
+                            <button  id="print_workoutbtn" class="print_btn" >print workout Program</button>
+                        </div>
                     </div>
                    
                     <div class="view-plan-form" id="view_plan">
                         <h1>Nutrition Plan</h1>
                         <!-- Display the workout file content  -->
                         <pre id="nutritionContent">{{ nutrition_file_content }}</pre>
+                       <div class="print_btn_container">
+                        <button  id="print_nutrition" class="print_btn">print Nutrition plan</button>
+                       </div> 
+                        
+                    
                     </div>
-                    <button  id="print_nutrition" class="print_btn">print Nutrition plan</button>
-                    <button  id="print_workoutbtn" class="print_btn" >print workout Program</button>
+                    
                 </div>
-    </div>
-        </div>  
-        
-      
-    </div>
     <br><br><br>
 
     <div id="popUp" class="popUp">
