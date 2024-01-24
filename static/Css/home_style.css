@@ -1,6 +1,3 @@
-body{
- 
-}
 #members{
   max-height: 450px; /* Adjusting the maximum height of the table*/
   overflow-y: auto;
