@@ -197,7 +197,7 @@ def get_member_subscription(member):
         subscription_data = {'name':'Subscribe first','startDate': '' ,'endDate':''}
     return subscription_data
 
-def edit_member_data(member):
+def edit_member_data(member,vitaDetails):
     flag=False
     try:
         db = mysql.connector.connect(**mysql_config)
@@ -208,7 +208,9 @@ def edit_member_data(member):
                        (member.name, member.birthdate, member.height, member.weight, member.gender, member.phone, member.email, member.id))
 
         db.commit()
-        print(f"Member with ID {member.id} updated successfully")
+        cursor.execute("UPDATE vitaldetails SET allergy=%s, disease=%s, bodyFatPercentage=%s, fitnessGoals=%s, medications=%s WHERE memberId=%s",
+               (vitaDetails.allergy, vitaDetails.disease, vitaDetails.bodyFatPercentage, vitaDetails.fitnessGoals, vitaDetails.medications, member.id))
+        db.commit()
         flag=True
     except mysql.connector.Error as error:
         print(f"Error updating member data: {error}")

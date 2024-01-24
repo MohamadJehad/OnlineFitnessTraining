@@ -32,6 +32,12 @@
               <option value="male">Male</option>
               <option value="female">Female</option>
           </select>
+          <input type="text" class="input" id="vital_fat_prcent" name="bodyFatPercentage" placeholder="Enter Member's bodyFatPercentage" value="{{vital_info[3]}}">
+        <input type="text" class="input" id="vital_disease" name="disease" placeholder="Enter Member's disease" value="{{vital_info[2]}}">
+        <input type="text" class="input" id="vital_medication" name="medications" placeholder="Enter Member's medications" value="{{vital_info[5]}}">
+        <input type="text" class="input box" id="vital_allergy" name="allergy" placeholder="Enter Member's allergy" value="{{vital_info[1]}}">
+        <input type="text" class="input box" id="vital_fit_goal" name="fitnessGoals" placeholder="Enter Member's fitnessGoals" value="{{vital_info[4]}}">
+        
           <br>
           <input type="submit" id="add_member" value="Submit New Data">
       </form>

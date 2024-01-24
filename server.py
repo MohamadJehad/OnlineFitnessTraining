@@ -186,7 +186,8 @@ def addnewpackage():
 def editmember():  
     id= flask.request.args.get("id")
     member=search_by_id(id)
-    return render_template("edit_member.html",member=member)
+    vital_info=get_vital_info(id)
+    return render_template("edit_member.html",member=member,vital_info=vital_info)
 
 
 #this route will be called when trainer submit his changes to member's data
@@ -201,7 +202,15 @@ def submit_edit_member():
     birthdate= flask.request.args.get("birthdate")
     gender= flask.request.args.get("gender")
     member=Member(name,birthdate,height,weight,gender,phone,email,id)
-    if edit_member_data(member):
+
+    bodyFatPercentage= flask.request.args.get("bodyFatPercentage")
+    disease= flask.request.args.get("disease")
+    medications= flask.request.args.get("medications")
+    allergy= flask.request.args.get("allergy")
+    fitnessGoals= flask.request.args.get("fitnessGoals")
+    vitaDetails=VitaDetails(allergy, disease,bodyFatPercentage,fitnessGoals,medications,id)
+
+    if edit_member_data(member,vitaDetails):
         return redirect("member_profile?id=" + str(id))
     else:
         return get_html("error_page").replace("&&ERROR&&","Edit Failed") 
