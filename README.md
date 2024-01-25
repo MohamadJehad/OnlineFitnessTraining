@@ -1,6 +1,6 @@
 # Online Fit Trainer App
 
-A fitness management application designed for trainers to keep track of members' information, vital details, subscriptions, workout plans, and nutrition plans.
+A fitness management application designed for trainers to manage and keep track of members' information, vital details, subscriptions, workout plans, and nutrition plans.
 
 ## Prerequisites
 
@@ -34,22 +34,30 @@ A fitness management application designed for trainers to keep track of members'
   - Name of method for `package` class: `add_to_DB`
   - Name of method for `Vital-details` class: `add_to_DB`
   - File name and line numbers where the methods used:
-   `app/functions.py` -> `192`,
    `app/html_handling` ->`22`,`29` 
    `member_profile.html`-> `33`,`48`
-   `app/classes.py`-> `26` , 
+   `app/classes.py`-> `26` 
+   `app/functions.py` -> `192`,
    
 - [x] Uses JavaScript in the front end and localStorage. 
 - [x] Uses modern JavaScript.
 - [x] Makes use of reading and writing to the same file feature.
 - [x] Contains conditional statements.
   - File name: `server.py`
-  - Line number(s): `106`,`144`,`194`, `208`,`245`,......
+  - Line number(s): `107`,`145`,`195`, `213`,`227`,......
+  - File name: `app/files_handling.py`
+  - Line number(s): `33`, `52`
+  - File name: `app/functions.py`
+  - Line number(s): `65`,`73`,`101`,`123`,`193`
 - [x] Contains loops.
   - File name: `app/files_handling.py`
-  - Line number(s): `24`, `28`, `39`,`43`,....
+  - Line number(s): `31`, `35`, `50`,`54`
+ - File name: `server.py`
+  - Line number(s): `116`
+  - File name: `app/functions.py`
+  - Line number(s): `23`,`46`
 - [x] Lets the user enter a value in a text box.
-- [x] Styled using CSS.
+- [x] Styled using CSS and responsive to smaller screens.
 - [x] Follows code and style conventions.
 - [x] All exercises completed and pushed to the respective GitHub repository.
 
@@ -74,7 +82,7 @@ A fitness management application designed for trainers to keep track of members'
   directorie to store two text files for him. 
 
 ## Usage of database 
-- Three tables created to hold the main information of the (members, packages, vital details) 
+- MYSQL database is used whith Three tables created to hold the main information of the (members, packages, vital details) 
 
 ## Contact
 - Gmail: m.jehad.kh@gmail.com
