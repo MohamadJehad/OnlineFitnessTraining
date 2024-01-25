@@ -1,13 +1,13 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;  
-
+  
 }
 @media screen and (max-width: 1250px) {
-body {
-    font-size: 14px;
-    text-align: center;
-  }
+  body {
+      font-size: 14px;
+      text-align: center;
+    }
 }
 
 h1 {
@@ -24,7 +24,7 @@ h1 {
   z-index: 1000;
   
 }
-.navbar .items {
+.navbar ul {
   list-style: none;
   background-color: #333;
   text-align: center;
@@ -32,10 +32,10 @@ h1 {
   margin-left: -10px;
 }
 
-.navbar .items .item {
+.navbar ul li {
   display: inline;
 }
-.navbar .items .item a {
+.navbar ul li a {
   text-decoration: none;
   display: inline-block;
   padding: 15px;
@@ -45,7 +45,7 @@ h1 {
   transition: background-color 0.3s ease-in-out;
   font-size: 17px;
 }
-.navbar .items .item a:hover {
+.navbar ul li a:hover {
   background-color: #555;
 }
 .cont {
@@ -55,26 +55,28 @@ h1 {
 }
 
 @media screen and (max-width: 1250px) {
+  body {
+      font-size: 14px;
+      text-align: center;
+    }
+
   #fixed_head {
     width: 80%;
-    max-width: 400px;
     height: auto;
     position: static;
     margin-left: auto;
     margin-right: auto;
     
   }
-  .navbar .items {
+  .navbar ul {
     list-style: none;
     text-align: center;
     font-size: 14px;
     border-radius: 10px;
     background-color: #f4f4f4;
-    margin-bottom: 50px;
-
   }
     
-  .navbar .items .item {
+  .navbar ul li {
   list-style: none;
   text-align: center;
   font-size: 14px;
@@ -83,7 +85,7 @@ h1 {
   margin-bottom: 3%;
   }
 
-  .navbar .items .item a {
+  .navbar ul li a {
   width: 80%;
   max-width: 420px;
   font-size: 15px;
@@ -94,10 +96,6 @@ h1 {
   .cont {
   width: 95%;
   translate: 0;
-  }
-  .search-bar{
-    max-width: 600px;
-    margin: auto;
   }
 }
 

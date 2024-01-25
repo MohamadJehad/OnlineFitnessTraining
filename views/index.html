@@ -10,21 +10,21 @@
 </head>
 <body>
   <div id="fixed_head">
-    <h1 >Home Page </h1>
+    <h1>Home Page</h1>
     <nav id="navbar" class="navbar">
-    
-        <ul>
-          <li><a class="add-m" href="newmember">Add New Member</a></li>
-          <li><a class="view" href="/home">View All Members</a></li>
-          <li><a class="add-p" href="/newpacakge">Add New Package</a></li>
-          <li><a class="view-p" href="#packages">View All Packages</a></li>
-        </ul>
-      </nav><!-- .navbar -->  
+        <div class="items">
+            <div class="item"><a class="" href="newmember">Add New Member</a></div>
+            <div class="item"><a class="" href="/home">View All Members</a></div> 
+            <div class="item"><a class="" href="/newpacakge">Add New Package</a></div> 
+            <div class="item"><a class="" href="#packages">View All Packages</a></div> 
+       </div>      
+    </nav><!-- .navbar -->
+</div>
       
   </div>
 
     <div class="cont" >
-      <form  action="/search" method="get" >
+      <form  action="/search" class="search-bar"  method="get" >
         <input type="text" name="search" placeholder="Enter Members's Name or ID" required>
         <br>
         <input type="submit" value="Search">

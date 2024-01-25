@@ -12,14 +12,13 @@
     <div id="fixed_head">
         <h1>{{member.name}}</h1>
         <nav id="navbar" class="navbar">
-            <ul>
-                <li><a class="" href="newmember">Add New Member</a></li>
-                <li><a class="" href="/home">View All Members</a></li>
-                <li><a class="" href="#add-workout">Add Workout/ Nutrition</a></li>
-                <li><a class="" href="#program">Workout Program</a></li>
-                <li><a class="" href="#view_plan">Nutrition Plan </a></li>
-                
-            </ul>
+            <div class="items">
+                <div class="item"><a class="" href="newmember">Add New Member</a></div>
+                <div class="item"><a class="" href="/home">View All Members</a></div> 
+                <div class="item"><a class="" href="#add-workout">Add Workout/ Nutrition</a></div> 
+                <div class="item"><a class="" href="#program">Workout Program</a></div> 
+                <div class="item"><a class="" href="#view_plan">Nutrition Plan </a></div> 
+            </div>      
         </nav><!-- .navbar -->
     </div>
 
@@ -61,9 +60,9 @@
            
             <div class="profile-details">
                 <div class="package-info">
-                    <p class='member_info' id="package_name"><strong>Package Name: </strong>{{ subscription_data.name }}</p>
-                    <p class='member_info' id="package_start_date"><strong>Package Start Date: </strong>{{ subscription_data.startDate }}</p>
-                    <p class='member_info' id="package_end_date"><strong>Package End Date: </strong>{{ subscription_data.endDate }}</p>
+                    <p class='member_info' id="package_name"><strong>Name: </strong>{{ subscription_data.name }}</p>
+                    <p class='member_info' id="package_start_date"><strong>Start Date: </strong>{{ subscription_data.startDate }}</p>
+                    <p class='member_info' id="package_end_date"><strong>End Date: </strong>{{ subscription_data.endDate }}</p>
                     
                     <br>
                     <strong><label for="packageDropdown">Select a Package:</label></strong>

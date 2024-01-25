@@ -19,7 +19,7 @@
   background-color: #f2f2f2;
 }
 .mob {
-  display: block;
+  display: flexbox;
 }
 
 .members_table tbody tr:nth-child(even) {
