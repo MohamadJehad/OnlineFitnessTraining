@@ -255,4 +255,3 @@ def add_nutrition_plan():
     # Call the function to write nutrition plan to the file
     write_nutrition_plan_to_file(flask.request.form, member_id)
     return flask.redirect(f"/member_profile?id=" + str(member_id))
-

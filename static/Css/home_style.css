@@ -25,6 +25,12 @@
 .members_table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
+.notFound{
+  color: rgb(148, 25, 25);
+  text-align: center;
+  margin-top: 30px;   
+}
+
 
 
 .delete{

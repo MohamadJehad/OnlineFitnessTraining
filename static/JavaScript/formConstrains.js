@@ -34,6 +34,7 @@ for(var i=0 ;i<elementsArray.length ; i++){
     let name=elementsArray[i].name;
     let value=elementsArray[i].value;
     console.log(name+" "+value);
+    
     if(checkEmpty(value,"Empty "+name+": Please Enter "+name)){
         event.preventDefault();
     }

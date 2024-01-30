@@ -15,6 +15,9 @@ members table to be placed in the homepage instead of placeholder
 """
 def get_members_table_text(all_members):
     text = ""
+   # print("all members = "+str(all_members))
+    if all_members==[]:
+        text+=" </tbody></table><div class='notFound'><h2>No Member Found</h1></div>"
     for member in all_members:
         text += "<tr>"
         text += "<td>" + str(member.id) + "</td>"

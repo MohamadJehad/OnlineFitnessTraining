@@ -3,7 +3,7 @@ import mysql.connector
 mysql_config = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'Jehad123456@22',
+    'password': 'K1d02370@2024',
     'database': 'fittrackdb'
 }
 
