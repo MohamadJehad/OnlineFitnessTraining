@@ -88,10 +88,13 @@ def addVitalDetails():
 @app.route ("/deletemember") 
 def deletemember():  
     id= flask.request.args.get("id")
-    delete_member_from_DB(id)
-    return flask.redirect("/home") 
+    err_msg=delete_member_from_DB(id)
+    if(err_msg):
+        return get_html("error_page").replace("&&ERROR&&",err_msg) 
+    else:
+        return flask.redirect("/home") 
 
-#this route will used to pass id for package to the delete from database function
+#this route wi  ll used to pass id for package to the delete from database function
 @app.route ("/deletepackage") 
 def deletepackage():
     id= flask.request.args.get("package_id")

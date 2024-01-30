@@ -81,6 +81,7 @@ def delete_member_from_DB(member_id):
         print(f"Member with ID {member_id} deleted successfully")
     except mysql.connector.Error as error:
         print(f"Error deleting member: {error}")
+        return f"Error deleting member: {error}"
     finally:
         cursor.close()
 
