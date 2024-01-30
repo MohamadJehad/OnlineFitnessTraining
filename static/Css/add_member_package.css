@@ -1,6 +1,15 @@
 /*
 This stylesheet used to style pages : 1- add_member.html, 2- add_package.html
 */
+
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+.headline{
+  margin-top: 20px;
+}
 body {
   text-align: center;
   font-family: Arial, sans-serif;
@@ -12,8 +21,6 @@ body {
   background-position: center center; 
   font-weight: bold;
 }
-
-
 .navbar  {
   list-style: none;
   background-color: #696666;
@@ -21,6 +28,7 @@ body {
   border-radius: 20px;
   width: 30%;
   margin: auto;
+  margin-top: 20px;
 }
 
 .navbar a {
@@ -60,7 +68,7 @@ body {
   border-radius: 5px;
   box-sizing: border-box;
   font-size: 16px;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
 }
 
 .cont form input[type="submit"] {
@@ -71,6 +79,7 @@ body {
   cursor: pointer;
   width: 200px;
   margin-top: 10px;
+  margin-bottom: 30px;
   border-radius: 5px;
   transition: background-color 0.3s ease-in-out;
 }
@@ -100,6 +109,7 @@ body {
     border-radius: 5px;
     font-size: 12px;
     max-width: 500px;
+
   }
   
   .cont form input[type="submit"] {
@@ -108,5 +118,34 @@ body {
     font-size: 16;
     max-width: 240px;
   }
+}
+
+footer {
+ height: 200px; 
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 14px;
+  width: 100vw;
+}
+
+.footer-content {
+  padding-top: 8px;
+  max-width: 800px;
+  margin: auto;
+  font-size: 20px;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+footer p {
+  margin-bottom: 17px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: rgb(122, 122, 139);
 }
 
