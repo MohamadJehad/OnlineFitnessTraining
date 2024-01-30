@@ -10,6 +10,9 @@ This stylesheet used to style pages : 1- add_member.html, 2- add_package.html
 .headline{
   margin-top: 20px;
 }
+#errorMsg{
+  margin-bottom: 20px;
+}
 body {
   text-align: center;
   font-family: Arial, sans-serif;
