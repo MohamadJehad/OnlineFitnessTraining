@@ -1,8 +1,0 @@
-Member ID: 290
-
-Day 1         
-meal:                                   quantity:           
-chickken                                2                   
-rice                                    3                   
-food                                    4                   
-
