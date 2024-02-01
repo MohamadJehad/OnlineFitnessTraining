@@ -9,18 +9,27 @@
     <link rel="icon" href="static/favicon.ico" >
 </head>
 <body>
-    <div id="fixed_head">
-        <h1>{{member.name}}</h1>
-        <nav id="navbar" class="navbar">
-            <div class="items">
-                <div class="item"><a class="" href="newmember">Add New Member</a></div>
-                <div class="item"><a class="" href="/home">View All Members</a></div> 
-                <div class="item"><a class="" href="#add-workout">Add Workout/ Nutrition</a></div> 
-                <div class="item"><a class="" href="#program">Workout Program</a></div> 
-                <div class="item"><a class="" href="#view_plan">Nutrition Plan </a></div> 
-            </div>      
-        </nav><!-- .navbar -->
-    </div>
+    <header>
+        <input type="checkbox" id="menu-toggle" />
+        <label for="menu-toggle" id="hamburger-btn">
+        <svg class="svg-menue" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </label>
+        <h1>{{member.name}}</h1> 
+        <div id="fixed_head"> 
+            <h1  id="fixed-lable">{{member.name}}</h1> 
+            <nav id="navbar" class="navbar">
+                <div class="items">
+                    <div class="item"><a class="" href="newmember">Add New Member</a></div>
+                    <div class="item"><a class="" href="/home">View All Members</a></div> 
+                    <div class="item"><a class="" href="#add-workout">Add Workout/ Nutrition</a></div> 
+                    <div class="item"><a class="" href="#program">Workout Program</a></div> 
+                    <div class="item"><a class="" href="#view_plan">Nutrition Plan </a></div> 
+               </div>      
+            </nav><!-- .navbar -->
+        </div>
+    </header>
 
     <div class="cont">
         <div class="members_info">
@@ -85,9 +94,6 @@
              
         </div>
 
-    
-
-        
         <div class="workout-info" >
             
             <div  class="workout-form">

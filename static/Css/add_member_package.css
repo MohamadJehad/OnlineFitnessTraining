@@ -119,7 +119,7 @@ body {
   .cont form input[type="submit"] {
     width: 44%;
     margin-top: 10px;
-    font-size: 16;
+    font-size: 14;
     max-width: 259px;
   }
 }

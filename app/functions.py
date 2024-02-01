@@ -64,7 +64,7 @@ def delete_member_from_DB(member_id):
 
         if vital_details:
             # If the member has vital details, delete them first
-            cursor.execute(f"DELETE FROM vitaldetails WHERE memberId = {member_id}")
+            cursor.execute(f"DELETE jjFROM vitaldetails WHERE memberId = {member_id}")
 
         # Check if the member has subscriptions
         cursor.execute(f"SELECT * FROM subscription WHERE memberId = {member_id}")
