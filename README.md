@@ -66,7 +66,7 @@ A fitness management application designed for trainers to manage and keep track 
 - Member management(`add`,`edit`,`search by name or ID`,`delete`,`view`, `view profile`)
 - Vital details tracking(`add`,`delete`,`view`)
 - Subscription handling(`subscripe` if not subscriped or expired,
-                        `resubscripe` if already has valid subscription)
+                        `resubscripe` if the user already has valid subscription)
 - Workout plans(`add`, `view`, `print`)
 - Nutrition plans(`add`, `view`, `print`)
 
