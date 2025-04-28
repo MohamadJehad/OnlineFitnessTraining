@@ -87,4 +87,4 @@ A fitness management application designed for trainers to manage and keep track 
 ## Contact
 - Gmail: m.jehad.kh@gmail.com
 - linkedIn: https://eg.linkedin.com/in/jehadkh
-- GitHub: https://github.com/jehadkh
+- GitHub: https://github.com/MohamadJehad
