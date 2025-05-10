@@ -17,10 +17,7 @@ A fitness management application designed for trainers to manage and keep track 
 
 ## Project Checklist
 
-- [x] Available on GitHub.
 - [x] Uses the Flask web framework.
-- [x] Uses modules from the Python Standard Library.
-  - Module name: `datetime`, `os`,`mysql`
 - [x] Contains at least one class with properties and methods.
   - File name for the class definition: `app/classes.py`
   - Line number(s) for the class definition: `7` ,`94` , `121`
@@ -38,28 +35,9 @@ A fitness management application designed for trainers to manage and keep track 
    `member_profile.html`-> `33`,`48`
    `app/classes.py`-> `26` 
    `app/functions.py` -> `192`,
-   
-- [x] Uses JavaScript in the front end and localStorage. 
-- [x] Uses modern JavaScript.
-- [x] Makes use of reading and writing to the same file feature.
-- [x] Contains conditional statements.
-  - File name: `server.py`
-  - Line number(s): `107`,`145`,`195`, `213`,`227`,......
-  - File name: `app/files_handling.py`
-  - Line number(s): `33`, `52`
-  - File name: `app/functions.py`
-  - Line number(s): `65`,`73`,`101`,`123`,`193`
-- [x] Contains loops.
-  - File name: `app/files_handling.py`
-  - Line number(s): `31`, `35`, `50`,`54`
- - File name: `server.py`
-  - Line number(s): `116`
-  - File name: `app/functions.py`
-  - Line number(s): `23`,`46`
-- [x] Lets the user enter a value in a text box.
+
 - [x] Styled using CSS and responsive to smaller screens.
 - [x] Follows code and style conventions.
-- [x] All exercises completed and pushed to the respective GitHub repository.
 
 ## Features
 
