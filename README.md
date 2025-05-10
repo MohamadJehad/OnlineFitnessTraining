@@ -19,23 +19,6 @@ A fitness management application designed for trainers to manage and keep track 
 
 - [x] Uses the Flask web framework.
 - [x] Contains at least one class with properties and methods.
-  - File name for the class definition: `app/classes.py`
-  - Line number(s) for the class definition: `7` ,`94` , `121`
-  - Name of properties for `Member` class: `name`, `birthdate`,`gender`,`name`,
-        `height`,`weight`, `phone`,`email`,`id`
-   - Name of properties for `Package` class: `name`, `value`,`duration`,`id`
-   - Name of properties for `vital-details` class: `member_id`, `fitnessGoals`,`medications`
-        ,`allergy`,`disease`,`bodyFatPercentage`
-  - Name of all methods for `Member` class: `add_to_DB`, `get_subscription`,
-        `calculate_age`,`calculate_bmr`
-  - Name of method for `package` class: `add_to_DB`
-  - Name of method for `Vital-details` class: `add_to_DB`
-  - File name and line numbers where the methods used:
-   `app/html_handling` ->`22`,`29` 
-   `member_profile.html`-> `33`,`48`
-   `app/classes.py`-> `26` 
-   `app/functions.py` -> `192`,
-
 - [x] Styled using CSS and responsive to smaller screens.
 - [x] Follows code and style conventions.
 
